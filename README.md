@@ -5,6 +5,8 @@
 - Teddy Yang (teddyyang8)
 - Yasmina Mimassi (yasmatopia)
 - Shirley Zhang (shirleyyzhang)
+- Ray Fang (rayf5372)
+- Sean Woo (seanwoo12)
 - 
 ## Starter Readme Below
 
