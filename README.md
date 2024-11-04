@@ -5,7 +5,7 @@
 - Teddy Yang (teddyyang8)
 - Yasmina Mimassi (yasmatopia)
 - Shirley Zhang (shirleyyzhang)
-- 
+- Ray Fang (rayf5372)
 ## Starter Readme Below
 
 This is a minimal example demonstrating usage of the
