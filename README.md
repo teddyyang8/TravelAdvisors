@@ -1,4 +1,10 @@
-# Note Application
+# Spotify Soundsmiths
+
+## Team Members
+
+- Teddy Yang (teddyyang8)
+
+## Starter Readme Below
 
 This is a minimal example demonstrating usage of the
 password-protected user part of the API used in lab 5.
