@@ -3,6 +3,7 @@
 ## Team Members
 
 - Teddy Yang (teddyyang8)
+- Shirley Zhang (shirleyyzhang)
 
 ## Starter Readme Below
 
