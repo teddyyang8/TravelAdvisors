@@ -3,7 +3,7 @@
 ## Team Members
 
 - Teddy Yang (teddyyang8)
-
+- Yasmina Mimassi (yasmatopia)
 ## Starter Readme Below
 
 This is a minimal example demonstrating usage of the
