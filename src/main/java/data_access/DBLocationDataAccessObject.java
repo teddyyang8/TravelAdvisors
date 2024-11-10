@@ -11,7 +11,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import use_case.note.DataAccessException;
-import use_case.note.LocationDataAccessInterface;
+import use_case.suggest_locations.LocationDataAccessInterface;
 
 /**
  * The DAO for accessing places using Google Places API.

@@ -1,4 +1,6 @@
-package use_case.note;
+package use_case.suggest_locations;
+
+import use_case.note.DataAccessException;
 
 /**
  * Interface for the LocationDAO. It consists of methods for
