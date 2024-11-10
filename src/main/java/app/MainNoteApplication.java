@@ -1,6 +1,6 @@
 package app;
 
-import data_access.DBNoteDataAccessObject;
+import data_access.DBLocationDataAccessObject;
 import use_case.note.NoteDataAccessInterface;
 
 /**
@@ -46,7 +46,7 @@ public class MainNoteApplication {
     public static void main(String[] args) {
 
         // create the data access and inject it into our builder!
-        final NoteDataAccessInterface noteDataAccess = new DBNoteDataAccessObject();
+        final NoteDataAccessInterface noteDataAccess = new DBLocationDataAccessObject();
 
         final NoteAppBuilder builder = new NoteAppBuilder();
         builder.addNoteDAO(noteDataAccess)
