@@ -26,10 +26,7 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
     private static final String CONTENT_TYPE_JSON = "application/json";
     private static final String STATUS_CODE_LABEL = "status_code";
     private static final String MESSAGE = "message";
-
-    public static String getKey() {
-        return System.getenv("api_key");
-    }
+    private static final String API_KEY = "";
 
     @Override
     public String searchLocation(String address, String locationType) throws DataAccessException {
@@ -45,7 +42,7 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
                 .url("http://vm003.teach.cs.toronto.edu:20112/modifyUserInfo")
                 .method("POST", body)
                 .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_JSON)
-                .addHeader(API_HEADER, getKey())
+                .addHeader(API_HEADER, API_KEY)
                 .addHeader(API_FIELD, FIELDS)
                 .build();
         try {
