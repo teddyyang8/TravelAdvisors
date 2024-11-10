@@ -51,7 +51,8 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
             final JSONObject responseBody = new JSONObject(response.body().string());
 
             if (responseBody.getInt(STATUS_CODE_LABEL) == SUCCESS_CODE) {
-                return responseBody.toString();
+                final JSONObject result = responseBody.getJSONObject("places");
+                return result.toString();
             }
             else if (responseBody.getInt(STATUS_CODE_LABEL) == CREDENTIAL_ERROR) {
                 throw new DataAccessException("Needs API Key");
