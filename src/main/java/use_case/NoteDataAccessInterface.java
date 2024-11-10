@@ -1,4 +1,4 @@
-package use_case.note;
+package use_case;
 
 import entity.User;
 

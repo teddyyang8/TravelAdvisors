@@ -1,4 +1,4 @@
-package use_case.note;
+package use_case;
 
 /**
  * Exception thrown when there is an error with accessing data.
