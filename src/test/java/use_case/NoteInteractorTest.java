@@ -1,7 +1,10 @@
-package use_case.note;
+package use_case;
 
 import entity.User;
 import org.junit.Test;
+import use_case.note.NoteDataAccessInterface;
+import use_case.note.NoteInteractor;
+import use_case.note.NoteOutputBoundary;
 
 import static org.junit.Assert.*;
 
