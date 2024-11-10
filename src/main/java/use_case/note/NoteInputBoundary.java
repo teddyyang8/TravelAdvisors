@@ -1,4 +1,4 @@
-package use_case;
+package use_case.note;
 
 /**
  * The Input Boundary for our note-related use cases. Since they are closely related,

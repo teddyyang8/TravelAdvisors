@@ -1,6 +1,6 @@
 package interface_adapter.note;
 
-import use_case.NoteOutputBoundary;
+import use_case.note.NoteOutputBoundary;
 
 /**
  * The presenter for our Note viewing and editing program.

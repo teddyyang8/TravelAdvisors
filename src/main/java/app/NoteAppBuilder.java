@@ -6,9 +6,9 @@ import javax.swing.WindowConstants;
 import interface_adapter.note.NoteController;
 import interface_adapter.note.NotePresenter;
 import interface_adapter.note.NoteViewModel;
-import use_case.NoteDataAccessInterface;
-import use_case.NoteInteractor;
-import use_case.NoteOutputBoundary;
+import use_case.note.NoteDataAccessInterface;
+import use_case.note.NoteInteractor;
+import use_case.note.NoteOutputBoundary;
 import view.NoteView;
 
 /**
