@@ -39,7 +39,7 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
         requestBody.put("textQuery", locationType + " near " + address);
         final RequestBody body = RequestBody.create(requestBody.toString(), mediaType);
         final Request request = new Request.Builder()
-                .url("http://vm003.teach.cs.toronto.edu:20112/modifyUserInfo")
+                .url("https://places.googleapis.com/v1/places:searchText")
                 .method("POST", body)
                 .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_JSON)
                 .addHeader(API_HEADER, API_KEY)
