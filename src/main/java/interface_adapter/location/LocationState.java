@@ -22,14 +22,6 @@ public class LocationState {
         this.suggestedLocations = new ArrayList<>();
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getAddress() {
         return address;
     }
