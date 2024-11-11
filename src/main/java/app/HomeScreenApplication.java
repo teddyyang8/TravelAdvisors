@@ -1,15 +1,10 @@
-package app;
-
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-/**
- * Builder for the Home Screen Application.
- */
 public class HomeScreenApplication {
     public static final int HEIGHT = 300;
     public static final int WIDTH = 400;
-
+//    private LocationViewModel locationViewModel = new LocationViewModel();
 
     public JFrame build() {
         final JFrame frame = new JFrame();
@@ -17,14 +12,12 @@ public class HomeScreenApplication {
         frame.setTitle("Home Screen Application");
         frame.setSize(WIDTH, HEIGHT);
 
-        frame.add(noteView);
+//        frame.add(noteView);
 
-        // refresh so that the note will be visible when we start the program
-        noteInteractor.executeRefresh();
+//        noteInteractor.executeRefresh();
 
         return frame;
 
     }
+
 }
-
-
