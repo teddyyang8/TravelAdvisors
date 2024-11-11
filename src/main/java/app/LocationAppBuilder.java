@@ -1,15 +1,16 @@
 package app;
 
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationPresenter;
 import interface_adapter.location.LocationViewModel;
 import use_case.suggest_location.locationDataAccessInterface;
 import use_case.suggest_location.locationInteractor;
-import use_case.suggest_location.ocationOutputBoundary;
+import use_case.suggest_location.locationOutputBoundary;
 import view.LocationView;
+
+import java.awt.*;
 
 /**
  * Builder for the Note Application.
@@ -75,7 +76,10 @@ public class LocationAppBuilder {
         frame.setTitle("Location Application");
         frame.setSize(WIDTH, HEIGHT);
 
-        frame.add(locationView);
+        JTextField userInputField = new JTextField();
+        frame.add(userInputField, BorderLayout.NORTH);
+
+        frame.add(locationView, BorderLayout.CENTER);
 
         // refresh so that the note will be visible when we start the program
         noteInteractor.executeRefresh();
