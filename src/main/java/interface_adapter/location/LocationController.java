@@ -1,15 +1,15 @@
-package interface_adapter.note;
+package interface_adapter.location;
 
 import use_case.note.NoteInputBoundary;
 
 /**
  * Controller for our Note related Use Cases.
  */
-public class NoteController {
+public class LocationController {
 
     private final NoteInputBoundary noteInteractor;
 
-    public NoteController(NoteInputBoundary noteInteractor) {
+    public LocationController(NoteInputBoundary noteInteractor) {
         this.noteInteractor = noteInteractor;
     }
 

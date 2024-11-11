@@ -1,10 +1,10 @@
-package interface_adapter.note;
+package interface_adapter.location;
 
 /**
  * The State for a note.
  * <p>For this example, a note is simplay a string.</p>
  */
-public class NoteState {
+public class LocationState {
     private String note = "";
     private String error;
 

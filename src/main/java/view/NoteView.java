@@ -10,9 +10,9 @@ import java.util.List;
 
 import javax.swing.*;
 
-import interface_adapter.note.NoteController;
-import interface_adapter.note.NoteState;
-import interface_adapter.note.NoteViewModel;
+import interface_adapter.location.LocationController;
+import interface_adapter.location.LocationState;
+import interface_adapter.location.LocationViewModel;
 
 /**
  * The View for when the user is viewing a note in the program.
@@ -21,7 +21,7 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
 
     private static final int TEXT_FIELD_WIDTH = 30;
     private static final int KEYWORD_FIELD_WIDTH = 10;
-    private final NoteViewModel noteViewModel;
+    private final LocationViewModel locationViewModel;
     private final JLabel noteName = new JLabel("Home Screen");
     private final JTextField cityField;
     private final JTextField addressField;
@@ -32,9 +32,9 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
     private final JTextField keyword5Field;
     private JPanel suggestedLocations;
     private final JButton suggestButton = new JButton("Suggest Locations");
-    private NoteController noteController;
+    private LocationController locationController;
 
-    public NoteView(NoteViewModel noteViewModel) {
+    public NoteView(LocationViewModel locationViewModel) {
         cityField = new JTextField(TEXT_FIELD_WIDTH);
         addressField = new JTextField(TEXT_FIELD_WIDTH);
         keyword1Field = new JTextField(KEYWORD_FIELD_WIDTH);
@@ -43,8 +43,8 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
         keyword4Field = new JTextField(KEYWORD_FIELD_WIDTH);
         keyword5Field = new JTextField(KEYWORD_FIELD_WIDTH);
         noteName.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.noteViewModel = noteViewModel;
-        this.noteViewModel.addPropertyChangeListener(this);
+        this.locationViewModel = locationViewModel;
+        this.locationViewModel.addPropertyChangeListener(this);
 
         final JPanel panel = new JPanel();
         panel.add(new JLabel("Choose City:"));
@@ -66,7 +66,7 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
                 final List<String> keywords = getKeywords();
                 final String joinedKeywords = String.join(";", keywords);
                 final String inputText = String.join(";", city, address, joinedKeywords);
-                noteController.execute(inputText);
+                locationController.execute(inputText);
             }
         });
 
@@ -76,8 +76,8 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
         this.setVisible(true);
     }
 
-    public void setNoteController(NoteController controller) {
-        this.noteController = controller;
+    public void setNoteController(LocationController controller) {
+        this.locationController = controller;
     }
 
     public String getCity() {
@@ -124,7 +124,7 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        final NoteState state = (NoteState) evt.getNewValue();
+        final LocationState state = (LocationState) evt.getNewValue();
         setFields(state);
         if (state.getError() != null) {
             JOptionPane.showMessageDialog(this, state.getError(),
@@ -149,7 +149,7 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
         this.add(suggestedLocations);
     }
 
-    private void setFields(NoteState state) {
+    private void setFields(LocationState state) {
         cityField.setText(state.getCity());
         addressField.setText(state.getAddress());
         keyword1Field.setText(state.getKeyword1());
