@@ -27,7 +27,7 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
     private static final String CONTENT_TYPE_JSON = "application/json";
     private static final String STATUS_CODE_LABEL = "status_code";
     private static final String MESSAGE = "message";
-    private static final String API_KEY = "";
+    private static final String API_KEY = System.getenv("API_KEY");
 
     @Override
     public String searchLocation(String address, String locationType) throws DataAccessException {
