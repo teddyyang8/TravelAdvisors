@@ -6,9 +6,9 @@ import entity.PlaceFactory;
 import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationPresenter;
 import interface_adapter.location.LocationViewModel;
-import use_case.suggest_locations.locationDataAccessInterface;
-import use_case.suggest_location.locationInteractor;
-import use_case.suggest_location.locationOutputBoundary;
+import use_case.suggest_locations.LocationDataAccessInterface;
+import use_case.suggest_locations.SuggestLocationsInteractor;
+import use_case.suggest_locations.SuggestLocationsOutputBoundary;
 import use_case.suggest_locations.*;
 import view.LocationView;
 
@@ -64,9 +64,6 @@ public class LocationAppBuilder {
     public LocationAppBuilder addLocationView() {
         locationViewModel = new LocationViewModel();
         locationView = new LocationView(locationViewModel);
-    public LocationAppBuilder addLocationView() {
-        locationViewModel = new LocationViewModel();
-        locationView = new LocationView(locationViewModel);
         return this;
     }
 
@@ -80,7 +77,7 @@ public class LocationAppBuilder {
         frame.setTitle("Location Application");
         frame.setSize(WIDTH, HEIGHT);
 
-        JTextField userInputField = new JTextField();
+        final JTextField userInputField = new JTextField();
         frame.add(userInputField, BorderLayout.NORTH);
 
         frame.add(locationView, BorderLayout.CENTER);
