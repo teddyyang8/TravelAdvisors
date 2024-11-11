@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The State for a note.
+ * The state representing location-related data, including city, address, keywords,
+ * suggested locations, and any error messages.
  */
 public class LocationState {
     private String error;
-    private String city;
     private String address;
     private String keyword1;
     private String keyword2;
@@ -19,14 +19,6 @@ public class LocationState {
 
     public LocationState() {
         this.suggestedLocations = new ArrayList<>();
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public String getAddress() {
