@@ -6,9 +6,9 @@ import javax.swing.WindowConstants;
 import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationPresenter;
 import interface_adapter.location.LocationViewModel;
-import use_case.note.NoteDataAccessInterface;
-import use_case.note.NoteInteractor;
-import use_case.note.NoteOutputBoundary;
+import use_case.location.locationDataAccessInterface;
+import use_case.location.ocationInteractor;
+import use_case.location.ocationOutputBoundary;
 import view.NoteView;
 
 /**
