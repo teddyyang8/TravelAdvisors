@@ -1,5 +1,7 @@
 package interface_adapter.location;
 
+import java.util.List;
+
 import interface_adapter.ViewModel;
 
 /**
@@ -10,4 +12,14 @@ public class LocationViewModel extends ViewModel<LocationState> {
         super("location");
         setState(new LocationState());
     }
+
+    /**
+     * Updates the suggested locations.
+     * @param suggestedLocations the list of suggested locations
+     */
+    public void updateSuggestedLocations(List<String> suggestedLocations) {
+        getState().setSuggestedLocations(suggestedLocations);
+        firePropertyChanged("suggestLocations");
+    }
+
 }
