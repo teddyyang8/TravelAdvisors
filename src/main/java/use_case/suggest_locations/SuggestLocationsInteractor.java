@@ -5,6 +5,7 @@ import java.util.List;
 
 import entity.Place;
 import entity.PlaceFactory;
+import use_case.note.DataAccessException;
 
 /**
  * The Suggest Locations Interactor.
@@ -23,7 +24,7 @@ public class SuggestLocationsInteractor implements SuggestLocationsInputBoundary
     }
 
     @Override
-    public void execute(SuggestLocationsInputData suggestLocationsInputData) {
+    public void execute(SuggestLocationsInputData suggestLocationsInputData) throws DataAccessException {
         final String suggestedLocations = placeDataAccessObject.searchLocation(suggestLocationsInputData.getAddress(),
                 suggestLocationsInputData.getLocationType());
         final String[] locationsList = suggestedLocations.split("<:>");
