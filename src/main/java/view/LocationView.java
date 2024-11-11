@@ -25,7 +25,6 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
     private static final int KEYWORD_FIELD_WIDTH = 10;
     private final LocationViewModel locationViewModel;
     private final JLabel locationName = new JLabel("Home Screen");
-    private final JTextField cityField;
     private final JTextField addressField;
     private final JTextField keyword1Field;
     private final JTextField keyword2Field;
@@ -37,7 +36,6 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
     private LocationController locationController;
 
     public LocationView(LocationViewModel locationViewModel) {
-        cityField = new JTextField(TEXT_FIELD_WIDTH);
         addressField = new JTextField(TEXT_FIELD_WIDTH);
         keyword1Field = new JTextField(KEYWORD_FIELD_WIDTH);
         keyword2Field = new JTextField(KEYWORD_FIELD_WIDTH);
@@ -50,7 +48,6 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 
         final JPanel panel = new JPanel();
         panel.add(new JLabel("Choose City:"));
-        panel.add(cityField);
         panel.add(new JLabel("Enter Address:"));
         panel.add(addressField);
         panel.add(new JLabel("Choose Interests:"));
@@ -156,7 +153,6 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
     }
 
     private void setFields(LocationState state) {
-        cityField.setText(state.getCity());
         addressField.setText(state.getAddress());
         keyword1Field.setText(state.getKeyword1());
         keyword2Field.setText(state.getKeyword2());
