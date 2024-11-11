@@ -3,12 +3,13 @@ package app;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+import entity.PlaceFactory;
 import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationPresenter;
 import interface_adapter.location.LocationViewModel;
-import use_case.suggest_location.locationDataAccessInterface;
-import use_case.suggest_location.locationInteractor;
-import use_case.suggest_location.ocationOutputBoundary;
+import use_case.suggest_locations.LocationDataAccessInterface;
+import use_case.suggest_locations.SuggestLocationsInteractor;
+import use_case.suggest_locations.SuggestLocationsOutputBoundary;
 import view.LocationView;
 
 /**
@@ -20,11 +21,12 @@ public class LocationAppBuilder {
     private LocationDataAccessInterface locationDAO;
     private LocationViewModel locationViewModel = new LocationViewModel();
     private LocationView locationView;
-    private NoteInteractor noteInteractor;
+    private SuggestLocationsInteractor locationInteractor;
+    private PlaceFactory placeFactory;
 
     /**
      * Sets the NoteDAO to be used in this application.
-     * @param noteDataAccess the DAO to use
+     * @param locationDataAccess the DAO to use
      * @return this builder
      */
     public LocationAppBuilder addLocationDAO(LocationDataAccessInterface locationDataAccess) {
@@ -40,9 +42,9 @@ public class LocationAppBuilder {
      * @throws RuntimeException if this method is called before addNoteView
      */
     public LocationAppBuilder addLocationUseCase() {
-        final LocationOutputBoundary locationOutputBoundary = new LocationPresenter(locationViewModel);
-        locationInteractor = new LocationInteractor(
-                locationDAO, locationOutputBoundary);
+        final SuggestLocationsOutputBoundary suggestLocationsOutputBoundary = new LocationPresenter(locationViewModel);
+        locationInteractor = new SuggestLocationsInteractor(
+                locationDAO, suggestLocationsOutputBoundary, placeFactory);
 
         final LocationController controller = new LocationController(locationInteractor);
         if (locationView == null) {
@@ -56,9 +58,7 @@ public class LocationAppBuilder {
      * Creates the NoteView and underlying NoteViewModel.
      * @return this builder
      */
-    public LocationAppBuilder addLocationView() {
-        locationViewModel = new LocationViewModel();
-        locationView = new LocationView(locationViewModel);
+
     public LocationAppBuilder addLocationView() {
         locationViewModel = new LocationViewModel();
         locationView = new LocationView(locationViewModel);
@@ -78,7 +78,7 @@ public class LocationAppBuilder {
         frame.add(locationView);
 
         // refresh so that the note will be visible when we start the program
-        noteInteractor.executeRefresh();
+        locationInteractor.execute();
 
         return frame;
 

@@ -13,6 +13,8 @@ import javax.swing.*;
 import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationState;
 import interface_adapter.location.LocationViewModel;
+import use_case.suggest_locations.DataAccessException;
+import use_case.suggest_locations.SuggestLocationsInputData;
 
 /**
  * The View for when the user is viewing a in the program.
@@ -61,12 +63,16 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 
         suggestButton.addActionListener(evt -> {
             if (evt.getSource().equals(suggestButton)) {
-                final String city = cityField.getText().trim();
                 final String address = addressField.getText().trim();
                 final List<String> keywords = getKeywords();
                 final String joinedKeywords = String.join(";", keywords);
-                final String inputText = String.join(";", city, address, joinedKeywords);
-                locationController.execute(inputText);
+                final SuggestLocationsInputData inputText = new SuggestLocationsInputData(address, joinedKeywords);
+                try {
+                    locationController.execute(inputText);
+                }
+                catch (DataAccessException dataAccessException) {
+                    JOptionPane.showMessageDialog(this, "Error accessing data: " + dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 

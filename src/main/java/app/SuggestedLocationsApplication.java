@@ -18,7 +18,7 @@ public class SuggestedLocationsApplication {
         frame.setTitle("Suggested Locations Application");
         frame.setSize(WIDTH, HEIGHT);
 
-        frame.add(locationView);
+        frame.add(LocationView);
 
         // refresh so that the note will be visible when we start the program
         locationInteractor.executeRefresh();
