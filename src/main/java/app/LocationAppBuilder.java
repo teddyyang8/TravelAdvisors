@@ -1,14 +1,18 @@
 package app;
 
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 import entity.PlaceFactory;
 import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationPresenter;
 import interface_adapter.location.LocationViewModel;
+import use_case.suggest_locations.locationDataAccessInterface;
+import use_case.suggest_location.locationInteractor;
+import use_case.suggest_location.locationOutputBoundary;
 import use_case.suggest_locations.*;
 import view.LocationView;
+
+import java.awt.*;
 
 /**
  * Builder for the Location Application.
@@ -60,6 +64,9 @@ public class LocationAppBuilder {
     public LocationAppBuilder addLocationView() {
         locationViewModel = new LocationViewModel();
         locationView = new LocationView(locationViewModel);
+    public LocationAppBuilder addLocationView() {
+        locationViewModel = new LocationViewModel();
+        locationView = new LocationView(locationViewModel);
         return this;
     }
 
@@ -73,7 +80,10 @@ public class LocationAppBuilder {
         frame.setTitle("Location Application");
         frame.setSize(WIDTH, HEIGHT);
 
-        frame.add(locationView);
+        JTextField userInputField = new JTextField();
+        frame.add(userInputField, BorderLayout.NORTH);
+
+        frame.add(locationView, BorderLayout.CENTER);
 
         final SuggestLocationsInputData inputData = locationView.getInputData();
 
