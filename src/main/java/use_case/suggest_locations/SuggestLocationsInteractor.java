@@ -23,6 +23,16 @@ public class SuggestLocationsInteractor implements SuggestLocationsInputBoundary
     }
 
     @Override
+    public void setAddress(String address) {
+
+    }
+
+    @Override
+    public void setInterest(String interest) {
+
+    }
+
+    @Override
     public void execute(SuggestLocationsInputData suggestLocationsInputData) throws DataAccessException {
         final String suggestedLocations = placeDataAccessObject.searchLocation(suggestLocationsInputData.getAddress(),
                 suggestLocationsInputData.getLocationType());

@@ -1,6 +1,8 @@
 package interface_adapter.location;
 
-import use_case.location.LocationInputBoundary;
+import use_case.suggest_locations.DataAccessException;
+import use_case.suggest_locations.SuggestLocationsInputBoundary;
+import use_case.suggest_locations.SuggestLocationsInputData;
 
 /**
  * The LocationController class handles user input related to locations.
@@ -10,18 +12,10 @@ import use_case.location.LocationInputBoundary;
  */
 public class LocationController {
 
-    private final LocationInputBoundary locationInteractor;
+    private final SuggestLocationsInputBoundary locationInteractor;
 
-    public LocationController(LocationInputBoundary locationInteractor) {
+    public LocationController(SuggestLocationsInputBoundary locationInteractor) {
         this.locationInteractor = locationInteractor;
-    }
-
-    /**
-     * Handles the selection of a city.
-     * @param city the selected city
-     */
-    public void handleCitySelection(String city) {
-        locationInteractor.setCity(city);
     }
 
     /**
@@ -44,12 +38,10 @@ public class LocationController {
      * Executes the save or refresh operation based on the location.
      * @param location the location to save or refresh
      */
-    public void execute(String location) {
-        if (location != null) {
-            locationInteractor.executeSave(location);
+    public void execute(SuggestLocationsInputData location) throws DataAccessException {
+        if (location == null) {
+            throw new DataAccessException("Location is null");
         }
-        else {
-            locationInteractor.executeRefresh();
-        }
+        locationInteractor.execute(location);
     }
 }
