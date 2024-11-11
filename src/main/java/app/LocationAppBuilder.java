@@ -7,13 +7,11 @@ import entity.PlaceFactory;
 import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationPresenter;
 import interface_adapter.location.LocationViewModel;
-import use_case.suggest_locations.LocationDataAccessInterface;
-import use_case.suggest_locations.SuggestLocationsInteractor;
-import use_case.suggest_locations.SuggestLocationsOutputBoundary;
+import use_case.suggest_locations.*;
 import view.LocationView;
 
 /**
- * Builder for the Note Application.
+ * Builder for the Location Application.
  */
 public class LocationAppBuilder {
     public static final int HEIGHT = 300;
@@ -25,7 +23,7 @@ public class LocationAppBuilder {
     private PlaceFactory placeFactory;
 
     /**
-     * Sets the NoteDAO to be used in this application.
+     * Sets the LocationDAO to be used in this application.
      * @param locationDataAccess the DAO to use
      * @return this builder
      */
@@ -35,11 +33,12 @@ public class LocationAppBuilder {
     }
 
     /**
-     * Creates the objects for the Note Use Case and connects the NoteView to its
+     * Creates the objects for the Location Use Case and connects the
+     * LocationView to its
      * controller.
-     * <p>This method must be called after addNoteView!</p>
+     * <p>This method must be called after addLocationView!</p>
      * @return this builder
-     * @throws RuntimeException if this method is called before addNoteView
+     * @throws RuntimeException if this method is called before addLocationView
      */
     public LocationAppBuilder addLocationUseCase() {
         final SuggestLocationsOutputBoundary suggestLocationsOutputBoundary = new LocationPresenter(locationViewModel);
@@ -48,17 +47,16 @@ public class LocationAppBuilder {
 
         final LocationController controller = new LocationController(locationInteractor);
         if (locationView == null) {
-            throw new RuntimeException("addNoteView must be called before addNoteUseCase");
+            throw new RuntimeException("addLocationView must be called before" + " addLocationUseCase");
         }
         locationView.setLocationController(controller);
         return this;
     }
 
     /**
-     * Creates the NoteView and underlying NoteViewModel.
+     * Creates the LocationView and underlying LocationViewModel.
      * @return this builder
      */
-
     public LocationAppBuilder addLocationView() {
         locationViewModel = new LocationViewModel();
         locationView = new LocationView(locationViewModel);
@@ -69,7 +67,7 @@ public class LocationAppBuilder {
      * Builds the application.
      * @return the JFrame for the application
      */
-    public JFrame build() {
+    public JFrame build() throws DataAccessException {
         final JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setTitle("Location Application");
@@ -77,8 +75,9 @@ public class LocationAppBuilder {
 
         frame.add(locationView);
 
-        // refresh so that the note will be visible when we start the program
-        locationInteractor.execute();
+        final SuggestLocationsInputData inputData = locationView.getInputData();
+
+        locationInteractor.execute(inputData);
 
         return frame;
 

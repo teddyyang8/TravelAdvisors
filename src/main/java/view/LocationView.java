@@ -86,10 +86,6 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
         this.locationController = controller;
     }
 
-    public String getCity() {
-        return cityField.getText();
-    }
-
     public String getAddress() {
         return addressField.getText();
     }
@@ -118,6 +114,10 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
             keywords.add(keyword5);
         }
         return keywords;
+    }
+
+    public SuggestLocationsInputData getInputData() {
+        return new SuggestLocationsInputData(getAddress(), String.join(";", getKeywords()));
     }
 
     /**
