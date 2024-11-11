@@ -15,14 +15,14 @@ import interface_adapter.location.LocationState;
 import interface_adapter.location.LocationViewModel;
 
 /**
- * The View for when the user is viewing a note in the program.
+ * The View for when the user is viewing a in the program.
  */
-public class NoteView extends JPanel implements ActionListener, PropertyChangeListener {
+public class LocationView extends JPanel implements ActionListener, PropertyChangeListener {
 
     private static final int TEXT_FIELD_WIDTH = 30;
     private static final int KEYWORD_FIELD_WIDTH = 10;
     private final LocationViewModel locationViewModel;
-    private final JLabel noteName = new JLabel("Home Screen");
+    private final JLabel locationName = new JLabel("Home Screen");
     private final JTextField cityField;
     private final JTextField addressField;
     private final JTextField keyword1Field;
@@ -34,7 +34,7 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
     private final JButton suggestButton = new JButton("Suggest Locations");
     private LocationController locationController;
 
-    public NoteView(LocationViewModel locationViewModel) {
+    public LocationView(LocationViewModel locationViewModel) {
         cityField = new JTextField(TEXT_FIELD_WIDTH);
         addressField = new JTextField(TEXT_FIELD_WIDTH);
         keyword1Field = new JTextField(KEYWORD_FIELD_WIDTH);
@@ -42,7 +42,7 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
         keyword3Field = new JTextField(KEYWORD_FIELD_WIDTH);
         keyword4Field = new JTextField(KEYWORD_FIELD_WIDTH);
         keyword5Field = new JTextField(KEYWORD_FIELD_WIDTH);
-        noteName.setAlignmentX(Component.CENTER_ALIGNMENT);
+        locationName.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.locationViewModel = locationViewModel;
         this.locationViewModel.addPropertyChangeListener(this);
 
@@ -71,12 +71,12 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
         });
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(noteName);
+        this.add(locationName);
         this.add(panel);
         this.setVisible(true);
     }
 
-    public void setNoteController(LocationController controller) {
+    public void setLocationController(LocationController controller) {
         this.locationController = controller;
     }
 

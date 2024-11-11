@@ -1,9 +1,12 @@
 package interface_adapter.location;
 
+import use_case.suggest_locations.SuggestLocationsOutputBoundary;
+import use_case.suggest_locations.SuggestLocationsOutputData;
+
 /**
  * The presenter for our Note viewing and editing program.
  */
-public class LocationPresenter implements use_case.note.LocationOutputBoundary {
+public class LocationPresenter implements SuggestLocationsOutputBoundary {
 
     private final LocationViewModel locationViewModel;
 
@@ -14,11 +17,11 @@ public class LocationPresenter implements use_case.note.LocationOutputBoundary {
     /**
      * Prepares the success view for the Note related Use Cases.
      *
-     * @param note the output data
+     * @param outputData the output data
      */
     @Override
-    public void prepareSuccessView(String note) {
-        locationViewModel.getState().setNote(note);
+    public void prepareSuccessView(SuggestLocationsOutputData outputData) {
+        locationViewModel.getState().setLocation(outputData.getLocation());
         locationViewModel.getState().setError(null);
         locationViewModel.firePropertyChanged();
     }

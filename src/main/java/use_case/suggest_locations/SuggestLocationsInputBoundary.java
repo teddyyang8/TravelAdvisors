@@ -1,11 +1,13 @@
 package use_case.suggest_locations;
 
-import use_case.note.DataAccessException;
-
 /**
  * The Suggest Locations Use Case.
  */
 public interface SuggestLocationsInputBoundary {
+
+    void setAddress(String address);
+
+    void setInterest(String interest);
 
     /**
      * Execute the Suggest Locations Use Case.

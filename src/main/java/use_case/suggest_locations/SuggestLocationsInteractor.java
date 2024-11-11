@@ -5,7 +5,6 @@ import java.util.List;
 
 import entity.Place;
 import entity.PlaceFactory;
-import use_case.note.DataAccessException;
 
 /**
  * The Suggest Locations Interactor.

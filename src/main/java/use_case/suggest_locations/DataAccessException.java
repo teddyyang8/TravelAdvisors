@@ -1,4 +1,4 @@
-package use_case.location;
+package use_case.suggest_locations;
 
 /**
  * Exception thrown when there is an error with accessing data.

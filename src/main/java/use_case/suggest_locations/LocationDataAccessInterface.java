@@ -1,7 +1,5 @@
 package use_case.suggest_locations;
 
-import use_case.location.DataAccessException;
-
 /**
  * Interface for the LocationDAO. It consists of methods for
  * searching locations

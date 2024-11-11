@@ -9,7 +9,7 @@ import interface_adapter.location.LocationViewModel;
 import use_case.note.NoteDataAccessInterface;
 import use_case.note.NoteInteractor;
 import use_case.note.NoteOutputBoundary;
-import view.NoteView;
+import view.LocationView;
 
 /**
  * Builder for the Note Application.
@@ -19,7 +19,7 @@ public class NoteAppBuilder {
     public static final int WIDTH = 400;
     private NoteDataAccessInterface noteDAO;
     private LocationViewModel locationViewModel = new LocationViewModel();
-    private NoteView noteView;
+    private LocationView noteView;
     private NoteInteractor noteInteractor;
 
     /**
@@ -58,7 +58,7 @@ public class NoteAppBuilder {
      */
     public NoteAppBuilder addNoteView() {
         locationViewModel = new LocationViewModel();
-        noteView = new NoteView(locationViewModel);
+        noteView = new LocationView(locationViewModel);
         return this;
     }
 

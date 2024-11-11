@@ -7,7 +7,7 @@ import interface_adapter.ViewModel;
  */
 public class LocationViewModel extends ViewModel<LocationState> {
     public LocationViewModel() {
-        super("note");
+        super("location");
         setState(new LocationState());
     }
 }
