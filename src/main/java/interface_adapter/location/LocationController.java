@@ -37,6 +37,7 @@ public class LocationController {
     /**
      * Executes the save or refresh operation based on the location.
      * @param location the location to save or refresh
+     * @throws DataAccessException if the location is null
      */
     public void execute(SuggestLocationsInputData location) throws DataAccessException {
         if (location == null) {

@@ -17,7 +17,7 @@ import use_case.suggest_locations.DataAccessException;
 import use_case.suggest_locations.SuggestLocationsInputData;
 
 /**
- * The View for when the user is viewing a in the program.
+ * The View for when the user is viewing a location in the program.
  */
 public class LocationView extends JPanel implements ActionListener, PropertyChangeListener {
 
