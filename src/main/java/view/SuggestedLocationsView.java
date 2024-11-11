@@ -1,25 +1,16 @@
 package view;
 
-import interface_adapter.location.LocationController;
-import interface_adapter.location.LocationState;
-import interface_adapter.location.LocationViewModel;
-import use_case.suggest_locations.DataAccessException;
-import use_case.suggest_locations.SuggestLocationsInputData;
+import java.util.List;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.List;
+
+import entity.Place;
 
 public class SuggestedLocationsView extends JPanel {
 
     private JPanel suggestedLocations;
 
-    public SuggestedLocationsView(List<String> locations) {
+    public SuggestedLocationsView(List<Place> locations) {
         if (suggestedLocations != null) {
             this.remove(suggestedLocations);
         }
@@ -27,8 +18,10 @@ public class SuggestedLocationsView extends JPanel {
         suggestedLocations = new JPanel();
         suggestedLocations.setLayout(new BoxLayout(suggestedLocations, BoxLayout.Y_AXIS));
         suggestedLocations.add(new JLabel("List of Suggested Locations:"));
-        for (String location : locations) {
-            suggestedLocations.add(new JLabel(location));
+
+        for (Place location : locations) {
+            suggestedLocations.add(new JLabel(location.getName()));
+            suggestedLocations.add(new JLabel(location.getAddress()));
         }
         this.add(suggestedLocations);
         this.setVisible(true);
