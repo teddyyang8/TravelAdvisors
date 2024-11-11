@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The State for a note.
+ * The state representing location-related data, including city, address, keywords,
+ * suggested locations, and any error messages.
  */
 public class LocationState {
     private String error;
