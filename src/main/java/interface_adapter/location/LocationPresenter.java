@@ -1,11 +1,9 @@
 package interface_adapter.location;
 
-import use_case.note.NoteOutputBoundary;
-
 /**
  * The presenter for our Note viewing and editing program.
  */
-public class LocationPresenter implements NoteOutputBoundary {
+public class LocationPresenter implements use_case.note.LocationOutputBoundary {
 
     private final LocationViewModel locationViewModel;
 

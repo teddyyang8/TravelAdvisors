@@ -7,7 +7,7 @@ import entity.User;
  * the contents of the note and saving the contents of the note. Since they
  * are closely related, we have combined them here for simplicity.
  */
-public class NoteInteractor implements NoteInputBoundary {
+public class LocationInteractor implements NoteInputBoundary {
 
     private final NoteDataAccessInterface noteDataAccessInterface;
     private final NoteOutputBoundary noteOutputBoundary;
@@ -18,8 +18,8 @@ public class NoteInteractor implements NoteInputBoundary {
     // in a JSON object stored in one common "user" stored through the API.
     private final User user = new User("jonathan_calver2", "abc123");
 
-    public NoteInteractor(NoteDataAccessInterface noteDataAccessInterface,
-                          NoteOutputBoundary noteOutputBoundary) {
+    public LocationInteractor(NoteDataAccessInterface noteDataAccessInterface,
+                              NoteOutputBoundary noteOutputBoundary) {
         this.noteDataAccessInterface = noteDataAccessInterface;
         this.noteOutputBoundary = noteOutputBoundary;
     }
