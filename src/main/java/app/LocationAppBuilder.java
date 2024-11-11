@@ -6,20 +6,20 @@ import javax.swing.WindowConstants;
 import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationPresenter;
 import interface_adapter.location.LocationViewModel;
-import use_case.note.NoteDataAccessInterface;
-import use_case.note.NoteInteractor;
-import use_case.note.NoteOutputBoundary;
+import use_case.suggest_location.locationDataAccessInterface;
+import use_case.suggest_location.locationInteractor;
+import use_case.suggest_location.ocationOutputBoundary;
 import view.LocationView;
 
 /**
  * Builder for the Note Application.
  */
-public class NoteAppBuilder {
+public class LocationAppBuilder {
     public static final int HEIGHT = 300;
     public static final int WIDTH = 400;
-    private NoteDataAccessInterface noteDAO;
+    private LocationDataAccessInterface locationDAO;
     private LocationViewModel locationViewModel = new LocationViewModel();
-    private LocationView noteView;
+    private LocationView locationView;
     private NoteInteractor noteInteractor;
 
     /**
@@ -27,8 +27,8 @@ public class NoteAppBuilder {
      * @param noteDataAccess the DAO to use
      * @return this builder
      */
-    public NoteAppBuilder addNoteDAO(NoteDataAccessInterface noteDataAccess) {
-        noteDAO = noteDataAccess;
+    public LocationAppBuilder addLocationDAO(LocationDataAccessInterface locationDataAccess) {
+        locationDAO = locationDataAccess;
         return this;
     }
 
@@ -39,16 +39,16 @@ public class NoteAppBuilder {
      * @return this builder
      * @throws RuntimeException if this method is called before addNoteView
      */
-    public NoteAppBuilder addNoteUseCase() {
-        final NoteOutputBoundary noteOutputBoundary = new LocationPresenter(locationViewModel);
-        noteInteractor = new NoteInteractor(
-                noteDAO, noteOutputBoundary);
+    public LocationAppBuilder addLocationUseCase() {
+        final LocationOutputBoundary locationOutputBoundary = new LocationPresenter(locationViewModel);
+        locationInteractor = new LocationInteractor(
+                locationDAO, locationOutputBoundary);
 
-        final LocationController controller = new LocationController(noteInteractor);
-        if (noteView == null) {
+        final LocationController controller = new LocationController(locationInteractor);
+        if (locationView == null) {
             throw new RuntimeException("addNoteView must be called before addNoteUseCase");
         }
-        noteView.setNoteController(controller);
+        locationView.setLocationController(controller);
         return this;
     }
 
@@ -56,9 +56,12 @@ public class NoteAppBuilder {
      * Creates the NoteView and underlying NoteViewModel.
      * @return this builder
      */
-    public NoteAppBuilder addNoteView() {
+    public LocationAppBuilder addLocationView() {
         locationViewModel = new LocationViewModel();
-        noteView = new LocationView(locationViewModel);
+        locationView = new LocationView(locationViewModel);
+    public LocationAppBuilder addLocationView() {
+        locationViewModel = new LocationViewModel();
+        locationView = new LocationView(locationViewModel);
         return this;
     }
 
@@ -69,10 +72,10 @@ public class NoteAppBuilder {
     public JFrame build() {
         final JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setTitle("Note Application");
+        frame.setTitle("Location Application");
         frame.setSize(WIDTH, HEIGHT);
 
-        frame.add(noteView);
+        frame.add(locationView);
 
         // refresh so that the note will be visible when we start the program
         noteInteractor.executeRefresh();

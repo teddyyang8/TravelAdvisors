@@ -1,7 +1,7 @@
 package app;
 
 import data_access.DBLocationDataAccessObject;
-import use_case.note.NoteDataAccessInterface;
+import use_case.suggest_locations.LocationDataAccessInterface;
 
 /**
  * An application where we can view and add to a note stored by a user.
@@ -19,7 +19,7 @@ import use_case.note.NoteDataAccessInterface;
  * view. Your team may wish to bring back the ViewManager or make your own implementation of supporting
  * switching between views depending on your project.
  */
-public class MainNoteApplication {
+public class MainLocationApplication {
 
     /**
      * The main entry point of the application.
@@ -46,11 +46,11 @@ public class MainNoteApplication {
     public static void main(String[] args) {
 
         // create the data access and inject it into our builder!
-        final NoteDataAccessInterface noteDataAccess = new DBLocationDataAccessObject();
+        final LocationDataAccessInterface locationDataAccess = new DBLocationDataAccessObject();
 
-        final NoteAppBuilder builder = new NoteAppBuilder();
-        builder.addNoteDAO(noteDataAccess)
-               .addNoteView()
-               .addNoteUseCase().build().setVisible(true);
+        final LocationAppBuilder builder = new LocationAppBuilder();
+        builder.addLocationDAO(locationDataAccess)
+               .addLocationView()
+               .addLocationUseCase().build().setVisible(true);
     }
 }
