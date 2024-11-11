@@ -16,5 +16,5 @@ public interface LocationDataAccessInterface {
      * @throws DataAccessException if the location can not be loaded for any reason
      */
     String searchLocation(String address, String locationType) throws DataAccessException;
-
+  
 }

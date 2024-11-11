@@ -2,6 +2,7 @@ package data_access;
 
 import java.io.IOException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,8 +52,14 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
             final JSONObject responseBody = new JSONObject(response.body().string());
 
             if (responseBody.getInt(STATUS_CODE_LABEL) == SUCCESS_CODE) {
-                final JSONObject result = responseBody.getJSONObject("places");
-                return result.toString();
+                final StringBuilder places = new StringBuilder();
+                final JSONArray jsonArray = responseBody.getJSONArray("places");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    final JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    places.append(jsonObject.getString("formattedAddress")).append(">").append(jsonObject
+                            .getJSONObject("displayName").getString("text")).append("<");
+                }
+                return places.toString();
             }
             else if (responseBody.getInt(STATUS_CODE_LABEL) == CREDENTIAL_ERROR) {
                 throw new DataAccessException("Needs API Key");
