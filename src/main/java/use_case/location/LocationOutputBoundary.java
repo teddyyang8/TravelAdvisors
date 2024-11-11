@@ -1,9 +1,9 @@
-package use_case.note;
+package use_case.location;
 
 /**
  * The output boundary for the Login Use Case.
  */
-public interface NoteOutputBoundary {
+public interface LocationOutputBoundary {
     /**
      * Prepares the success view for the Note related Use Cases.
      * @param message the output data

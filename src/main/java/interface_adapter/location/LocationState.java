@@ -1,4 +1,4 @@
-package interface_adapter.note;
+package interface_adapter.location;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * The State for a note.
  */
-public class NoteState {
+public class LocationState {
     private String error;
     private String city;
     private String address;
@@ -17,7 +17,7 @@ public class NoteState {
     private String keyword5;
     private List<String> suggestedLocations;
 
-    public NoteState() {
+    public LocationState() {
         this.suggestedLocations = new ArrayList<>();
     }
 

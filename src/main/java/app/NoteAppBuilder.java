@@ -3,9 +3,9 @@ package app;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-import interface_adapter.note.NoteController;
-import interface_adapter.note.NotePresenter;
-import interface_adapter.note.NoteViewModel;
+import interface_adapter.location.LocationController;
+import interface_adapter.location.LocationPresenter;
+import interface_adapter.location.LocationViewModel;
 import use_case.note.NoteDataAccessInterface;
 import use_case.note.NoteInteractor;
 import use_case.note.NoteOutputBoundary;
@@ -18,7 +18,7 @@ public class NoteAppBuilder {
     public static final int HEIGHT = 300;
     public static final int WIDTH = 400;
     private NoteDataAccessInterface noteDAO;
-    private NoteViewModel noteViewModel = new NoteViewModel();
+    private LocationViewModel locationViewModel = new LocationViewModel();
     private NoteView noteView;
     private NoteInteractor noteInteractor;
 
@@ -40,11 +40,11 @@ public class NoteAppBuilder {
      * @throws RuntimeException if this method is called before addNoteView
      */
     public NoteAppBuilder addNoteUseCase() {
-        final NoteOutputBoundary noteOutputBoundary = new NotePresenter(noteViewModel);
+        final NoteOutputBoundary noteOutputBoundary = new LocationPresenter(locationViewModel);
         noteInteractor = new NoteInteractor(
                 noteDAO, noteOutputBoundary);
 
-        final NoteController controller = new NoteController(noteInteractor);
+        final LocationController controller = new LocationController(noteInteractor);
         if (noteView == null) {
             throw new RuntimeException("addNoteView must be called before addNoteUseCase");
         }
@@ -57,8 +57,8 @@ public class NoteAppBuilder {
      * @return this builder
      */
     public NoteAppBuilder addNoteView() {
-        noteViewModel = new NoteViewModel();
-        noteView = new NoteView(noteViewModel);
+        locationViewModel = new LocationViewModel();
+        noteView = new NoteView(locationViewModel);
         return this;
     }
 
