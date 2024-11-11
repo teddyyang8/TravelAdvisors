@@ -3,16 +3,37 @@ package entity;
 /**
  * The representation of a place in our program.
  */
-public interface Place {
+public class Place {
+    private final String name;
+    private final String address;
+
     /**
-     * Returns the name of the place.
-     * @return the name of the place.
+     * The representation of a place.
+     *
+     * @param name the name of the place
+     * @param address the address of the place
      */
-    String getName();
+    public Place(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
 
     /**
      * Returns the address of the place.
+     *
      * @return the address of the place.
      */
-    String getAddress();
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Returns the address of the place.
+     *
+     * @return the address of the place.
+     */
+    public String getAddress() {
+        return address;
+
+    }
 }

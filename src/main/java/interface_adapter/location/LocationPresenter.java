@@ -1,5 +1,9 @@
 package interface_adapter.location;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import entity.Place;
 import use_case.suggest_locations.SuggestLocationsOutputBoundary;
 import use_case.suggest_locations.SuggestLocationsOutputData;
 
@@ -21,9 +25,10 @@ public class LocationPresenter implements SuggestLocationsOutputBoundary {
      */
     @Override
     public void prepareSuccessView(SuggestLocationsOutputData outputData) {
-        locationViewModel.getState().setLocation(outputData.getLocation());
-        locationViewModel.getState().setError(null);
-        locationViewModel.firePropertyChanged();
+        final List<String> locationNames = outputData.getLocations().stream()
+                .map(Place::getName)
+                .collect(Collectors.toList());
+        locationViewModel.updateSuggestedLocations(locationNames);
     }
 
     /**
@@ -31,7 +36,6 @@ public class LocationPresenter implements SuggestLocationsOutputBoundary {
      *
      * @param errorMessage the explanation of the failure
      */
-    @Override
     public void prepareFailView(String errorMessage) {
         locationViewModel.getState().setError(errorMessage);
         locationViewModel.firePropertyChanged();
