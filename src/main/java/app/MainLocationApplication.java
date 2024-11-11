@@ -1,7 +1,7 @@
 package app;
 
 import data_access.DBLocationDataAccessObject;
-import use_case.note.NoteDataAccessInterface;
+import use_case.suggest_locations.LocationDataAccessInterface;
 
 /**
  * An application where we can view and add to a note stored by a user.
@@ -46,11 +46,11 @@ public class MainLocationApplication {
     public static void main(String[] args) {
 
         // create the data access and inject it into our builder!
-        final NoteDataAccessInterface noteDataAccess = new DBLocationDataAccessObject();
+        final LocationDataAccessInterface locationDataAccess = new DBLocationDataAccessObject();
 
         final LocationAppBuilder builder = new LocationAppBuilder();
-        builder.addNoteDAO(noteDataAccess)
-               .addNoteView()
-               .addNoteUseCase().build().setVisible(true);
+        builder.addLocationDAO(locationDataAccess)
+               .addLocationView()
+               .addLocationUseCase().build().setVisible(true);
     }
 }
