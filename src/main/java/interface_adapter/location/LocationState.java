@@ -9,7 +9,6 @@ import java.util.List;
  */
 public class LocationState {
     private String error;
-    private String city;
     private String address;
     private String keyword1;
     private String keyword2;
