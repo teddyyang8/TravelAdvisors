@@ -19,22 +19,6 @@ public class LocationController {
     }
 
     /**
-     * Handles the input of an address.
-     * @param address the input address
-     */
-    public void handleAddressInput(String address) {
-        locationInteractor.setAddress(address);
-    }
-
-    /**
-     * Handles the selection of an interest.
-     * @param interest the selected interest
-     */
-    public void handleInterestSelection(String interest) {
-        locationInteractor.setInterest(interest);
-    }
-
-    /**
      * Executes the save or refresh operation based on the location.
      * @param location the location to save or refresh
      * @throws DataAccessException if the location is null
