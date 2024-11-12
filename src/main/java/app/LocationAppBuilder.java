@@ -81,6 +81,5 @@ public class LocationAppBuilder {
         locationInteractor.execute();
 
         return frame;
-
     }
 }
