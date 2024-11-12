@@ -4,9 +4,8 @@ import javax.swing.*;
 
 import entity.Place;
 import entity.PlaceFactory;
-import interface_adapter.location.LocationController;
-import interface_adapter.location.LocationPresenter;
-import interface_adapter.location.LocationViewModel;
+import interface_adapter.suggestedLocation.SuggestedLocationPresenter;
+import interface_adapter.suggestedLocation.SuggestedLocationViewModel;
 import use_case.suggest_locations.LocationDataAccessInterface;
 import use_case.suggest_locations.SuggestLocationsInteractor;
 import use_case.suggest_locations.SuggestLocationsOutputBoundary;
@@ -23,9 +22,9 @@ public class SuggestedLocationsAppBuilder {
     public static final int HEIGHT = 300;
     public static final int WIDTH = 400;
     private LocationDataAccessInterface locationDAO;
-    private LocationViewModel locationViewModel = new LocationViewModel();
+    private SuggestedLocationViewModel suggestedLocationViewModel = new SuggestedLocationViewModel();
     private SuggestedLocationsView suggestedLocationsView;
-    private SuggestLocationsInteractor locationInteractor;
+    private SuggestLocationsInteractor suggestLocationsInteractor;
     private PlaceFactory placeFactory;
 
     /**
@@ -47,9 +46,9 @@ public class SuggestedLocationsAppBuilder {
      * @throws RuntimeException if this method is called before
      * addSuggestedLocationsView
      */
-    public SuggestedLocationsAppBuilder addLocationUseCase() {
-        final SuggestLocationsOutputBoundary suggestLocationsOutputBoundary = new LocationPresenter(locationViewModel);
-        locationInteractor = new SuggestLocationsInteractor(
+    public SuggestedLocationsAppBuilder addSuggestedLocationUseCase() {
+        final SuggestLocationsOutputBoundary suggestLocationsOutputBoundary = new SuggestedLocationPresenter(suggestedLocationViewModel);
+        suggestLocationsInteractor = new SuggestLocationsInteractor(
                 locationDAO, suggestLocationsOutputBoundary, placeFactory);
 
         if (suggestedLocationsView == null) {
@@ -63,8 +62,8 @@ public class SuggestedLocationsAppBuilder {
      * @return this builder
      */
     public SuggestedLocationsAppBuilder addSuggestedLocationsView(List<Place> locations) {
-        locationViewModel = new LocationViewModel();
-        suggestedLocationsView = new SuggestedLocationsView(locationViewModel);
+        suggestedLocationViewModel = new SuggestedLocationViewModel();
+        suggestedLocationsView = new SuggestedLocationsView(suggestedLocationViewModel);
         return this;
     }
 
