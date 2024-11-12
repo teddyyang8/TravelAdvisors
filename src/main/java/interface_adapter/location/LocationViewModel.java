@@ -14,6 +14,10 @@ public class LocationViewModel extends ViewModel<LocationState> {
         setState(new LocationState());
     }
 
+    public LocationState getState() {
+        return super.getState();
+    }
+
     /**
      * Updates the suggested locations.
      * @param suggestedLocations the list of suggested locations
