@@ -87,8 +87,6 @@ public class LocationAppBuilder {
         frame.add(locationView, BorderLayout.CENTER);
 
         return frame;
-
-
     }
 
 }
