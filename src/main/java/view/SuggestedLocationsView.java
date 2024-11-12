@@ -1,36 +1,32 @@
 package view;
 
-import interface_adapter.location.LocationController;
+import entity.Place;
 import interface_adapter.location.LocationState;
 import interface_adapter.location.LocationViewModel;
-import use_case.suggest_locations.DataAccessException;
-import use_case.suggest_locations.SuggestLocationsInputData;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Suggested Locations View Panel
+ */
 public class SuggestedLocationsView extends JPanel {
 
-    private JPanel suggestedLocations;
+    private JPanel suggestedLocationsPanel;
 
-    public SuggestedLocationsView(List<String> locations) {
-        if (suggestedLocations != null) {
-            this.remove(suggestedLocations);
-        }
+    public SuggestedLocationsView(LocationViewModel locationViewModel) {
 
-        suggestedLocations = new JPanel();
-        suggestedLocations.setLayout(new BoxLayout(suggestedLocations, BoxLayout.Y_AXIS));
-        suggestedLocations.add(new JLabel("List of Suggested Locations:"));
-        for (String location : locations) {
-            suggestedLocations.add(new JLabel(location));
+        if (suggestedLocationsPanel != null) {
+            this.remove(suggestedLocationsPanel);
         }
-        this.add(suggestedLocations);
+        final LocationState locationState = locationViewModel.getState();
+
+        suggestedLocationsPanel.setLayout(new BoxLayout(suggestedLocationsPanel, BoxLayout.Y_AXIS));
+        suggestedLocationsPanel.add(new JLabel("List of Suggested Locations:"));
+        for (Place location : locationState.getSuggestedLocations()) {
+            suggestedLocationsPanel.add(new JLabel(location.getName()));
+            suggestedLocationsPanel.add(new JLabel(location.getAddress()));
+        }
+        this.add(suggestedLocationsPanel);
         this.setVisible(true);
     }
 }
