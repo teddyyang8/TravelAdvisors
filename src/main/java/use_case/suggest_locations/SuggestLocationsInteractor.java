@@ -1,15 +1,25 @@
 package use_case.suggest_locations;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import entity.Place;
+import entity.PlaceFactory;
+
+/**
+ * The Suggest Locations Interactor.
+ */
 public class SuggestLocationsInteractor implements SuggestLocationsInputBoundary {
+    private final LocationDataAccessInterface placeDataAccessObject;
+    private final SuggestLocationsOutputBoundary placePresenter;
+    private final PlaceFactory placeFactory;
 
-    private final LocationDataAccessInterface locationDataAccess;
-    private final SuggestLocationsOutputBoundary outputBoundary;
-
-    public SuggestLocationsInteractor(LocationDataAccessInterface locationDataAccess, SuggestLocationsOutputBoundary outputBoundary) {
-        this.locationDataAccess = locationDataAccess;
-        this.outputBoundary = outputBoundary;
+    public SuggestLocationsInteractor(LocationDataAccessInterface suggestLocationsPlaceDataAccessInterface,
+                                      SuggestLocationsOutputBoundary suggestLocationsOutputBoundary,
+                                      PlaceFactory placeFactory) {
+        this.placeDataAccessObject = suggestLocationsPlaceDataAccessInterface;
+        this.placePresenter = suggestLocationsOutputBoundary;
+        this.placeFactory = placeFactory;
     }
 
     @Override
@@ -23,18 +33,18 @@ public class SuggestLocationsInteractor implements SuggestLocationsInputBoundary
     }
 
     @Override
-    public void execute(SuggestLocationsInputData inputData) {
-        try {
-            String response = locationDataAccess.searchLocation(inputData.getAddress(), inputData.getInterest());
-            List<String> locations = parseResponse(response);
-            SuggestLocationsOutputData outputData = new SuggestLocationsOutputData(locations);
-            outputBoundary.prepareSuccessView(outputData);
-        } catch (DataAccessException e) {
-            outputBoundary.prepareFailView(e.getMessage());
+    public void execute(SuggestLocationsInputData suggestLocationsInputData) throws DataAccessException {
+        final String suggestedLocations = placeDataAccessObject.searchLocation(suggestLocationsInputData.getAddress(),
+                suggestLocationsInputData.getLocationType());
+        final String[] locationsList = suggestedLocations.split("<:>");
+
+        final List<Place> suggestedPlaces = new ArrayList<>();
+        for (String location : locationsList) {
+            suggestedPlaces.add(placeFactory.create(location.split(">")[1], location.split(">")[0]));
         }
-    }
 
-    private List<String> parseResponse(String response) {
-
+        final SuggestLocationsOutputData suggestLocationsOutputData = new SuggestLocationsOutputData(suggestedPlaces,
+                false);
+        placePresenter.prepareSuccessView(suggestLocationsOutputData);
     }
 }
