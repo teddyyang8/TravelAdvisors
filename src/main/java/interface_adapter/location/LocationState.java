@@ -3,6 +3,8 @@ package interface_adapter.location;
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.Place;
+
 /**
  * The state representing location-related data, including city, address, keywords,
  * suggested locations, and any error messages.
@@ -15,7 +17,7 @@ public class LocationState {
     private String keyword3;
     private String keyword4;
     private String keyword5;
-    private List<String> suggestedLocations;
+    private List<Place> suggestedLocations;
 
     public LocationState() {
         this.suggestedLocations = new ArrayList<>();
@@ -78,11 +80,11 @@ public class LocationState {
         return error;
     }
 
-    public List<String> getSuggestedLocations() {
+    public List<Place> getSuggestedLocations() {
         return suggestedLocations;
     }
 
-    public void setSuggestedLocations(List<String> suggestedLocations) {
+    public void setSuggestedLocations(List<Place> suggestedLocations) {
         this.suggestedLocations = suggestedLocations;
     }
 }

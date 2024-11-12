@@ -21,7 +21,7 @@ public class LocationPresenter implements SuggestLocationsOutputBoundary {
      */
     @Override
     public void prepareSuccessView(SuggestLocationsOutputData outputData) {
-        locationViewModel.getState().setLocation(outputData.getLocation());
+        locationViewModel.getState().setSuggestedLocations(outputData.getLocations());
         locationViewModel.getState().setError(null);
         locationViewModel.firePropertyChanged();
     }
