@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entity.Place;
+import use_case.suggest_locations.SuggestLocationsInputData;
 
 /**
  * The state representing location-related data, including city, address, keywords,
@@ -87,4 +88,36 @@ public class LocationState {
     public void setSuggestedLocations(List<Place> suggestedLocations) {
         this.suggestedLocations = suggestedLocations;
     }
+
+    /**
+     * Returns current InputData.
+     * @return current input data.
+     */
+    public SuggestLocationsInputData getInputData() {
+        final List<String> keywords = getKeywords();
+        final String joinedKeywords = String.join(";", keywords);
+        return new SuggestLocationsInputData(address, joinedKeywords);
+    }
+
+    private List<String> getKeywords() {
+        final List<String> keywords = new ArrayList<>();
+
+        if (!keyword1.isEmpty()) {
+            keywords.add(keyword1);
+        }
+        if (!keyword2.isEmpty()) {
+            keywords.add(keyword2);
+        }
+        if (!keyword3.isEmpty()) {
+            keywords.add(keyword3);
+        }
+        if (!keyword4.isEmpty()) {
+            keywords.add(keyword4);
+        }
+        if (!keyword5.isEmpty()) {
+            keywords.add(keyword5);
+        }
+        return keywords;
+    }
 }
+
