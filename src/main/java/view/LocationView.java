@@ -10,14 +10,14 @@ import java.util.List;
 
 import javax.swing.*;
 
+import entity.Place;
 import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationState;
 import interface_adapter.location.LocationViewModel;
 import use_case.suggest_locations.DataAccessException;
-import use_case.suggest_locations.SuggestLocationsInputData;
 
 /**
- * The View for when the user is viewing a in the program.
+ * The View for when the user is viewing a location in the program.
  */
 public class LocationView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -60,12 +60,9 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 
         suggestButton.addActionListener(evt -> {
             if (evt.getSource().equals(suggestButton)) {
-                final String address = addressField.getText().trim();
-                final List<String> keywords = getKeywords();
-                final String joinedKeywords = String.join(";", keywords);
-                final SuggestLocationsInputData inputText = new SuggestLocationsInputData(address, joinedKeywords);
+                final LocationState currentState = locationViewModel.getState();
                 try {
-                    locationController.execute(inputText);
+                    locationController.execute(currentState.getInputData());
                 }
                 catch (DataAccessException dataAccessException) {
                     JOptionPane.showMessageDialog(this, "Error accessing data: " + dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -87,36 +84,6 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
         return addressField.getText();
     }
 
-    public List<String> getKeywords() {
-        final List<String> keywords = new ArrayList<>();
-
-        final String keyword1 = keyword1Field.getText().trim();
-        if (!keyword1.isEmpty()) {
-            keywords.add(keyword1);
-        }
-        final String keyword2 = keyword2Field.getText().trim();
-        if (!keyword2.isEmpty()) {
-            keywords.add(keyword2);
-        }
-        final String keyword3 = keyword3Field.getText().trim();
-        if (!keyword3.isEmpty()) {
-            keywords.add(keyword3);
-        }
-        final String keyword4 = keyword4Field.getText().trim();
-        if (!keyword4.isEmpty()) {
-            keywords.add(keyword4);
-        }
-        final String keyword5 = keyword5Field.getText().trim();
-        if (!keyword5.isEmpty()) {
-            keywords.add(keyword5);
-        }
-        return keywords;
-    }
-
-    public SuggestLocationsInputData getInputData() {
-        return new SuggestLocationsInputData(getAddress(), String.join(";", getKeywords()));
-    }
-
     /**
      * React to a button click that results in evt.
      * @param evt the ActionEvent to react to
@@ -133,24 +100,24 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
             JOptionPane.showMessageDialog(this, state.getError(),
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-        if (state.getSuggestedLocations() != null) {
-            showSuggestedLocations(state.getSuggestedLocations());
-        }
+//        if (state.getSuggestedLocations() != null) {
+//            showSuggestedLocations(state.getSuggestedLocations());
+//        }
     }
 
-    private void showSuggestedLocations(List<String> locations) {
-        if (suggestedLocations != null) {
-            this.remove(suggestedLocations);
-        }
-
-        suggestedLocations = new JPanel();
-        suggestedLocations.setLayout(new BoxLayout(suggestedLocations, BoxLayout.Y_AXIS));
-        suggestedLocations.add(new JLabel("List of Suggested Locations:"));
-        for (String location : locations) {
-            suggestedLocations.add(new JLabel(location));
-        }
-        this.add(suggestedLocations);
-    }
+//    private void showSuggestedLocations(List<Place> locations) {
+//        if (suggestedLocations != null) {
+//            this.remove(suggestedLocations);
+//        }
+//
+//        suggestedLocations = new JPanel();
+//        suggestedLocations.setLayout(new BoxLayout(suggestedLocations, BoxLayout.Y_AXIS));
+//        suggestedLocations.add(new JLabel("List of Suggested Locations:"));
+//        for (Place location : locations) {
+//            suggestedLocations.add(new JLabel(location));
+//        }
+//        this.add(suggestedLocations);
+//    }
 
     private void setFields(LocationState state) {
         addressField.setText(state.getAddress());

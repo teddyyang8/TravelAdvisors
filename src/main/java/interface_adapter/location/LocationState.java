@@ -3,6 +3,9 @@ package interface_adapter.location;
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.Place;
+import use_case.suggest_locations.SuggestLocationsInputData;
+
 /**
  * The state representing location-related data, including city, address, keywords,
  * suggested locations, and any error messages.
@@ -15,7 +18,7 @@ public class LocationState {
     private String keyword3;
     private String keyword4;
     private String keyword5;
-    private List<String> suggestedLocations;
+    private List<Place> suggestedLocations;
 
     public LocationState() {
         this.suggestedLocations = new ArrayList<>();
@@ -78,11 +81,43 @@ public class LocationState {
         return error;
     }
 
-    public List<String> getSuggestedLocations() {
+    public List<Place> getSuggestedLocations() {
         return suggestedLocations;
     }
 
-    public void setSuggestedLocations(List<String> suggestedLocations) {
+    public void setSuggestedLocations(List<Place> suggestedLocations) {
         this.suggestedLocations = suggestedLocations;
     }
+
+    /**
+     * Returns current InputData.
+     * @return current input data.
+     */
+    public SuggestLocationsInputData getInputData() {
+        final List<String> keywords = getKeywords();
+        final String joinedKeywords = String.join(";", keywords);
+        return new SuggestLocationsInputData(address, joinedKeywords);
+    }
+
+    private List<String> getKeywords() {
+        final List<String> keywords = new ArrayList<>();
+
+        if (!keyword1.isEmpty()) {
+            keywords.add(keyword1);
+        }
+        if (!keyword2.isEmpty()) {
+            keywords.add(keyword2);
+        }
+        if (!keyword3.isEmpty()) {
+            keywords.add(keyword3);
+        }
+        if (!keyword4.isEmpty()) {
+            keywords.add(keyword4);
+        }
+        if (!keyword5.isEmpty()) {
+            keywords.add(keyword5);
+        }
+        return keywords;
+    }
 }
+
