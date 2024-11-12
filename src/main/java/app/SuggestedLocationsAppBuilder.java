@@ -2,6 +2,7 @@ package app;
 
 import javax.swing.*;
 
+import entity.Place;
 import entity.PlaceFactory;
 import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationPresenter;
@@ -10,9 +11,10 @@ import use_case.suggest_locations.LocationDataAccessInterface;
 import use_case.suggest_locations.SuggestLocationsInteractor;
 import use_case.suggest_locations.SuggestLocationsOutputBoundary;
 import use_case.suggest_locations.*;
-import view.LocationView;
+import view.SuggestedLocationsView;
 
 import java.awt.*;
+import java.util.List;
 
 /**
  * Builder for the Suggested Locations Application.
@@ -22,7 +24,7 @@ public class SuggestedLocationsAppBuilder {
     public static final int WIDTH = 400;
     private LocationDataAccessInterface locationDAO;
     private LocationViewModel locationViewModel = new LocationViewModel();
-    private LocationView locationView;
+    private SuggestedLocationsView suggestedLocationsView;
     private SuggestLocationsInteractor locationInteractor;
     private PlaceFactory placeFactory;
 
@@ -31,39 +33,38 @@ public class SuggestedLocationsAppBuilder {
      * @param locationDataAccess the DAO to use
      * @return this builder
      */
-    public LocationAppBuilder addLocationDAO(LocationDataAccessInterface locationDataAccess) {
+    public SuggestedLocationsAppBuilder addLocationDAO(LocationDataAccessInterface locationDataAccess) {
         locationDAO = locationDataAccess;
         return this;
     }
 
     /**
      * Creates the objects for the Location Use Case and connects the
-     * LocationView to its
+     * SuggestedLocationsView to its
      * controller.
-     * <p>This method must be called after addLocationView!</p>
+     * <p>This method must be called after addSuggestedLocationsView!</p>
      * @return this builder
-     * @throws RuntimeException if this method is called before addLocationView
+     * @throws RuntimeException if this method is called before
+     * addSuggestedLocationsView
      */
-    public LocationAppBuilder addLocationUseCase() {
+    public SuggestedLocationsAppBuilder addLocationUseCase() {
         final SuggestLocationsOutputBoundary suggestLocationsOutputBoundary = new LocationPresenter(locationViewModel);
         locationInteractor = new SuggestLocationsInteractor(
                 locationDAO, suggestLocationsOutputBoundary, placeFactory);
 
-        final LocationController controller = new LocationController(locationInteractor);
-        if (locationView == null) {
-            throw new RuntimeException("addLocationView must be called before" + " addLocationUseCase");
+        if (suggestedLocationsView == null) {
+            throw new RuntimeException("addSuggestedLocationsView must be " + "called before" + " addLocationUseCase");
         }
-        locationView.setLocationController(controller);
         return this;
     }
 
     /**
-     * Creates the LocationView and underlying LocationViewModel.
+     * Creates the SuggestedLocationView and underlying LocationViewModel.
      * @return this builder
      */
-    public LocationAppBuilder addLocationView() {
+    public SuggestedLocationsAppBuilder addSuggestedLocationsView(List<Place> locations) {
         locationViewModel = new LocationViewModel();
-        locationView = new LocationView(locationViewModel);
+        suggestedLocationsView = new SuggestedLocationsView(locationViewModel);
         return this;
     }
 
@@ -77,16 +78,8 @@ public class SuggestedLocationsAppBuilder {
         frame.setTitle("Suggested Locations Application");
         frame.setSize(WIDTH, HEIGHT);
 
-        final JTextField userInputField = new JTextField();
-        frame.add(userInputField, BorderLayout.NORTH);
-
-        frame.add(locationView, BorderLayout.CENTER);
-
-        final SuggestLocationsInputData inputData = locationView.getInputData();
-
-        locationInteractor.execute(inputData);
+        frame.add(suggestedLocationsView, BorderLayout.CENTER);
 
         return frame;
-
     }
 }

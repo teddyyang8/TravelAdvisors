@@ -2,15 +2,19 @@ package app;
 
 import javax.swing.*;
 
+import data_access.DBLocationDataAccessObject;
 import entity.PlaceFactory;
+import entity.SuggestedPlaceFactory;
 import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationPresenter;
+import interface_adapter.location.LocationViewManagerModel;
 import interface_adapter.location.LocationViewModel;
 import use_case.suggest_locations.LocationDataAccessInterface;
 import use_case.suggest_locations.SuggestLocationsInteractor;
 import use_case.suggest_locations.SuggestLocationsOutputBoundary;
 import use_case.suggest_locations.*;
 import view.LocationView;
+import view.ViewManager;
 
 import java.awt.*;
 
@@ -20,11 +24,11 @@ import java.awt.*;
 public class LocationAppBuilder {
     public static final int HEIGHT = 300;
     public static final int WIDTH = 400;
-    private LocationDataAccessInterface locationDAO;
-    private LocationViewModel locationViewModel = new LocationViewModel();
-    private LocationView locationView;
-    private SuggestLocationsInteractor locationInteractor;
-    private PlaceFactory placeFactory;
+    public LocationDataAccessInterface locationDAO;
+    public static LocationViewModel locationViewModel = new LocationViewModel();
+    public LocationView locationView;
+    public SuggestLocationsInteractor locationInteractor;
+    public PlaceFactory placeFactory;
 
     /**
      * Sets the LocationDAO to be used in this application.
@@ -82,11 +86,9 @@ public class LocationAppBuilder {
 
         frame.add(locationView, BorderLayout.CENTER);
 
-        final SuggestLocationsInputData inputData = locationView.getInputData();
-
-        locationInteractor.execute(inputData);
-
         return frame;
 
+
     }
+
 }
