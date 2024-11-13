@@ -10,15 +10,15 @@ import entity.SuggestedPlace;
  */
 public class SuggestLocationsOutputData {
 
-    private final List<SuggestedPlace> locations;
+    private final List<Place> locations;
     private final boolean useCaseFailed;
 
-    public SuggestLocationsOutputData(List<SuggestedPlace> locations, boolean useCaseFailed) {
+    public SuggestLocationsOutputData(List<Place> locations, boolean useCaseFailed) {
         this.locations = locations;
         this.useCaseFailed = useCaseFailed;
     }
 
-    public List<SuggestedPlace> getLocations() {
+    public List<Place> getLocations() {
         return locations;
     }
 }
