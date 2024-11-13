@@ -34,7 +34,6 @@ public class MainLocationApplication {
             final SuggestedLocationViewModel suggestedLocationViewModel = new SuggestedLocationViewModel();
             views.add(locationView, "Location");
             application.add(views);
-            final LocationViewManagerModel viewManagerModel = new LocationViewManagerModel();
 
             new ViewManager(locationView, cardLayout, viewManagerModel);
             final LocationController locationController = createLocationUseCase();

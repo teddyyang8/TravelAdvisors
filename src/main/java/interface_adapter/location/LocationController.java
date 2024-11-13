@@ -12,21 +12,25 @@ import use_case.suggest_locations.SuggestLocationsInputData;
  */
 public class LocationController {
 
-    private final SuggestLocationsInputBoundary locationInteractor;
+    private final SuggestLocationsInputBoundary locationInput;
 
     public LocationController(SuggestLocationsInputBoundary locationInteractor) {
-        this.locationInteractor = locationInteractor;
+        this.locationInput = locationInteractor;
     }
 
     /**
      * Executes the save or refresh operation based on the location.
-     * @param location the location to save or refresh
+     * @param address the location to save or refresh
+     * @param locationType the type of location to save or refresh
      * @throws DataAccessException if the location is null
      */
-    public void execute(SuggestLocationsInputData location) throws DataAccessException {
-        if (location == null) {
-            throw new DataAccessException("Location is null");
+    public void execute(String address, String locationType) throws DataAccessException {
+        if (address == null) {
+            throw new DataAccessException("Address is null");
         }
-        locationInteractor.execute(location);
+        final SuggestLocationsInputData suggestLocationInputData = new SuggestLocationsInputData(
+                address, locationType);
+
+        locationInput.execute(suggestLocationInputData);
     }
 }
