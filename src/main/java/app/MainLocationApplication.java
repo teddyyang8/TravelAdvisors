@@ -7,6 +7,9 @@ import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationPresenter;
 import interface_adapter.location.LocationViewManagerModel;
 import interface_adapter.location.LocationViewModel;
+import interface_adapter.suggestedLocation.SuggestedLocationController;
+import interface_adapter.suggestedLocation.SuggestedLocationPresenter;
+import interface_adapter.suggestedLocation.SuggestedLocationViewModel;
 import use_case.suggest_locations.LocationDataAccessInterface;
 import use_case.suggest_locations.SuggestLocationsInputBoundary;
 import use_case.suggest_locations.SuggestLocationsInteractor;
@@ -28,9 +31,9 @@ public class MainLocationApplication {
             final JPanel views = new JPanel(cardLayout);
             final LocationViewModel locationViewModel = new LocationViewModel();
             final LocationView locationView = new LocationView(locationViewModel);
+            final SuggestedLocationViewModel suggestedLocationViewModel = new SuggestedLocationViewModel();
             views.add(locationView, "Location");
             application.add(views);
-            final LocationViewManagerModel viewManagerModel = new LocationViewManagerModel();
 
             new ViewManager(locationView, cardLayout, viewManagerModel);
             final LocationController locationController = createLocationUseCase();
@@ -57,5 +60,13 @@ public class MainLocationApplication {
         final PlaceFactory placeFactory = new SuggestedPlaceFactory();
         final SuggestLocationsInputBoundary locationInteractor = new SuggestLocationsInteractor(location, suggestLocationsOutputBoundary, placeFactory);
         return new LocationController(locationInteractor);
+    }
+
+    private static SuggestedLocationController createSuggestedLocationUseCase() {
+        final LocationDataAccessInterface location = new DBLocationDataAccessObject();
+        final SuggestLocationsOutputBoundary suggestLocationsOutputBoundary = new SuggestedLocationPresenter(suggestedLocationViewModel);
+        final PlaceFactory placeFactory = new SuggestedPlaceFactory();
+        final SuggestLocationsOutputBoundary suggestLocationsInteractor = new SuggestLocationsInteractor(location, suggestLocationsOutputBoundary, placeFactory);
+        return new SuggestedLocationController(suggestLocationsInteractor);
     }
 }
