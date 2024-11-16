@@ -3,6 +3,7 @@ package use_case.suggest_locations;
 import java.util.List;
 
 import entity.Place;
+import entity.SuggestedPlace;
 
 /**
  * Output Data for the Suggest Locations Use Case.
@@ -19,9 +20,5 @@ public class SuggestLocationsOutputData {
 
     public List<Place> getLocations() {
         return locations;
-    }
-
-    public boolean isUseCaseFailed() {
-        return useCaseFailed;
     }
 }
