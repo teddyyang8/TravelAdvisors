@@ -68,7 +68,7 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
                 throw new DataAccessException("database error: " + responseBody.getString(MESSAGE));
             }
         }
-        catch (IOException | JSONException ex) {
+        catch (IOException | JSONException | DataAccessException ex) {
             throw new DataAccessException(ex.getMessage());
         }
     }
