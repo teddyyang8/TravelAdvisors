@@ -18,6 +18,8 @@ public class LocationController {
     }
 
     /**
+     * Executes the show location.
+     * @param location the location to show
      * Executes the save or refresh operation based on the location.
      * @param address the location to save or refresh
      * @param locationType the type of location to save or refresh
