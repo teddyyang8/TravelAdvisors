@@ -1,6 +1,5 @@
 package interface_adapter.location;
 
-import use_case.suggest_locations.DataAccessException;
 import use_case.suggest_locations.SuggestLocationsInputBoundary;
 import use_case.suggest_locations.SuggestLocationsInputData;
 
@@ -24,12 +23,8 @@ public class LocationController {
      * Executes the save or refresh operation based on the location.
      * @param address the location to save or refresh
      * @param locationType the type of location to save or refresh
-     * @throws DataAccessException if the location is null
      */
-    public void execute(String address, String locationType) throws DataAccessException {
-        if (address == null) {
-            throw new DataAccessException("Address is null");
-        }
+    public void execute(String address, String locationType){
         final SuggestLocationsInputData suggestLocationInputData = new SuggestLocationsInputData(
                 address, locationType);
 
