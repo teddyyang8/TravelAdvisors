@@ -5,9 +5,10 @@ import java.util.List;
 import entity.Place;
 
 /**
- * The state representing suggested locations-related data.
+ * The state representing suggested location-related data, including a list of suggested locations.
  */
-public class SuggestedLocationsSate {
+
+public class SuggestedLocationsState {
     private List<Place> suggestedLocations;
     private String error;
 
