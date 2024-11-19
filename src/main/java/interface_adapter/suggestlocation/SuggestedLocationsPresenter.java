@@ -20,5 +20,4 @@ public class SuggestedLocationsPresenter implements SuggestLocationsOutputBounda
         this.view = view;
     }
 
-    }
 }
