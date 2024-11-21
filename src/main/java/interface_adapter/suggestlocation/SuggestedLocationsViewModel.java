@@ -1,20 +1,13 @@
 package interface_adapter.suggestlocation;
 
+import interface_adapter.ViewModel;
+
 /**
  * The ViewModel for the SuggestedLocationsView.
  */
-public class SuggestedLocationsViewModel {
-    private SuggestedLocationsState state;
-
+public class SuggestedLocationsViewModel extends ViewModel<SuggestedLocationsState> {
     public SuggestedLocationsViewModel() {
-        this.state = new SuggestedLocationsState();
-    }
-
-    public SuggestedLocationsState getState() {
-        return state;
-    }
-
-    public void setState(SuggestedLocationsState state) {
-        this.state = state;
+        super("suggestedLocations");
+        setState(new SuggestedLocationsState());
     }
 }
