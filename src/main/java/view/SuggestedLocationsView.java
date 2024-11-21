@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,15 +24,20 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
 
     private final SuggestedLocationsViewModel suggestedLocationsViewModel;
     private final SuggestedLocationsController suggestedLocationsController;
+    private final CardLayout cardLayout;
+    private final JPanel parentPanel;
 
     private final JPanel suggestedLocationsPanel;
     private final JButton newSearchButton;
 
     public SuggestedLocationsView(SuggestedLocationsViewModel suggestedLocationsViewModel,
-                                  SuggestedLocationsController suggestedLocationsController) {
+                                  SuggestedLocationsController suggestedLocationsController,
+                                  CardLayout cardLayout, JPanel parentPanel) {
         this.suggestedLocationsViewModel = suggestedLocationsViewModel;
         this.suggestedLocationsViewModel.addPropertyChangeListener(this);
         this.suggestedLocationsController = suggestedLocationsController;
+        this.cardLayout = cardLayout;
+        this.parentPanel = parentPanel;
 
         final JLabel title = new JLabel("List of Suggested Locations:");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -53,8 +59,7 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(newSearchButton)) {
-            // Handle new search action
-            System.out.println("New Search button clicked");
+            cardLayout.show(parentPanel, "locationView");
         }
     }
 
