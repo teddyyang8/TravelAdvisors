@@ -1,5 +1,9 @@
 package use_case.suggest_locations;
 
+import java.util.List;
+
+import entity.Place;
+
 /**
  * Interface for the LocationDAO. It consists of methods for
  * searching locations
@@ -13,6 +17,6 @@ public interface LocationDataAccessInterface {
      * @return a list of locations
      * @throws DataAccessException if the location can not be loaded for any reason
      */
-    String searchLocation(String address, String locationType) throws DataAccessException;
+    List<Place> searchLocation(String address, String locationType) throws DataAccessException;
   
 }
