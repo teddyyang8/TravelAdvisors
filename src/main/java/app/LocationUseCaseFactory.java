@@ -4,6 +4,7 @@ import entity.PlaceFactory;
 import entity.SuggestedPlaceFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.location.LocationController;
+import interface_adapter.location.LocationPresenter;
 import interface_adapter.location.LocationViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsPresenter;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
@@ -49,8 +50,8 @@ public class LocationUseCaseFactory {
             SuggestedLocationsViewModel suggestedLocationsViewModel,
             LocationDataAccessInterface userDataAccessObject) {
 
-        final SuggestLocationsOutputBoundary suggestLocationsOutputBoundary = new SuggestedLocationsPresenter(viewManagerModel,
-                suggestedLocationsViewModel, locationViewModel);
+        final SuggestLocationsOutputBoundary suggestLocationsOutputBoundary = new LocationPresenter(locationViewModel,
+                suggestedLocationsViewModel, viewManagerModel);
         final SuggestLocationsInputBoundary locationInteractor = new SuggestLocationsInteractor(userDataAccessObject,
                 suggestLocationsOutputBoundary);
 
