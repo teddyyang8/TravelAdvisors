@@ -5,11 +5,13 @@ import interface_adapter.location.LocationState;
 import interface_adapter.location.LocationViewModel;
 import use_case.suggest_locations.SuggestLocationsOutputBoundary;
 import use_case.suggest_locations.SuggestLocationsOutputData;
+import use_case.suggested_locations.SuggestedLocationOutputBoundary;
+import use_case.suggested_locations.SuggestedLocationOutputData;
 
 /**
  * The presenter for the suggested locations use case.
  */
-public class SuggestedLocationsPresenter implements SuggestLocationsOutputBoundary {
+public class SuggestedLocationsPresenter implements SuggestLocationsOutputBoundary, SuggestedLocationOutputBoundary {
 
     private final ViewManagerModel viewManagerModel;
     private final SuggestedLocationsViewModel suggestedLocationsViewModel;
@@ -34,6 +36,11 @@ public class SuggestedLocationsPresenter implements SuggestLocationsOutputBounda
 
         this.viewManagerModel.setState(suggestedLocationsViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void prepareSuccessView(SuggestedLocationOutputData outputData) {
+
     }
 
     @Override

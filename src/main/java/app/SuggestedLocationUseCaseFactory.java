@@ -49,7 +49,7 @@ public class SuggestedLocationUseCaseFactory {
             ViewManagerModel viewManagerModel,
             LocationViewModel locationViewModel,
             SuggestedLocationsViewModel suggestedLocationsViewModel) {
-        final SuggestLocationsOutputBoundary suggestedLocationOutputBoundary = new SuggestedLocationsPresenter(viewManagerModel,
+        final SuggestedLocationsPresenter suggestedLocationOutputBoundary = new SuggestedLocationsPresenter(viewManagerModel,
                 suggestedLocationsViewModel, locationViewModel);
         final SuggestedLocationInputBoundary locationInteractor = new SuggestedLocationInteractor(suggestedLocationOutputBoundary);
         return new SuggestedLocationsController(locationInteractor);
