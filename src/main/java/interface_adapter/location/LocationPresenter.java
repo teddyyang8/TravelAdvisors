@@ -5,7 +5,6 @@ import interface_adapter.suggestlocation.SuggestedLocationsState;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
 import use_case.suggest_locations.SuggestLocationsOutputBoundary;
 import use_case.suggest_locations.SuggestLocationsOutputData;
-import view.LocationView;
 
 /**
  * The presenter for our Note viewing and editing program.

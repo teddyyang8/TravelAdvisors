@@ -9,4 +9,9 @@ public interface SuggestLocationsInputBoundary {
      * @param suggestLocationsInputData the input data for this use case
      */
     void execute(SuggestLocationsInputData suggestLocationsInputData) throws DataAccessException;
+
+    /**
+     * Switch to the Suggested Locations View.
+     */
+    void switchToSuggestedLocationsView();
 }

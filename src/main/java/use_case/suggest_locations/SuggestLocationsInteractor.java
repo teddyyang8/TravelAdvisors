@@ -21,4 +21,9 @@ public class SuggestLocationsInteractor implements SuggestLocationsInputBoundary
                 false);
         placePresenter.prepareSuccessView(suggestLocationsOutputData);
     }
+
+    @Override
+    public void switchToSuggestedLocationsView() {
+        placePresenter.switchToSuggestedLocationsView();
+    }
 }
