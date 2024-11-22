@@ -1,7 +1,5 @@
 package app;
 
-import entity.PlaceFactory;
-import entity.SuggestedPlaceFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationViewModel;
@@ -12,6 +10,9 @@ import use_case.suggest_locations.SuggestLocationsInputBoundary;
 import use_case.suggest_locations.SuggestLocationsInteractor;
 import use_case.suggest_locations.SuggestLocationsOutputBoundary;
 import view.LocationView;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * This class contains the static factory function for creating the LocationView.
@@ -37,10 +38,12 @@ public class LocationUseCaseFactory {
             SuggestedLocationsViewModel suggestedLocationsViewModel,
             LocationDataAccessInterface locationDataAccessObject) {
 
+        final CardLayout cardLayout = new CardLayout();
+        final JPanel parentPanel = new JPanel();
         final LocationController locationController = createLocationUseCase(viewManagerModel, locationViewModel,
                 suggestedLocationsViewModel, locationDataAccessObject);
 
-        return new LocationView(locationViewModel, locationController);
+        return new LocationView(locationViewModel, locationController, cardLayout, parentPanel);
     }
 
     private static LocationController createLocationUseCase(
