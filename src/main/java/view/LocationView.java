@@ -143,7 +143,19 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
     }
 
     public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
+        if (evt.getSource().equals(suggestLocationsButton)) {
+            final LocationState currentState = locationViewModel.getState();
+
+            try {
+                this.locationController.execute(
+                        currentState.getAddress(),
+                        currentState.getLocationType()
+                );
+            }
+            catch (DataAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override

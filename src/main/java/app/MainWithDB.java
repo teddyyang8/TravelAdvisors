@@ -48,9 +48,9 @@ public class MainWithDB {
                 suggestedLocationsViewModel, locationDataAccessObject);
         views.add(locationView, locationView.getViewName());
 
-//        final SuggestedLocationsView suggestedLocationsView = Sugg.create(viewManagerModel,
-//                loggedInViewModel, userDataAccessObject);
-//        views.add(loggedInView, loggedInView.getViewName());
+//        final SuggestedLocationsView suggestedLocationsView = SuggestedLocationUseCaseFactory.create(viewManagerModel,
+//                suggestedLocationsViewModel, locationDataAccessObject);
+//        views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
 
         viewManagerModel.setState(locationView.getViewName());
         viewManagerModel.firePropertyChanged();
