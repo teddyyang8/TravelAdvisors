@@ -6,15 +6,11 @@ import java.util.List;
 
 import entity.Place;
 import entity.PlaceFactory;
+import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 import use_case.suggest_locations.DataAccessException;
 import use_case.suggest_locations.LocationDataAccessInterface;
 
@@ -43,14 +39,13 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
         final OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
 
+        final HttpUrl url = HttpUrl.parse("https://places.googleapis.com/v1/places:searchText").newBuilder()
+                .addQueryParameter("textQuery", locationType + " near " + address)
+                .build();
+
         // POST METHOD
-        final MediaType mediaType = MediaType.parse(CONTENT_TYPE_JSON);
-        final JSONObject requestBody = new JSONObject();
-        requestBody.put("textQuery", locationType + " near " + address);
-        final RequestBody body = RequestBody.create(requestBody.toString(), mediaType);
         final Request request = new Request.Builder()
-                .url("https://places.googleapis.com/v1/places:searchText")
-                .method("POST", body)
+                .url(url)
                 .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_JSON)
                 .addHeader(API_HEADER, API_KEY)
                 .addHeader(API_FIELD, FIELDS)
