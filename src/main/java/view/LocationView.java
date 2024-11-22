@@ -24,11 +24,7 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
     private final LocationViewModel locationViewModel;
     private final LocationController locationController;
 
-    private final JLabel addressLabel = new JLabel("Address");
-
     private final JTextField addressField = new JTextField(20);
-
-    private final JLabel locationTypeLabel = new JLabel("Location Type");
 
     private final JTextField[] locationTypeFields = new JTextField[5];
 
@@ -141,9 +137,7 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 
         this.add(title);
         this.add(addressInfo);
-        this.add(addressLabel);
         this.add(locationTypePanel);
-        this.add(locationTypeLabel);
         this.add(buttons);
 
     }

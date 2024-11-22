@@ -25,8 +25,7 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
     private static final String FIELDS = "places.displayName,places.formattedAddress";
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";
-    private static final String STATUS_CODE_LABEL = "status_code";
-    private static final String MESSAGE = "message";
+    private static final String STATUS_CODE_LABEL = "code";
     private static final String API_KEY = System.getenv("API_KEY");
     private final PlaceFactory placeFactory;
 
@@ -39,23 +38,23 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
         final OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
 
-        final HttpUrl url = HttpUrl.parse("https://places.googleapis.com/v1/places:searchText").newBuilder()
-                .addQueryParameter("textQuery", locationType + " near " + address)
-                .build();
-
+        final JSONObject requestBody = new JSONObject();
+        requestBody.put("textQuery", locationType + " near " + address);
+        final RequestBody body = RequestBody.create(
+                requestBody.toString(), MediaType.parse(CONTENT_TYPE_JSON));
         // POST METHOD
         final Request request = new Request.Builder()
-                .url(url)
+                .url("https://places.googleapis.com/v1/places:searchText")
+                .post(body)
                 .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_JSON)
                 .addHeader(API_HEADER, API_KEY)
                 .addHeader(API_FIELD, FIELDS)
                 .build();
-        try {
-            final Response response = client.newCall(request).execute();
+        try (Response response = client.newCall(request).execute()) {
 
             final JSONObject responseBody = new JSONObject(response.body().string());
 
-            if (responseBody.getInt(STATUS_CODE_LABEL) == SUCCESS_CODE) {
+            if (responseBody.has("places")) {
                 final StringBuilder places = new StringBuilder();
                 final JSONArray jsonArray = responseBody.getJSONArray("places");
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -74,11 +73,11 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
                 return suggestedPlaces;
 
             }
-            else if (responseBody.getInt(STATUS_CODE_LABEL) == CREDENTIAL_ERROR) {
-                throw new DataAccessException("Needs API Key");
+            else if (responseBody.has("error")) {
+                throw new DataAccessException("API Error: " + responseBody.getJSONObject("error").getString("message"));
             }
             else {
-                throw new DataAccessException("database error: " + responseBody.getString(MESSAGE));
+                throw new DataAccessException("Unexpected API response format.");
             }
         }
         catch (IOException | JSONException | DataAccessException ex) {
