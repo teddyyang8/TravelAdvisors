@@ -1,7 +1,11 @@
 package data_access;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import entity.Place;
+import entity.PlaceFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,9 +32,14 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
     private static final String STATUS_CODE_LABEL = "status_code";
     private static final String MESSAGE = "message";
     private static final String API_KEY = System.getenv("API_KEY");
+    private final PlaceFactory placeFactory;
+
+    public DBLocationDataAccessObject(PlaceFactory placeFactory) {
+        this.placeFactory = placeFactory;
+    }
 
     @Override
-    public String searchLocation(String address, String locationType) throws DataAccessException {
+    public List<Place> searchLocation(String address, String locationType) throws DataAccessException {
         final OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
 
@@ -59,7 +68,16 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
                     places.append(jsonObject.getString("formattedAddress")).append(">").append(jsonObject
                             .getJSONObject("displayName").getString("text")).append("<");
                 }
-                return places.toString();
+                final String placesString = places.toString();
+
+                final String[] locationsList = placesString.split("<:>");
+                final List<Place> suggestedPlaces = new ArrayList<>();
+                for (String location : locationsList) {
+                    final Place place = placeFactory.create(location.split(">")[1], location.split(">")[0]);
+                    suggestedPlaces.add(place);
+                }
+                return suggestedPlaces;
+
             }
             else if (responseBody.getInt(STATUS_CODE_LABEL) == CREDENTIAL_ERROR) {
                 throw new DataAccessException("Needs API Key");
