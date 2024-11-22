@@ -27,9 +27,9 @@ public class SuggestedLocationsPresenter implements SuggestLocationsOutputBounda
     public void prepareSuccessView(SuggestLocationsOutputData response) {
         // On success, switch to the logged in view.
 
-        final SuggestedLocationsState loggedInState = suggestedLocationsViewModel.getState();
-        loggedInState.setSuggestedLocations(response.getLocations());
-        this.suggestedLocationsViewModel.setState(loggedInState);
+        final SuggestedLocationsState suggestedLocationsState = suggestedLocationsViewModel.getState();
+        suggestedLocationsState.setSuggestedLocations(response.getLocations());
+        this.suggestedLocationsViewModel.setState(suggestedLocationsState);
         this.suggestedLocationsViewModel.firePropertyChanged();
 
         this.viewManagerModel.setState(suggestedLocationsViewModel.getViewName());
@@ -38,8 +38,8 @@ public class SuggestedLocationsPresenter implements SuggestLocationsOutputBounda
 
     @Override
     public void prepareFailView(String error) {
-        final LocationState loginState = locationViewModel.getState();
-        loginState.setError(error);
+        final LocationState locationState = locationViewModel.getState();
+        locationState.setError(error);
         locationViewModel.firePropertyChanged();
     }
 
