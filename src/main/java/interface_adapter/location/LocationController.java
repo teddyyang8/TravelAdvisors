@@ -1,8 +1,8 @@
 package interface_adapter.location;
 
 import use_case.suggest_locations.DataAccessException;
-import use_case.suggest_locations.SuggestLocationsInputBoundary;
-import use_case.suggest_locations.SuggestLocationsInputData;
+import use_case.suggest_locations.LocationsInputBoundary;
+import use_case.suggest_locations.LocationsInputData;
 
 /**
  * The LocationController class handles user input related to locations.
@@ -12,9 +12,9 @@ import use_case.suggest_locations.SuggestLocationsInputData;
  */
 public class LocationController {
 
-    private final SuggestLocationsInputBoundary locationInput;
+    private final LocationsInputBoundary locationInput;
 
-    public LocationController(SuggestLocationsInputBoundary locationInteractor) {
+    public LocationController(LocationsInputBoundary locationInteractor) {
         this.locationInput = locationInteractor;
     }
 
@@ -27,10 +27,10 @@ public class LocationController {
      * @throws DataAccessException if data cannot be accessed
      */
     public void execute(String address, String locationType) throws DataAccessException {
-        final SuggestLocationsInputData suggestLocationInputData = new SuggestLocationsInputData(
+        final LocationsInputData locationInputData = new LocationsInputData(
                 address, locationType);
 
-        locationInput.execute(suggestLocationInputData);
+        locationInput.execute(locationInputData);
     }
 
     /**

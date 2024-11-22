@@ -1,17 +1,14 @@
 package app;
 
-import entity.PlaceFactory;
-import entity.SuggestedPlaceFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationPresenter;
 import interface_adapter.location.LocationViewModel;
-import interface_adapter.suggestlocation.SuggestedLocationsPresenter;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
 import use_case.suggest_locations.LocationDataAccessInterface;
-import use_case.suggest_locations.SuggestLocationsInputBoundary;
-import use_case.suggest_locations.SuggestLocationsInteractor;
-import use_case.suggest_locations.SuggestLocationsOutputBoundary;
+import use_case.suggest_locations.LocationsInputBoundary;
+import use_case.suggest_locations.LocationsInteractor;
+import use_case.suggest_locations.LocationsOutputBoundary;
 import view.LocationView;
 
 /**
@@ -50,10 +47,10 @@ public class LocationUseCaseFactory {
             SuggestedLocationsViewModel suggestedLocationsViewModel,
             LocationDataAccessInterface userDataAccessObject) {
 
-        final SuggestLocationsOutputBoundary suggestLocationsOutputBoundary = new LocationPresenter(locationViewModel,
+        final LocationsOutputBoundary locationsOutputBoundary = new LocationPresenter(locationViewModel,
                 suggestedLocationsViewModel, viewManagerModel);
-        final SuggestLocationsInputBoundary locationInteractor = new SuggestLocationsInteractor(userDataAccessObject,
-                suggestLocationsOutputBoundary);
+        final LocationsInputBoundary locationInteractor = new LocationsInteractor(userDataAccessObject,
+                locationsOutputBoundary);
 
         return new LocationController(locationInteractor);
     }

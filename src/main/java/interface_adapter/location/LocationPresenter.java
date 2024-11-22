@@ -3,13 +3,13 @@ package interface_adapter.location;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.suggestlocation.SuggestedLocationsState;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
-import use_case.suggest_locations.SuggestLocationsOutputBoundary;
-import use_case.suggest_locations.SuggestLocationsOutputData;
+import use_case.suggest_locations.LocationsOutputBoundary;
+import use_case.suggest_locations.LocationsOutputData;
 
 /**
  * The presenter for our Note viewing and editing program.
  */
-public class LocationPresenter implements SuggestLocationsOutputBoundary {
+public class LocationPresenter implements LocationsOutputBoundary {
 
     private final LocationViewModel locationViewModel;
     private final SuggestedLocationsViewModel suggestedLocationsViewModel;
@@ -22,7 +22,7 @@ public class LocationPresenter implements SuggestLocationsOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(SuggestLocationsOutputData response) {
+    public void prepareSuccessView(LocationsOutputData response) {
         // On success, switch to the suggested locations view.
         final SuggestedLocationsState suggestedLocationsState = suggestedLocationsViewModel.getState();
         suggestedLocationsState.setSuggestedLocations(response.getLocations());

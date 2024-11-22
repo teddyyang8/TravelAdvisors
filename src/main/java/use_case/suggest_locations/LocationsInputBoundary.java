@@ -3,12 +3,12 @@ package use_case.suggest_locations;
 /**
  * The Suggest Locations Use Case.
  */
-public interface SuggestLocationsInputBoundary {
+public interface LocationsInputBoundary {
     /**
      * Execute the Suggest Locations Use Case.
-     * @param suggestLocationsInputData the input data for this use case
+     * @param locationsInputData the input data for this use case
      */
-    void execute(SuggestLocationsInputData suggestLocationsInputData) throws DataAccessException;
+    void execute(LocationsInputData locationsInputData) throws DataAccessException;
 
     /**
      * Switch to the Suggested Locations View.
