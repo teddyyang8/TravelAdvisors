@@ -13,12 +13,14 @@ import javax.swing.event.DocumentListener;
 import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationState;
 import interface_adapter.location.LocationViewModel;
+import use_case.suggest_locations.DataAccessException;
 
 /**
  * The View for when the user is viewing a location in the program.
  */
 public class LocationView extends JPanel implements ActionListener, PropertyChangeListener {
 
+    private final String locationViewName = "Search Locations";
     private final LocationViewModel locationViewModel;
     private final LocationController locationController;
 
@@ -108,10 +110,15 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
                     if (evt.getSource().equals(suggestLocationsButton)) {
                         final LocationState currentState = locationViewModel.getState();
 
-                        this.locationController.execute(
-                                currentState.getAddress(),
-                                currentState.getLocationType()
-                        );
+                        try {
+                            this.locationController.execute(
+                                    currentState.getAddress(),
+                                    currentState.getLocationType()
+                            );
+                        }
+                        catch (DataAccessException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
         );
@@ -142,6 +149,10 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
     private void setFields(LocationState state) {
         addressField.setText(state.getAddress());
         locationTypeField.setText(state.getLocationType());
+    }
+
+    public String getViewName() {
+        return locationViewName;
     }
 }
 

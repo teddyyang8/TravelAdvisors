@@ -1,5 +1,6 @@
 package interface_adapter.location;
 
+import use_case.suggest_locations.DataAccessException;
 import use_case.suggest_locations.SuggestLocationsInputBoundary;
 import use_case.suggest_locations.SuggestLocationsInputData;
 
@@ -19,12 +20,12 @@ public class LocationController {
 
     /**
      * Executes the show location.
-     * @param location the location to show
      * Executes the save or refresh operation based on the location.
      * @param address the location to save or refresh
      * @param locationType the type of location to save or refresh
+     * @throws DataAccessException if data cannot be accessed
      */
-    public void execute(String address, String locationType){
+    public void execute(String address, String locationType) throws DataAccessException {
         final SuggestLocationsInputData suggestLocationInputData = new SuggestLocationsInputData(
                 address, locationType);
 
