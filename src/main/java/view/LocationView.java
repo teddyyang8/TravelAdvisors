@@ -30,7 +30,7 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 
     private final JLabel locationTypeLabel = new JLabel("Location Type");
 
-    private final JTextField locationTypeField = new JTextField(20);
+    private final JTextField[] locationTypeFields = new JTextField[5];
 
     private final JButton suggestLocationsButton;
 
@@ -45,8 +45,12 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
         final LabelTextPanel addressInfo = new LabelTextPanel(
                 new JLabel("Address"), addressField);
 
-        final LabelTextPanel locationTypeInfo = new LabelTextPanel(
-                new JLabel("Location Type"), locationTypeField);
+        final JPanel locationTypePanel = new JPanel();
+        locationTypePanel.setLayout(new BoxLayout(locationTypePanel, BoxLayout.Y_AXIS));
+        for (int i = 0; i < locationTypeFields.length; i++) {
+            locationTypeFields[i] = new JTextField(20);
+            locationTypePanel.add(new LabelTextPanel(new JLabel("Location Type " + (i + 1)), locationTypeFields[i]));
+        }
 
         final JPanel buttons = new JPanel();
         suggestLocationsButton = new JButton("Suggest Locations");
@@ -80,29 +84,41 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
             }
         });
 
-        locationTypeField.getDocument().addDocumentListener(new DocumentListener() {
+        for (JTextField locationTypeField : locationTypeFields) {
+            locationTypeField.getDocument().addDocumentListener(new DocumentListener() {
 
-            private void documentListenerHelper() {
-                final LocationState currentState = locationViewModel.getState();
-                currentState.setLocationType(locationTypeField.getText());
-                locationViewModel.setState(currentState);
-            }
+                private void documentListenerHelper() {
+                    final LocationState currentState = locationViewModel.getState();
+                    // make into one string
+                    final StringBuilder locationTypes = new StringBuilder();
+                    for (JTextField field : locationTypeFields) {
+                        if (!field.getText().isEmpty()) {
+                            if (locationTypes.length() > 0) {
+                                locationTypes.append(", ");
+                            }
+                            locationTypes.append(field.getText());
+                        }
+                    }
+                    currentState.setLocationType(locationTypes.toString());
+                    locationViewModel.setState(currentState);
+                }
 
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    documentListenerHelper();
+                }
 
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    documentListenerHelper();
+                }
 
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-        });
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    documentListenerHelper();
+                }
+            });
+        }
 
         suggestLocationsButton.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -126,7 +142,7 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
         this.add(title);
         this.add(addressInfo);
         this.add(addressLabel);
-        this.add(locationTypeInfo);
+        this.add(locationTypePanel);
         this.add(locationTypeLabel);
         this.add(buttons);
 
@@ -148,7 +164,15 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 
     private void setFields(LocationState state) {
         addressField.setText(state.getAddress());
-        locationTypeField.setText(state.getLocationType());
+        final String[] locationTypes = state.getLocationType().split(", ");
+        for (int i = 0; i < locationTypeFields.length; i++) {
+            if (i < locationTypes.length) {
+                locationTypeFields[i].setText(locationTypes[i]);
+            }
+            else {
+                locationTypeFields[i].setText("");
+            }
+        }
     }
 
     public String getViewName() {
