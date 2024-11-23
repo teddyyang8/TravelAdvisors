@@ -1,17 +1,17 @@
 package interface_adapter.suggestlocation;
 
 import use_case.suggest_locations.DataAccessException;
-import use_case.suggest_locations.SuggestLocationsInputBoundary;
-import use_case.suggest_locations.SuggestLocationsInputData;
+import use_case.suggest_locations.LocationsInputBoundary;
+import use_case.suggest_locations.LocationsInputData;
 
 /**
  * The SuggestedLocationsController class handles user input related to suggested locations.
  */
 public class SuggestedLocationsController {
 
-    private final SuggestLocationsInputBoundary suggestLocationsInput;
+    private final LocationsInputBoundary suggestLocationsInput;
 
-    public SuggestedLocationsController(SuggestLocationsInputBoundary suggestLocationsInput) {
+    public SuggestedLocationsController(LocationsInputBoundary suggestLocationsInput) {
         this.suggestLocationsInput = suggestLocationsInput;
     }
 
@@ -21,7 +21,7 @@ public class SuggestedLocationsController {
      * @param locationType the type of location to suggest
      */
     public void execute(String address, String locationType) throws DataAccessException {
-        final SuggestLocationsInputData suggestLocationInputData = new SuggestLocationsInputData(
+        final LocationsInputData suggestLocationInputData = new LocationsInputData(
                 address, locationType);
 
         suggestLocationsInput.execute(suggestLocationInputData);

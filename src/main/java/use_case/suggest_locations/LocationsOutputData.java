@@ -3,17 +3,16 @@ package use_case.suggest_locations;
 import java.util.List;
 
 import entity.Place;
-import entity.SuggestedPlace;
 
 /**
  * Output Data for the Suggest Locations Use Case.
  */
-public class SuggestLocationsOutputData {
+public class LocationsOutputData {
 
     private final List<Place> locations;
     private final boolean useCaseFailed;
 
-    public SuggestLocationsOutputData(List<Place> locations, boolean useCaseFailed) {
+    public LocationsOutputData(List<Place> locations, boolean useCaseFailed) {
         this.locations = locations;
         this.useCaseFailed = useCaseFailed;
     }
