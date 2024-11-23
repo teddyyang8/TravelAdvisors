@@ -1,17 +1,21 @@
 package use_case.suggested_locations;
 
+import entity.Place;
+
+import java.util.List;
+
 /**
  * The output data for the Suggested Location Use Case.
  */
 public class SuggestedLocationOutputData {
 
-    private final String suggestedLocation;
+    private final List<Place> suggestedLocation;
 
-    public SuggestedLocationOutputData(String suggestedLocation) {
+    public SuggestedLocationOutputData(List<Place> suggestedLocation) {
         this.suggestedLocation = suggestedLocation;
     }
 
-    public String getSuggestedLocation() {
+    public List<Place> getSuggestedLocation() {
         return suggestedLocation;
     }
 }

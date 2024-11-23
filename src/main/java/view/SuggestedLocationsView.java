@@ -56,6 +56,7 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
         updateSuggestedLocations(suggestedLocationsViewModel.getState());
     }
 
+//    how to change this
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(newSearchButton)) {

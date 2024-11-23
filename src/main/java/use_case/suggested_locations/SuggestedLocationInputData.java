@@ -1,23 +1,22 @@
 package use_case.suggested_locations;
 
+import entity.Place;
+
+import java.util.List;
+
 /**
  * The input data for the Suggested Locations Use Case.
  */
 public class SuggestedLocationInputData {
 
-    private final String address;
-    private final String locationType;
+    private final List<Place> places;
 
-    public SuggestedLocationInputData(String address, String locationType) {
-        this.address = address;
-        this.locationType = locationType;
+    public SuggestedLocationInputData(List<Place> places) {
+        this.places = places;
     }
 
-    public String getAddress() {
-        return address;
+    public List<Place> getPlaces() {
+        return places;
     }
 
-    public String getLocationType() {
-        return locationType;
-    }
 }

@@ -11,7 +11,7 @@ import use_case.suggested_locations.SuggestedLocationOutputData;
 /**
  * The presenter for the suggested locations use case.
  */
-public class SuggestedLocationsPresenter implements SuggestLocationsOutputBoundary, SuggestedLocationOutputBoundary {
+public class SuggestedLocationsPresenter implements SuggestedLocationOutputBoundary {
 
     private final ViewManagerModel viewManagerModel;
     private final SuggestedLocationsViewModel suggestedLocationsViewModel;
