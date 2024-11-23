@@ -29,14 +29,14 @@ public class SuggestedLocationUseCaseFactory {
      * @param viewManagerModel the ViewManagerModel to inject
      * @param locationViewModel the LocationViewModel to inject
      * @param suggestedLocationsViewModel the SuggestedLocationsViewModel to inject
+     * @param cardLayout the CardLayout to inject
+     * @param parentPanel the JPanel to inject
      * @return the SuggestedLocationView created for the provided input classes.
      */
     public static SuggestedLocationsView create(
             ViewManagerModel viewManagerModel,
             LocationViewModel locationViewModel,
-            SuggestedLocationsViewModel suggestedLocationsViewModel) {
-        final CardLayout cardLayout = new CardLayout();
-        final JPanel parentPanel = new JPanel();
+            SuggestedLocationsViewModel suggestedLocationsViewModel, CardLayout cardLayout, JPanel parentPanel) {
         final SuggestedLocationsController suggestedLocationController = createSuggestedLocationUseCase(
                 viewManagerModel, locationViewModel,
                 suggestedLocationsViewModel);

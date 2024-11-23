@@ -2,8 +2,8 @@ package app;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.location.LocationController;
+import interface_adapter.location.LocationPresenter;
 import interface_adapter.location.LocationViewModel;
-import interface_adapter.suggestlocation.SuggestedLocationsPresenter;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
 import use_case.suggest_locations.LocationDataAccessInterface;
 import use_case.suggest_locations.SuggestLocationsInputBoundary;
@@ -28,32 +28,28 @@ public class LocationUseCaseFactory {
      * Factory function for creating the LocationView.
      * @param viewManagerModel the ViewManagerModel to inject
      * @param locationViewModel the LocationViewModel to inject
-     * @param suggestedLocationsViewModel the SuggestedLocationsViewModel to inject
      * @param locationDataAccessObject the LocationDataAccessInterface to inject
+     * @param cardLayout the CardLayout to inject
+     * @param parentPanel the JPanel to inject
      * @return the LocationView created for the provided input classes.
      */
     public static LocationView create(
             ViewManagerModel viewManagerModel,
             LocationViewModel locationViewModel,
-            SuggestedLocationsViewModel suggestedLocationsViewModel,
-            LocationDataAccessInterface locationDataAccessObject) {
+            LocationDataAccessInterface locationDataAccessObject, CardLayout cardLayout, JPanel parentPanel) {
 
-        final CardLayout cardLayout = new CardLayout();
-        final JPanel parentPanel = new JPanel();
-        final LocationController locationController = createLocationUseCase(viewManagerModel, locationViewModel,
-                suggestedLocationsViewModel, locationDataAccessObject);
+        final LocationController locationController = createLocationUseCase(
+                locationViewModel, locationDataAccessObject);
 
         return new LocationView(locationViewModel, locationController, cardLayout, parentPanel);
     }
 
     private static LocationController createLocationUseCase(
-            ViewManagerModel viewManagerModel,
             LocationViewModel locationViewModel,
-            SuggestedLocationsViewModel suggestedLocationsViewModel,
             LocationDataAccessInterface userDataAccessObject) {
 
-        final SuggestLocationsOutputBoundary suggestLocationsOutputBoundary = new SuggestedLocationsPresenter(viewManagerModel,
-                suggestedLocationsViewModel, locationViewModel);
+        final SuggestLocationsOutputBoundary suggestLocationsOutputBoundary =
+                new LocationPresenter(locationViewModel);
         final SuggestLocationsInputBoundary locationInteractor = new SuggestLocationsInteractor(userDataAccessObject,
                 suggestLocationsOutputBoundary);
 

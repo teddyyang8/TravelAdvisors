@@ -18,6 +18,6 @@ public class SuggestedLocationInteractor implements SuggestedLocationInputBounda
         final SuggestedLocationOutputData suggestedLocationOutputData = new SuggestedLocationOutputData(
                 suggestedLocationInputData.getPlaces()
         );
-        suggestedLocationOutputBoundary.prepareSuccessView(suggestedLocationOutputData);
+        suggestedLocationsPresenter.prepareSuccessView(suggestedLocationOutputData);
     }
 }

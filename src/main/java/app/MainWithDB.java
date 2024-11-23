@@ -44,13 +44,14 @@ public class MainWithDB {
         final DBLocationDataAccessObject locationDataAccessObject = new DBLocationDataAccessObject(
                 new SuggestedPlaceFactory());
 
-        final LocationView locationView = LocationUseCaseFactory.create(viewManagerModel, locationViewModel,
-                suggestedLocationsViewModel, locationDataAccessObject);
+        final LocationView locationView =
+                LocationUseCaseFactory.create(viewManagerModel,
+                        locationViewModel, locationDataAccessObject, cardLayout, views);
         views.add(locationView, locationView.getViewName());
 
-//        final SuggestedLocationsView suggestedLocationsView = SuggestedLocationUseCaseFactory.create(viewManagerModel,
-//                suggestedLocationsViewModel, locationDataAccessObject);
-//        views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
+        final SuggestedLocationsView suggestedLocationsView = SuggestedLocationUseCaseFactory.create(viewManagerModel,
+                locationViewModel, suggestedLocationsViewModel, cardLayout, views);
+        views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
 
         viewManagerModel.setState(locationView.getViewName());
         viewManagerModel.firePropertyChanged();

@@ -150,6 +150,7 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 
     }
 
+    @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(suggestLocationsButton)) {
             cardLayout.show(parentPanel, "suggestedLocationsView");

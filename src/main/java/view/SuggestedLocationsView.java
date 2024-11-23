@@ -22,6 +22,7 @@ import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
  */
 public class SuggestedLocationsView extends JPanel implements ActionListener, PropertyChangeListener {
 
+    private final String suggestLocationsViewName = "Found Locations";
     private final SuggestedLocationsViewModel suggestedLocationsViewModel;
     private final SuggestedLocationsController suggestedLocationsController;
     private final CardLayout cardLayout;
@@ -56,7 +57,6 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
         updateSuggestedLocations(suggestedLocationsViewModel.getState());
     }
 
-//    how to change this
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(newSearchButton)) {
@@ -79,5 +79,9 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
         }
         suggestedLocationsPanel.revalidate();
         suggestedLocationsPanel.repaint();
+    }
+
+    public String getViewName() {
+        return suggestLocationsViewName;
     }
 }

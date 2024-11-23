@@ -25,7 +25,6 @@ public class SuggestedLocationsPresenter implements SuggestedLocationOutputBound
         this.locationViewModel = locationsViewModel;
     }
 
-    @Override
     public void prepareSuccessView(SuggestLocationsOutputData response) {
         // On success, switch to the logged in view.
 
