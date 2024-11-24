@@ -1,4 +1,4 @@
-package use_case.suggest_locations;
+package use_case.locations;
 
 /**
  * The output boundary for the Suggest Locations Use Case.
@@ -16,8 +16,8 @@ public interface LocationsOutputBoundary {
      */
     void prepareFailView(String errorMessage);
 
-    /**
-     * Switches to the Suggested Locations View.
-     */
-    void switchToSuggestedLocationsView();
+//    /**
+//     * Switches to the Suggested Locations View.
+//     */
+//    void switchToSuggestedLocationsView();
 }

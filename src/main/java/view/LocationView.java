@@ -13,7 +13,7 @@ import javax.swing.event.DocumentListener;
 import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationState;
 import interface_adapter.location.LocationViewModel;
-import use_case.suggest_locations.DataAccessException;
+import use_case.DataAccessException;
 
 /**
  * The View for when the user is viewing a location in the program.

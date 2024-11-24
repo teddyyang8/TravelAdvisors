@@ -1,8 +1,8 @@
 package interface_adapter.location;
 
-import use_case.suggest_locations.DataAccessException;
-import use_case.suggest_locations.LocationsInputBoundary;
-import use_case.suggest_locations.LocationsInputData;
+import use_case.DataAccessException;
+import use_case.locations.LocationsInputBoundary;
+import use_case.locations.LocationsInputData;
 
 /**
  * The LocationController class handles user input related to locations.
@@ -33,10 +33,10 @@ public class LocationController {
         locationInput.execute(locationInputData);
     }
 
-    /**
-     * Switches to the suggested locations view.
-     */
-    public void switchToSuggestedLocationsView() {
-        locationInput.switchToSuggestedLocationsView();
-    }
+//    /**
+//     * Switches to the suggested locations view.
+//     */
+//    public void switchToSuggestedLocationsView() {
+//        locationInput.switchToSuggestedLocationsView();
+//    }
 }

@@ -5,10 +5,10 @@ import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationPresenter;
 import interface_adapter.location.LocationViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
-import use_case.suggest_locations.LocationDataAccessInterface;
-import use_case.suggest_locations.LocationsInputBoundary;
-import use_case.suggest_locations.LocationsInteractor;
-import use_case.suggest_locations.LocationsOutputBoundary;
+import use_case.locations.LocationDataAccessInterface;
+import use_case.locations.LocationsInputBoundary;
+import use_case.locations.LocationsInteractor;
+import use_case.locations.LocationsOutputBoundary;
 import view.LocationView;
 
 /**
