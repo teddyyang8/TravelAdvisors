@@ -1,34 +1,30 @@
 package interface_adapter.suggestlocation;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.location.LocationState;
-import interface_adapter.location.LocationViewModel;
-import use_case.suggest_locations.LocationsOutputBoundary;
-import use_case.suggest_locations.LocationsOutputData;
+import use_case.locations.LocationsOutputData;
+import use_case.suggested_locations.SuggestedLocationsOutputBoundary;
+import use_case.suggested_locations.SuggestedLocationsOutputData;
 
 /**
  * The presenter for the suggested locations use case.
  */
-public class SuggestedLocationsPresenter implements LocationsOutputBoundary {
+public class SuggestedLocationsPresenter implements SuggestedLocationsOutputBoundary {
 
     private final ViewManagerModel viewManagerModel;
     private final SuggestedLocationsViewModel suggestedLocationsViewModel;
-    private final LocationViewModel locationViewModel;
 
     public SuggestedLocationsPresenter(ViewManagerModel viewManagerModel,
-                                       SuggestedLocationsViewModel suggestedLocationsViewModel,
-                                       LocationViewModel locationsViewModel) {
+                                       SuggestedLocationsViewModel suggestedLocationsViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.suggestedLocationsViewModel = suggestedLocationsViewModel;
-        this.locationViewModel = locationsViewModel;
     }
 
     @Override
-    public void prepareSuccessView(LocationsOutputData response) {
-        // On success, switch to the logged in view.
+    public void prepareSuccessView(SuggestedLocationsOutputData response) {
+        // On success, switch to the TODO: next view.
 
         final SuggestedLocationsState suggestedLocationsState = suggestedLocationsViewModel.getState();
-        suggestedLocationsState.setSuggestedLocations(response.getLocations());
+        suggestedLocationsState.setSuggestedLocations(response.getSuggestedLocations());
         this.suggestedLocationsViewModel.setState(suggestedLocationsState);
         this.suggestedLocationsViewModel.firePropertyChanged();
 
@@ -38,14 +34,15 @@ public class SuggestedLocationsPresenter implements LocationsOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-        final LocationState locationState = locationViewModel.getState();
-        locationState.setError(error);
-        locationViewModel.firePropertyChanged();
+        final SuggestedLocationsState suggestedLocationState = suggestedLocationsViewModel.getState();
+        suggestedLocationState.setError(error);
+        suggestedLocationsViewModel.firePropertyChanged();
     }
-
-    @Override
-    public void switchToSuggestedLocationsView() {
-
-    }
+//
+//    // change to switch to next view
+//    @Override
+//    public void switchToSuggestedLocationsView() {
+//
+//  }
 
 }

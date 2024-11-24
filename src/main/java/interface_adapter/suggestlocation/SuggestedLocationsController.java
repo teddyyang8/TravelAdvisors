@@ -1,29 +1,32 @@
 package interface_adapter.suggestlocation;
 
-import use_case.suggest_locations.DataAccessException;
-import use_case.suggest_locations.LocationsInputBoundary;
-import use_case.suggest_locations.LocationsInputData;
+import java.util.List;
+
+import entity.Place;
+import use_case.DataAccessException;
+import use_case.suggested_locations.SuggestedLocationsInputBoundary;
+import use_case.suggested_locations.SuggestedLocationsInputData;
 
 /**
  * The SuggestedLocationsController class handles user input related to suggested locations.
  */
 public class SuggestedLocationsController {
 
-    private final LocationsInputBoundary suggestLocationsInput;
+    private final SuggestedLocationsInputBoundary suggestedLocationsInteractor;
 
-    public SuggestedLocationsController(LocationsInputBoundary suggestLocationsInput) {
-        this.suggestLocationsInput = suggestLocationsInput;
+    public SuggestedLocationsController(SuggestedLocationsInputBoundary suggestedLocationsInteractor) {
+        this.suggestedLocationsInteractor = suggestedLocationsInteractor;
     }
 
     /**
-     * Executes the suggest locations operation.
-     * @param address the address to suggest locations for
-     * @param locationType the type of location to suggest
+     * Executes the suggested locations' operation.
+     * @param suggestedLocations the suggestedLocations produced.
+     * @throws DataAccessException if data cannot be accessed.
      */
-    public void execute(String address, String locationType) throws DataAccessException {
-        final LocationsInputData suggestLocationInputData = new LocationsInputData(
-                address, locationType);
+    public void execute(List<Place> suggestedLocations) throws DataAccessException {
+        final SuggestedLocationsInputData suggestedLocationInputData = new SuggestedLocationsInputData(
+                suggestedLocations);
 
-        suggestLocationsInput.execute(suggestLocationInputData);
+        suggestedLocationsInteractor.execute(suggestedLocationInputData);
     }
 }

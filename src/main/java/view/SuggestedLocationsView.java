@@ -22,22 +22,18 @@ import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
  */
 public class SuggestedLocationsView extends JPanel implements ActionListener, PropertyChangeListener {
 
+    private final String viewName = "Suggested Locations";
     private final SuggestedLocationsViewModel suggestedLocationsViewModel;
     private final SuggestedLocationsController suggestedLocationsController;
-    private final CardLayout cardLayout;
-    private final JPanel parentPanel;
 
     private final JPanel suggestedLocationsPanel;
     private final JButton newSearchButton;
 
     public SuggestedLocationsView(SuggestedLocationsViewModel suggestedLocationsViewModel,
-                                  SuggestedLocationsController suggestedLocationsController,
-                                  CardLayout cardLayout, JPanel parentPanel) {
+                                  SuggestedLocationsController suggestedLocationsController) {
         this.suggestedLocationsViewModel = suggestedLocationsViewModel;
         this.suggestedLocationsViewModel.addPropertyChangeListener(this);
         this.suggestedLocationsController = suggestedLocationsController;
-        this.cardLayout = cardLayout;
-        this.parentPanel = parentPanel;
 
         final JLabel title = new JLabel("List of Suggested Locations:");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -78,5 +74,9 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
         }
         suggestedLocationsPanel.revalidate();
         suggestedLocationsPanel.repaint();
+    }
+
+    public String getViewName() {
+        return viewName;
     }
 }
