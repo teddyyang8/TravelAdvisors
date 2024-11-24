@@ -3,8 +3,8 @@ package interface_adapter.location;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.suggestlocation.SuggestedLocationsState;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
-import use_case.suggest_locations.LocationsOutputBoundary;
-import use_case.suggest_locations.LocationsOutputData;
+import use_case.locations.LocationsOutputBoundary;
+import use_case.locations.LocationsOutputData;
 
 /**
  * The presenter for our Note viewing and editing program.
@@ -35,12 +35,16 @@ public class LocationPresenter implements LocationsOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-        throw new LocationSearchFailed(error);
-    }
-
-    @Override
-    public void switchToSuggestedLocationsView() {
-        viewManagerModel.setState(suggestedLocationsViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+        final LocationState locationState = locationViewModel.getState();
+        locationState.setError(error);
+        locationViewModel.firePropertyChanged();
     }
 }
+
+    // commenting out bc i dont think we need it; view switches in execute (see CAUSerLogin)
+//    @Override
+//    public void switchToSuggestedLocationsView() {
+//        viewManagerModel.setState(suggestedLocationsViewModel.getViewName());
+//        viewManagerModel.firePropertyChanged();
+//    }
+//

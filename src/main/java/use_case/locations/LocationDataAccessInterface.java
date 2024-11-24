@@ -1,8 +1,9 @@
-package use_case.suggest_locations;
+package use_case.locations;
 
 import java.util.List;
 
 import entity.Place;
+import use_case.DataAccessException;
 
 /**
  * Interface for the LocationDAO. It consists of methods for

@@ -1,4 +1,4 @@
-package use_case.suggest_locations;
+package use_case.locations;
 
 import java.util.List;
 
