@@ -1,18 +1,20 @@
 package view;
 
-import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import entity.Place;
+import interface_adapter.location.LocationViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsController;
 import interface_adapter.suggestlocation.SuggestedLocationsState;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
@@ -55,7 +57,7 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(newSearchButton)) {
-            cardLayout.show(parentPanel, "locationView");
+            // Handle new search button click
         }
     }
 
@@ -68,9 +70,15 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
 
     private void updateSuggestedLocations(SuggestedLocationsState state) {
         suggestedLocationsPanel.removeAll();
-        for (Place location : state.getSuggestedLocations()) {
-            suggestedLocationsPanel.add(new JLabel(location.getName()));
-            suggestedLocationsPanel.add(new JLabel(location.getAddress()));
+        List<Place> suggestedLocations = state.getSuggestedLocations();
+        if (suggestedLocations != null) {
+            for (int i = 0; i < Math.min(10, suggestedLocations.size()); i++) {
+                final Place location = suggestedLocations.get(i);
+                suggestedLocationsPanel.add(new JLabel(location.getName()));
+                suggestedLocationsPanel.add(new JLabel(location.getAddress()));
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No suggested locations available.", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
         suggestedLocationsPanel.revalidate();
         suggestedLocationsPanel.repaint();

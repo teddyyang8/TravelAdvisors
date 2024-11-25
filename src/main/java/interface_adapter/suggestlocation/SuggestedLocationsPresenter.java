@@ -21,7 +21,7 @@ public class SuggestedLocationsPresenter implements SuggestedLocationsOutputBoun
 
     @Override
     public void prepareSuccessView(SuggestedLocationsOutputData response) {
-        // On success, switch to the TODO: next view.
+        // On success, switch to the suggested locations view.
 
         final SuggestedLocationsState suggestedLocationsState = suggestedLocationsViewModel.getState();
         suggestedLocationsState.setSuggestedLocations(response.getSuggestedLocations());
