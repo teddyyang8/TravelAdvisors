@@ -15,7 +15,7 @@ import javax.swing.event.DocumentListener;
 import interface_adapter.location.LocationController;
 import interface_adapter.location.LocationState;
 import interface_adapter.location.LocationViewModel;
-import use_case.suggest_locations.DataAccessException;
+import use_case.DataAccessException;
 
 /**
  * The View for when the user is viewing a location in the program.
@@ -63,6 +63,10 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
         suggestLocationsButton.addActionListener(this);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(title);
+        this.add(addressInfo);
+        this.add(locationTypePanel);
+        this.add(buttons);
 
         addressField.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -124,30 +128,16 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
             });
         }
 
-        suggestLocationsButton.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                evt -> {
-                    if (evt.getSource().equals(suggestLocationsButton)) {
-                        final LocationState currentState = locationViewModel.getState();
-
-                        try {
-                            this.locationController.execute(
-                                    currentState.getAddress(),
-                                    currentState.getLocationType()
-                            );
-                        }
-                        catch (DataAccessException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
+        suggestLocationsButton.addActionListener(evt -> {
+            if (evt.getSource().equals(suggestLocationsButton)) {
+                final LocationState currentState = locationViewModel.getState();
+                try {
+                    locationController.execute(currentState.getAddress(), currentState.getLocationType());
+                } catch (DataAccessException e) {
+                    throw new RuntimeException(e);
                 }
-        );
-
-        this.add(title);
-        this.add(addressInfo);
-        this.add(locationTypePanel);
-        this.add(buttons);
-
+            }
+        });
     }
 
     @Override
@@ -157,12 +147,8 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
             final LocationState currentState = locationViewModel.getState();
 
             try {
-                this.locationController.execute(
-                        currentState.getAddress(),
-                        currentState.getLocationType()
-                );
-            }
-            catch (DataAccessException e) {
+                locationController.execute(currentState.getAddress(), currentState.getLocationType());
+            } catch (DataAccessException e) {
                 throw new RuntimeException(e);
             }
         }

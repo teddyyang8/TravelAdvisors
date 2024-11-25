@@ -1,11 +1,5 @@
 package interface_adapter.location;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import entity.Place;
-import use_case.suggest_locations.SuggestLocationsInputData;
-
 /**
  * The state representing location-related data, including city, address, keywords,
  * suggested locations, and any error messages.

@@ -11,8 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import use_case.suggest_locations.DataAccessException;
-import use_case.suggest_locations.LocationDataAccessInterface;
+import use_case.DataAccessException;
+import use_case.locations.LocationDataAccessInterface;
 
 /**
  * The DAO for accessing places using Google Places API.

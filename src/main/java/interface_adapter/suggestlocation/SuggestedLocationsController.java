@@ -1,29 +1,32 @@
 package interface_adapter.suggestlocation;
 
-import entity.Place;
-import use_case.suggest_locations.DataAccessException;
-import use_case.suggested_locations.SuggestedLocationInputBoundary;
-import use_case.suggested_locations.SuggestedLocationInputData;
-
 import java.util.List;
+
+import entity.Place;
+import use_case.DataAccessException;
+import use_case.suggested_locations.SuggestedLocationsInputBoundary;
+import use_case.suggested_locations.SuggestedLocationsInputData;
 
 /**
  * The SuggestedLocationsController class handles user input related to suggested locations.
  */
 public class SuggestedLocationsController {
 
-    private final SuggestedLocationInputBoundary suggestLocationsInput;
+    private final SuggestedLocationsInputBoundary suggestedLocationsInteractor;
 
-    public SuggestedLocationsController(SuggestedLocationInputBoundary suggestLocationsInput) {
-        this.suggestLocationsInput = suggestLocationsInput;
+    public SuggestedLocationsController(SuggestedLocationsInputBoundary suggestedLocationsInteractor) {
+        this.suggestedLocationsInteractor = suggestedLocationsInteractor;
     }
 
     /**
-     * Executes the suggest locations operation.
-     * @param places the suggested places found.
+     * Executes the suggested locations' operation.
+     * @param suggestedLocations the suggestedLocations produced.
+     * @throws DataAccessException if data cannot be accessed.
      */
-    public void execute(List<Place> places) throws DataAccessException {
-        final SuggestedLocationInputData suggestLocationInputData = new SuggestedLocationInputData(places);
-        suggestLocationsInput.execute(suggestLocationInputData);
+    public void execute(List<Place> suggestedLocations) throws DataAccessException {
+        final SuggestedLocationsInputData suggestedLocationInputData = new SuggestedLocationsInputData(
+                suggestedLocations);
+
+        suggestedLocationsInteractor.execute(suggestedLocationInputData);
     }
 }
