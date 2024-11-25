@@ -71,6 +71,7 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
     private void updateSuggestedLocations(SuggestedLocationsState state) {
         suggestedLocationsPanel.removeAll();
         List<Place> suggestedLocations = state.getSuggestedLocations();
+        System.out.println(suggestedLocations.size());
         if (suggestedLocations != null) {
             for (int i = 0; i < Math.min(10, suggestedLocations.size()); i++) {
                 final Place location = suggestedLocations.get(i);

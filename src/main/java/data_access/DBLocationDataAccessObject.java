@@ -64,7 +64,7 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
                 }
                 final String placesString = places.toString();
 
-                final String[] locationsList = placesString.split("<:>");
+                final String[] locationsList = placesString.split("<");
                 final List<Place> suggestedPlaces = new ArrayList<>();
                 for (String location : locationsList) {
                     final Place place = placeFactory.create(location.split(">")[1], location.split(">")[0]);
