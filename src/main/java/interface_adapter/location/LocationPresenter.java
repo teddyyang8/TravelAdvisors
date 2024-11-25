@@ -7,7 +7,7 @@ import use_case.locations.LocationsOutputBoundary;
 import use_case.locations.LocationsOutputData;
 
 /**
- * The presenter for our Note viewing and editing program.
+ * The Presenter for the Location Use Case.
  */
 public class LocationPresenter implements LocationsOutputBoundary {
 
@@ -15,7 +15,9 @@ public class LocationPresenter implements LocationsOutputBoundary {
     private final SuggestedLocationsViewModel suggestedLocationsViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    public LocationPresenter(LocationViewModel locationViewModel, SuggestedLocationsViewModel suggestedLocationsViewModel, ViewManagerModel viewManagerModel) {
+    public LocationPresenter(LocationViewModel locationViewModel,
+                             SuggestedLocationsViewModel suggestedLocationsViewModel,
+                             ViewManagerModel viewManagerModel) {
         this.locationViewModel = locationViewModel;
         this.suggestedLocationsViewModel = suggestedLocationsViewModel;
         this.viewManagerModel = viewManagerModel;
@@ -27,10 +29,10 @@ public class LocationPresenter implements LocationsOutputBoundary {
         final SuggestedLocationsState suggestedLocationsState = suggestedLocationsViewModel.getState();
         suggestedLocationsState.setSuggestedLocations(response.getLocations());
         this.suggestedLocationsViewModel.setState(suggestedLocationsState);
-        suggestedLocationsViewModel.firePropertyChanged();
+        this.suggestedLocationsViewModel.firePropertyChanged();
 
-        viewManagerModel.setState(suggestedLocationsViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+        this.viewManagerModel.setState(suggestedLocationsViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
     }
 
     @Override
