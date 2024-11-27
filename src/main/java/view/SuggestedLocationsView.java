@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import entity.Place;
-import interface_adapter.location.LocationViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsController;
 import interface_adapter.suggestlocation.SuggestedLocationsState;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
@@ -70,7 +69,7 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
 
     private void updateSuggestedLocations(SuggestedLocationsState state) {
         suggestedLocationsPanel.removeAll();
-        List<Place> suggestedLocations = state.getSuggestedLocations();
+        final List<Place> suggestedLocations = state.getSuggestedLocations();
         System.out.println(suggestedLocations.size());
         if (suggestedLocations != null) {
             for (int i = 0; i < Math.min(10, suggestedLocations.size()); i++) {
