@@ -7,7 +7,7 @@ import interface_adapter.ViewModel;
  */
 public class SuggestedLocationsViewModel extends ViewModel<SuggestedLocationsState> {
     public SuggestedLocationsViewModel() {
-        super("suggestedLocations");
+        super("Suggested Locations");
         setState(new SuggestedLocationsState());
     }
 }
