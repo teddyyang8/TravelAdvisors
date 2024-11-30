@@ -73,9 +73,9 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
         if (suggestedLocations != null) {
             for (int i = 0; i < Math.min(10, suggestedLocations.size()); i++) {
                 final Place location = suggestedLocations.get(i);
-                JPanel locationPanel = new JPanel();
+                final JPanel locationPanel = new JPanel();
                 locationPanel.setLayout(new BoxLayout(locationPanel, BoxLayout.Y_AXIS));
-                JCheckBox checkBox = new JCheckBox();
+                final JCheckBox checkBox = new JCheckBox();
                 checkBox.addActionListener(e -> {
                     if (checkBox.isSelected()) {
                         selectedLocations.add(location);
@@ -90,7 +90,8 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
                 locationPanel.add(Box.createVerticalStrut(10));
                 suggestedLocationsPanel.add(locationPanel);
             }
-        } else {
+        }
+        else {
             JOptionPane.showMessageDialog(this, "No suggested locations available.", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
         suggestedLocationsPanel.revalidate();

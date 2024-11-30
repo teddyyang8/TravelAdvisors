@@ -26,11 +26,17 @@ public class LocationController {
      * @param locationType the type of location to save or refresh
      * @throws DataAccessException if data cannot be accessed
      */
+
+
     public void execute(String address, String locationType) throws DataAccessException {
         final LocationsInputData locationInputData = new LocationsInputData(
                 address, locationType);
 
         locationInput.execute(locationInputData);
+    }
+
+    public void clearSaved() {
+
     }
 
 //    /**
