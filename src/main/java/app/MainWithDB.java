@@ -7,6 +7,7 @@ import interface_adapter.location.LocationViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
 import view.LocationView;
 import view.SuggestedLocationsView;
+import view.UserProfileView;
 import view.ViewManager;
 
 import javax.swing.*;
@@ -51,6 +52,9 @@ public class MainWithDB {
         final SuggestedLocationsView suggestedLocationsView = SuggestedLocationsUseCaseFactory.create(viewManagerModel,
                 suggestedLocationsViewModel);
         views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
+
+        final UserProfileView userProfileView = UserUseCaseFactory.create(viewManagerModel);
+        views.add(userProfileView, "User Profile");
 
         viewManagerModel.setState(locationView.getViewName());
         viewManagerModel.firePropertyChanged();
