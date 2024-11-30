@@ -1,17 +1,14 @@
 package view;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import entity.Place;
 import interface_adapter.suggestlocation.SuggestedLocationsController;
@@ -29,6 +26,7 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
 
     private final JPanel suggestedLocationsPanel;
     private final JButton newSearchButton;
+    private final List<Place> selectedLocations;
 
     public SuggestedLocationsView(SuggestedLocationsViewModel suggestedLocationsViewModel,
                                   SuggestedLocationsController suggestedLocationsController) {
@@ -44,6 +42,8 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
 
         this.newSearchButton = new JButton("New Search");
         newSearchButton.addActionListener(this);
+
+        this.selectedLocations = new ArrayList<>();
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
@@ -70,18 +70,36 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
     private void updateSuggestedLocations(SuggestedLocationsState state) {
         suggestedLocationsPanel.removeAll();
         final List<Place> suggestedLocations = state.getSuggestedLocations();
-        System.out.println(suggestedLocations.size());
         if (suggestedLocations != null) {
             for (int i = 0; i < Math.min(10, suggestedLocations.size()); i++) {
                 final Place location = suggestedLocations.get(i);
-                suggestedLocationsPanel.add(new JLabel(location.getName()));
-                suggestedLocationsPanel.add(new JLabel(location.getAddress()));
+                JPanel locationPanel = new JPanel();
+                locationPanel.setLayout(new BoxLayout(locationPanel, BoxLayout.Y_AXIS));
+                JCheckBox checkBox = new JCheckBox();
+                checkBox.addActionListener(e -> {
+                    if (checkBox.isSelected()) {
+                        selectedLocations.add(location);
+                    } else {
+                        selectedLocations.remove(location);
+                    }
+                });
+                locationPanel.add(checkBox);
+                locationPanel.add(new JLabel(location.getName()));
+                locationPanel.add(new JLabel(location.getAddress()));
+                locationPanel.add(Box.createVerticalStrut(10));
+                suggestedLocationsPanel.add(locationPanel);
             }
         } else {
             JOptionPane.showMessageDialog(this, "No suggested locations available.", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
         suggestedLocationsPanel.revalidate();
         suggestedLocationsPanel.repaint();
+        this.setPreferredSize(new Dimension(800, 1200));
+
+    }
+
+    public List<Place> getSelectedLocations() {
+        return selectedLocations;
     }
 
     public String getViewName() {
