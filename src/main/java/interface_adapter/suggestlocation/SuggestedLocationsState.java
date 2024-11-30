@@ -1,5 +1,6 @@
 package interface_adapter.suggestlocation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import entity.Place;
@@ -9,7 +10,7 @@ import entity.Place;
  */
 
 public class SuggestedLocationsState {
-    private List<Place> suggestedLocations;
+    private List<Place> suggestedLocations = new ArrayList<>();
     private String error;
 
     public List<Place> getSuggestedLocations() {
