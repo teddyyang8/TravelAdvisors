@@ -1,5 +1,6 @@
 package app;
 
+import data_access.DBCoordinatesDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.selectedlocation.SelectedLocationsController;
 import interface_adapter.selectedlocation.SelectedLocationsPresenter;
@@ -30,18 +31,20 @@ public class SelectedLocationsUseCaseFactory {
      */
     public static SelectedLocationView create(
             ViewManagerModel viewManagerModel,
-            SelectedLocationsViewModel selectedLocationsViewModel) {
+            SelectedLocationsViewModel selectedLocationsViewModel,
+            DBCoordinatesDataAccessObject coordinatesDataAccessObject) {
 
         final SelectedLocationsController selectedLocationsController =
             createSelectedLocationUseCase(viewManagerModel,
-                                          selectedLocationsViewModel);
+                                          selectedLocationsViewModel, coordinatesDataAccessObject);
         return new SelectedLocationView(selectedLocationsViewModel,
                                         selectedLocationsController);
 }
 
     private static SelectedLocationsController createSelectedLocationUseCase(
             ViewManagerModel viewManagerModel,
-            SelectedLocationsViewModel selectedLocationsViewModel) {
+            SelectedLocationsViewModel selectedLocationsViewModel,
+            DBCoordinatesDataAccessObject coordinatesDataAccessObject) {
 //        final SelectedLocationsOutputBoundary selectedLocationsOutputBoundary = new SelectedLocationsPresenter(
 //                viewManagerModel, selectedLocationsViewModel);
 //        final SelectedLocationsInputBoundary selectedLocationsInteractor = new SelectedLocationsInteractor(

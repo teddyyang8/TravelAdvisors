@@ -6,6 +6,8 @@ import use_case.DataAccessException;
 import use_case.selected_locations.SelectedLocationsInputBoundary;
 import use_case.selected_locations.SelectedLocationsInputData;
 
+import java.util.List;
+
 public class SelectedLocationsController {
 
     private final SelectedLocationsInputBoundary selectedLocationsInteractor;
@@ -14,8 +16,10 @@ public class SelectedLocationsController {
         this.selectedLocationsInteractor = selectedLocationsInteractor;
     }
 
-    public void execute() throws DataAccessException {
-        final SelectedLocationsInputData selectedLocationsInputData = new SelectedLocationsInputData();
+    public void execute(List<Place> selectedLocations) throws DataAccessException {
+        final SelectedLocationsInputData selectedLocationsInputData =
+                new SelectedLocationsInputData(selectedLocations);
+        selectedLocationsInteractor.execute(selectedLocationsInputData);
     }
 
 }

@@ -1,5 +1,6 @@
 package app;
 
+import data_access.DBCoordinatesDataAccessObject;
 import data_access.DBLocationDataAccessObject;
 import entity.SuggestedPlaceFactory;
 import interface_adapter.ViewManagerModel;
@@ -46,6 +47,7 @@ public class MainWithDB {
 
         final DBLocationDataAccessObject locationDataAccessObject = new DBLocationDataAccessObject(
                 new SuggestedPlaceFactory());
+        final DBCoordinatesDataAccessObject coordinatesDataAccessObject = new DBCoordinatesDataAccessObject();
 
         final LocationView locationView = LocationUseCaseFactory.create(viewManagerModel, locationViewModel,
                 suggestedLocationsViewModel, locationDataAccessObject);
@@ -56,7 +58,7 @@ public class MainWithDB {
         views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
 
         final SelectedLocationView selectedLocationView = SelectedLocationsUseCaseFactory.create(viewManagerModel,
-                 selectedLocationsViewModel);
+                 selectedLocationsViewModel, coordinatesDataAccessObject);
         views.add(selectedLocationView, selectedLocationView.getViewName());
 
         viewManagerModel.setState(locationView.getViewName());
