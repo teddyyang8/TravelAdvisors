@@ -1,8 +1,7 @@
 package interface_adapter.suggestlocation;
 
-import
 import interface_adapter.ViewManagerModel;
-import interface_adapter.selectedlocation.SelectedLocationsState;
+import use_case.locations.LocationsOutputData;
 import use_case.suggested_locations.SuggestedLocationsOutputBoundary;
 import use_case.suggested_locations.SuggestedLocationsOutputData;
 
@@ -22,13 +21,14 @@ public class SuggestedLocationsPresenter implements SuggestedLocationsOutputBoun
 
     @Override
     public void prepareSuccessView(SuggestedLocationsOutputData response) {
-        // On success, switch to the suggested locations view.
-        final SelectedLocationsState selectedLocationsState = selectedLocationsViewModel.getState();
-        selectedLocationsState.setSelectedLocations(response.getLocations());
-        this.selectedLocationsViewModel.setState(selectedLocationsState);
-        this.viewManagerModel.firePropertyChanged();
+        // On success, switch to the selected locations view.
 
-        this.viewManagerModel.setState(selectedLocationsViewModel.getViewName());
+        final SelectedLocationState selectedLocationState = selectedLocationViewModel.getState();
+        selectedLocationState.setSelectedLocations(response.getSelectedLocations());
+        this.selectedLocationViewModel.setState(selectedLocationState);
+        this.selectedLocationViewModel.firePropertyChanged();
+
+        this.viewManagerModel.setState(selectedLocationViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }
 
@@ -38,11 +38,4 @@ public class SuggestedLocationsPresenter implements SuggestedLocationsOutputBoun
         suggestedLocationState.setError(error);
         suggestedLocationsViewModel.firePropertyChanged();
     }
-//
-//    // change to switch to next view
-//    @Override
-//    public void switchToSuggestedLocationsView() {
-//
-//  }
-
 }

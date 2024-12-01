@@ -18,14 +18,11 @@ import use_case.locations.LocationDataAccessInterface;
  * The DAO for accessing places using Google Places API.
  */
 public class DBLocationDataAccessObject implements LocationDataAccessInterface {
-    private static final int SUCCESS_CODE = 200;
-    private static final int CREDENTIAL_ERROR = 403;
     private static final String API_HEADER = "X-Goog-Api-Key";
     private static final String API_FIELD = "X-Goog-FieldMask";
     private static final String FIELDS = "places.displayName,places.formattedAddress";
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";
-    private static final String STATUS_CODE_LABEL = "code";
     private static final String API_KEY = System.getenv("API_KEY");
     private final PlaceFactory placeFactory;
 

@@ -1,14 +1,12 @@
 package view;
 
 import java.awt.*;
-import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.*;
-import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -25,8 +23,6 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
     private final String locationViewName = "Search Locations";
     private final LocationViewModel locationViewModel;
     private final LocationController locationController;
-    private final CardLayout cardLayout;
-    private final JPanel parentPanel;
 
     private final JTextField addressField = new JTextField(20);
 
@@ -34,15 +30,10 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 
     private final JButton suggestLocationsButton;
 
-    public LocationView(LocationViewModel locationViewModel,
-                        LocationController locationController,
-                        CardLayout cardLayout, JPanel parentPanel) {
+    public LocationView(LocationViewModel locationViewModel, LocationController locationController) {
         this.locationViewModel = locationViewModel;
         this.locationViewModel.addPropertyChangeListener(this);
         this.locationController = locationController;
-        this.cardLayout = cardLayout;
-        this.parentPanel = parentPanel;
-
         final JLabel title = new JLabel("Suggest Locations");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -143,7 +134,6 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(suggestLocationsButton)) {
-            cardLayout.show(parentPanel, "suggestedLocationsView");
             final LocationState currentState = locationViewModel.getState();
 
             try {

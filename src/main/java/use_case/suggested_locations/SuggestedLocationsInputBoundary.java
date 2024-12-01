@@ -13,10 +13,4 @@ public interface SuggestedLocationsInputBoundary {
      * @throws DataAccessException if data cannot be accessed at any time
      */
     void execute(SuggestedLocationsInputData suggestedLocationsInputData) throws DataAccessException;
-//
-//    /**
-//     * Switch to the TODO: next View.
-//     */
-//    void switchToSuggestedLocationsView();
-//}
 }
