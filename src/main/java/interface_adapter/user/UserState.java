@@ -1,6 +1,5 @@
 package interface_adapter.user;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -9,7 +8,6 @@ import java.util.Map;
 public class UserState {
     private String username = "";
     private String password = "";
-    private List<String> interests;
     private Map<String, String> savedPlaces;
     private String errorMessage = "";
     private boolean loggedIn = false;
@@ -28,14 +26,6 @@ public class UserState {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<String> getInterests() {
-        return interests;
-    }
-
-    public void setInterests(List<String> interests) {
-        this.interests = interests;
     }
 
     public Map<String, String> getSavedPlaces() {
