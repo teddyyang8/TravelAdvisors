@@ -1,17 +1,20 @@
 package entity;
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
- * Represents a User entity.
+ * Factory for creating User entities.
  */
 public class UserFactory {
+
     /**
-     * Creates a new User instance.
-     *
-     * @param username the username
-     * @param password the password
+     * Create a new user with the given username and password.
+     * @param username the user's username
+     * @param password the user's password
      * @return a new User instance
      */
     public User create(String username, String password) {
-        return new User(username, password);
+        return new User(username, password, new HashMap<String, List<Place>>());
     }
 }

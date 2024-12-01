@@ -4,32 +4,28 @@ import entity.User;
 import use_case.DataAccessException;
 
 /**
- * Interface for accessing SignupUser data.
+ * Interface for accessing user data for sign-up.
  */
 public interface SignupUserDataAccessInterface {
     /**
-     * Gets the SignupUser with the given username.
-     *
-     * @param username the username
-     * @return the SignupUser with the given username
-     * @throws DataAccessException if there is an issue accessing the data
+     * Get a user by username.
+     * @param username the username to get
+     * @return the user with the given username
+     * @throws DataAccessException if the user does not exist
      */
     User getSignupUser(String username) throws DataAccessException;
 
     /**
-     * Saves the given SignupUser.
-     *
-     * @param user the SignupUser to save
-     * @throws DataAccessException if there is an issue accessing the data
+     * Save a user to the data store.
+     * @param user the user to save
+     * @throws DataAccessException if the user already exists
      */
     void save(User user) throws DataAccessException;
 
     /**
-     * Checks if a SignupUser with the given username exists.
-     *
-     * @param username the username
-     * @return true if a SignupUser with the given username exists, false otherwise
-     * @throws DataAccessException if there is an issue accessing the data
+     * Check if a user with the given username exists.
+     * @param username the username to check
+     * @return true if a user with the given username exists, false otherwise
      */
-    boolean existsByName(String username) throws DataAccessException;
+    boolean existsByName(String username);
 }

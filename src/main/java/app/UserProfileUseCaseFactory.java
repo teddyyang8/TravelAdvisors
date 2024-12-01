@@ -1,13 +1,12 @@
 package app;
 
-import data_access.DBUserDataAccessObject;
+import data_access.InMemoryUserDataAccess;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.user.UserProfileController;
 import interface_adapter.user.UserProfilePresenter;
 import interface_adapter.user.UserViewModel;
 import use_case.user.UserProfileInputBoundary;
 import use_case.user.UserProfileInteractor;
-import use_case.user.UserProfileOutputBoundary;
 import view.UserProfileView;
 
 /**
@@ -17,7 +16,6 @@ public final class UserProfileUseCaseFactory {
 
     /** Prevent instantiation. */
     private UserProfileUseCaseFactory() {
-
     }
 
     /**
@@ -27,10 +25,9 @@ public final class UserProfileUseCaseFactory {
      * @return a UserProfileView instance
      */
     public static UserProfileView create(ViewManagerModel viewManagerModel) {
-        final DBUserDataAccessObject userDataAccess = new DBUserDataAccessObject();
+        final InMemoryUserDataAccess userDataAccess = new InMemoryUserDataAccess();
         final UserViewModel userViewModel = new UserViewModel();
-        final UserProfileOutputBoundary userProfilePresenter =
-                new UserProfilePresenter(viewManagerModel, userViewModel);
+        final UserProfilePresenter userProfilePresenter = new UserProfilePresenter(viewManagerModel, userViewModel);
         final UserProfileInputBoundary userProfileInteractor =
                 new UserProfileInteractor(userDataAccess, userProfilePresenter);
         final UserProfileController userProfileController = new UserProfileController(userProfileInteractor);

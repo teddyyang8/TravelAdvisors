@@ -1,11 +1,13 @@
 package use_case.user;
 
+import java.util.List;
 import java.util.Map;
 
+import entity.Place;
 import use_case.DataAccessException;
 
 /**
- * Interactor for the User Profile use case.
+ * Interactor for managing user profiles.
  */
 public class UserProfileInteractor implements UserProfileInputBoundary {
     private final UserProfileDataAccessInterface userProfileDataAccess;
@@ -18,12 +20,12 @@ public class UserProfileInteractor implements UserProfileInputBoundary {
     }
 
     @Override
-    public void savePlaces(String username, Map<String, String> places) {
+    public void savePlaces(String username, Map<String, List<Place>> places) {
         try {
             userProfileDataAccess.savePlaces(username, places);
             userProfileOutputBoundary.prepareSuccessView("Places saved successfully!");
         }
-        catch (DataAccessException err) {
+        catch (DataAccessException error) {
             userProfileOutputBoundary.prepareFailView("Failed to save places.");
         }
     }

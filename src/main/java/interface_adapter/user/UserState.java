@@ -1,54 +1,20 @@
 package interface_adapter.user;
 
-import java.util.Map;
-
 /**
- * State for the user.
+ * Represents the state of a user.
  */
 public class UserState {
-    private String username = "";
-    private String password = "";
-    private Map<String, String> savedPlaces;
-    private String errorMessage = "";
-    private boolean loggedIn = false;
+    private String username;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
+    public UserState(String username) {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getName() {
+        return username;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Map<String, String> getSavedPlaces() {
-        return savedPlaces;
-    }
-
-    public void setSavedPlaces(Map<String, String> savedPlaces) {
-        this.savedPlaces = savedPlaces;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
+    public void setName(String username) {
+        this.username = username;
     }
 }

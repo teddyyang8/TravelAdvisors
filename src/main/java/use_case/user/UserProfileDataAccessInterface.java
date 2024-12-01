@@ -1,29 +1,44 @@
 package use_case.user;
 
+import java.util.List;
 import java.util.Map;
 
+import entity.Place;
+import entity.User;
 import use_case.DataAccessException;
 
 /**
- * Data access interface for user profile data.
+ * Interface for accessing user profile data.
  */
 public interface UserProfileDataAccessInterface {
     /**
-     * Saves the given places for the given username.
+     * Get the user with the given username.
      *
      * @param username the username
-     * @param places the places
-     * @throws DataAccessException if there is an issue accessing the data
+     * @return the user
+     * @throws DataAccessException if the user does not exist
      */
-    void savePlaces(String username, Map<String, String> places) throws DataAccessException;
+    User getUser(String username) throws DataAccessException;
 
     /**
-     * Gets the saved places for the given username.
+     * Save the places for the given username.
      *
      * @param username the username
-     * @return the saved places for the given username
-     * @throws DataAccessException if there is an issue accessing the data
+     * @param places   the places to be saved, represented as a map with the place name as the key
+     *                 and a list of place objects as the value
+     * @throws DataAccessException if the user does not exist
      */
 
-    Map<String, String> getSavedPlaces(String username) throws DataAccessException;
+    void savePlaces(String username, Map<String, List<Place>> places) throws DataAccessException;
+
+    /**
+     * Get the saved places for the given username.
+     *
+     * @param username the username
+     * @return the saved places, represented as a map with the place name as the key
+     *         and a list of place objects as the value
+     * @throws DataAccessException if the user does not exist
+     */
+
+    Map<String, List<Place>> getSavedPlaces(String username) throws DataAccessException;
 }
