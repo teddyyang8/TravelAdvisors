@@ -1,7 +1,8 @@
 package interface_adapter.suggestlocation;
 
+import
 import interface_adapter.ViewManagerModel;
-import use_case.locations.LocationsOutputData;
+import interface_adapter.selectedlocation.SelectedLocationsState;
 import use_case.suggested_locations.SuggestedLocationsOutputBoundary;
 import use_case.suggested_locations.SuggestedLocationsOutputData;
 
@@ -22,13 +23,12 @@ public class SuggestedLocationsPresenter implements SuggestedLocationsOutputBoun
     @Override
     public void prepareSuccessView(SuggestedLocationsOutputData response) {
         // On success, switch to the suggested locations view.
+        final SelectedLocationsState selectedLocationsState = selectedLocationsViewModel.getState();
+        selectedLocationsState.setSelectedLocations(response.getLocations());
+        this.selectedLocationsViewModel.setState(selectedLocationsState);
+        this.viewManagerModel.firePropertyChanged();
 
-        final SuggestedLocationsState suggestedLocationsState = suggestedLocationsViewModel.getState();
-        suggestedLocationsState.setSuggestedLocations(response.getSuggestedLocations());
-        this.suggestedLocationsViewModel.setState(suggestedLocationsState);
-        this.suggestedLocationsViewModel.firePropertyChanged();
-
-        this.viewManagerModel.setState(suggestedLocationsViewModel.getViewName());
+        this.viewManagerModel.setState(selectedLocationsViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }
 

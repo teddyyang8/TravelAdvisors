@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.*;
 
 import entity.Place;
+import interface_adapter.selectedlocation.SelectedLocationsViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsController;
 import interface_adapter.suggestlocation.SuggestedLocationsState;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
@@ -51,6 +52,9 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
         this.add(newSearchButton);
 
         updateSuggestedLocations(suggestedLocationsViewModel.getState());
+
+        SelectedLocationsViewModel.getState().setSelectedLocations(selectedLocations);
+
     }
 
     @Override
