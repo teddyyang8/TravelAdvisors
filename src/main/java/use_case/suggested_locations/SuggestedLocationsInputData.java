@@ -1,6 +1,7 @@
 package use_case.suggested_locations;
 
 import java.util.List;
+import java.util.Map;
 
 import entity.Place;
 
@@ -9,14 +10,14 @@ import entity.Place;
  */
 public class SuggestedLocationsInputData {
 
-    private final List<Place> suggestedLocations;
+    private final Map<Place, String> calendarItems;
 
-    public SuggestedLocationsInputData(List<Place> suggestedLocations) {
-        this.suggestedLocations = suggestedLocations;
+    public SuggestedLocationsInputData(Map<Place, String> calendarItems) {
+        this.calendarItems = calendarItems;
     }
 
-    public List<Place> getSuggestedLocations() {
-        return suggestedLocations;
+    public Map<Place, String> getSuggestedLocations() {
+        return calendarItems;
     }
 
 }

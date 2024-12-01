@@ -1,6 +1,7 @@
 package use_case.suggested_locations;
 
 import java.util.List;
+import java.util.Map;
 
 import entity.Place;
 
@@ -9,15 +10,15 @@ import entity.Place;
  */
 public class SuggestedLocationsOutputData {
 
-    private final List<Place> suggestedLocations;
+    private final Map<Place, String> calendarItems;
     private final boolean useCaseFailed;
 
-    public SuggestedLocationsOutputData(List<Place> suggestedLocations, boolean useCaseFailed) {
-        this.suggestedLocations = suggestedLocations;
+    public SuggestedLocationsOutputData(Map<Place, String> calendarItems, boolean useCaseFailed) {
+        this.calendarItems = calendarItems;
         this.useCaseFailed = useCaseFailed;
     }
 
-    public List<Place> getSuggestedLocations() {
-        return suggestedLocations;
+    public Map<Place, String> getCalendarItems() {
+        return calendarItems;
     }
 }

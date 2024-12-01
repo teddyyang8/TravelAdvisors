@@ -1,6 +1,8 @@
 package interface_adapter.suggestlocation;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.add_to_calendar.AddToCalendarState;
+import interface_adapter.add_to_calendar.AddToCalendarViewModel;
 import use_case.locations.LocationsOutputData;
 import use_case.suggested_locations.SuggestedLocationsOutputBoundary;
 import use_case.suggested_locations.SuggestedLocationsOutputData;
@@ -12,23 +14,26 @@ public class SuggestedLocationsPresenter implements SuggestedLocationsOutputBoun
 
     private final ViewManagerModel viewManagerModel;
     private final SuggestedLocationsViewModel suggestedLocationsViewModel;
+    private final AddToCalendarViewModel addToCalendarViewModel;
 
     public SuggestedLocationsPresenter(ViewManagerModel viewManagerModel,
-                                       SuggestedLocationsViewModel suggestedLocationsViewModel) {
+                                       SuggestedLocationsViewModel suggestedLocationsViewModel,
+                                       AddToCalendarViewModel addToCalendarViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.suggestedLocationsViewModel = suggestedLocationsViewModel;
+        this.addToCalendarViewModel = addToCalendarViewModel;
     }
 
     @Override
     public void prepareSuccessView(SuggestedLocationsOutputData response) {
-        // On success, switch to the suggested locations view.
+        // On success, switch to the Calendar view.
 
-        final SuggestedLocationsState suggestedLocationsState = suggestedLocationsViewModel.getState();
-        suggestedLocationsState.setSuggestedLocations(response.getSuggestedLocations());
-        this.suggestedLocationsViewModel.setState(suggestedLocationsState);
-        this.suggestedLocationsViewModel.firePropertyChanged();
+        final AddToCalendarState calendarState = addToCalendarViewModel.getState();
+        calendarState.setCalendarItems(response.getCalendarItems());
+        this.addToCalendarViewModel.setState(calendarState);
+        this.addToCalendarViewModel.firePropertyChanged();
 
-        this.viewManagerModel.setState(suggestedLocationsViewModel.getViewName());
+        this.viewManagerModel.setState(addToCalendarViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }
 
@@ -38,11 +43,4 @@ public class SuggestedLocationsPresenter implements SuggestedLocationsOutputBoun
         suggestedLocationState.setError(error);
         suggestedLocationsViewModel.firePropertyChanged();
     }
-//
-//    // change to switch to next view
-//    @Override
-//    public void switchToSuggestedLocationsView() {
-//
-//  }
-
 }
