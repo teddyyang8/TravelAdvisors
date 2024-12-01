@@ -9,9 +9,7 @@ import java.util.List;
 
 import entity.Place;
 import interface_adapter.selectedlocation.SelectedLocationsController;
-import interface_adapter.selectedlocation.SelectedLocationsState;
 import interface_adapter.selectedlocation.SelectedLocationsViewModel;
-import interface_adapter.suggestlocation.SelectedLocationsState;
 
 /**
  * The View for when the user has selected a location in the program.
@@ -21,17 +19,14 @@ public class SelectedLocationView extends JPanel implements ActionListener, Prop
     private final String viewName = "Selected Location";
     private final SelectedLocationsViewModel selectedLocationsViewModel;
     private final SelectedLocationsController selectedLocationsController;
-    private final SelectedLocationsState selectedLocationsState;
 
     private final JPanel selectedLocationPanel;
 
     public SelectedLocationView(SelectedLocationsViewModel selectedLocationsViewModel,
-                                SelectedLocationsController selectedLocationsController,
-                                SelectedLocationsState selectedLocationsState) {
+                                SelectedLocationsController selectedLocationsController) {
         this.selectedLocationsViewModel = selectedLocationsViewModel;
         this.selectedLocationsViewModel.addPropertyChangeListener(this);
         this.selectedLocationsController = selectedLocationsController;
-        this.selectedLocationsState = selectedLocationsState;
 
         this.selectedLocationPanel = new JPanel();
         this.selectedLocationPanel.setLayout(new BoxLayout(selectedLocationPanel, BoxLayout.Y_AXIS));
@@ -39,13 +34,27 @@ public class SelectedLocationView extends JPanel implements ActionListener, Prop
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(selectedLocationPanel);
 
-        updateSelectedLocations(selectedLocationsState.getSelectedLocations());
+        updateSelectedLocations(selectedLocationsViewModel.getState().getSelectedLocations());
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        final JButton sourceButton = (JButton) e.getSource();
+        final String locationName = sourceButton.getText().replace("Get " + "Address for ", "");
+        final List<Place> selectedLocations = selectedLocationsViewModel.getState().getSelectedLocations();
 
-        // TODO: Implement action for button click
+        for (Place location : selectedLocations) {
+            if (location.getName().equals(locationName)) {
+                try {
+                    String coordinates = selectedLocationsController.getCoordinates(location);
+                    JOptionPane.showMessageDialog(this, "Coordinates for " + locationName + ": " + coordinates);
+                }
+                catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Failed to fetch coordinates for " + locationName, "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            }
+        }
     }
 
     @Override

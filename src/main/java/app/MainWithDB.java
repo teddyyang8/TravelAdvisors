@@ -4,8 +4,10 @@ import data_access.DBLocationDataAccessObject;
 import entity.SuggestedPlaceFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.location.LocationViewModel;
+import interface_adapter.selectedlocation.SelectedLocationsViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
 import view.LocationView;
+import view.SelectedLocationView;
 import view.SuggestedLocationsView;
 import view.ViewManager;
 
@@ -39,6 +41,7 @@ public class MainWithDB {
 
         final LocationViewModel locationViewModel = new LocationViewModel();
         final SuggestedLocationsViewModel suggestedLocationsViewModel = new SuggestedLocationsViewModel();
+        final SelectedLocationsViewModel selectedLocationsViewModel = new SelectedLocationsViewModel();
         // add any future view models here in the same way
 
         final DBLocationDataAccessObject locationDataAccessObject = new DBLocationDataAccessObject(
@@ -49,8 +52,12 @@ public class MainWithDB {
         views.add(locationView, locationView.getViewName());
 
         final SuggestedLocationsView suggestedLocationsView = SuggestedLocationsUseCaseFactory.create(viewManagerModel,
-                suggestedLocationsViewModel);
+                suggestedLocationsViewModel, selectedLocationsViewModel);
         views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
+
+        final SelectedLocationView selectedLocationView = SelectedLocationsUseCaseFactory.create(viewManagerModel,
+                suggestedLocationsViewModel, selectedLocationsViewModel);
+        views.add(selectedLocationView, selectedLocationView.getViewName());
 
         viewManagerModel.setState(locationView.getViewName());
         viewManagerModel.firePropertyChanged();

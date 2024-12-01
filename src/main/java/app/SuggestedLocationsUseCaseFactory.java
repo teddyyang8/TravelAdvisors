@@ -2,6 +2,7 @@ package app;
 
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.selectedlocation.SelectedLocationsViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsController;
 import interface_adapter.suggestlocation.SuggestedLocationsPresenter;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
@@ -24,14 +25,17 @@ public class SuggestedLocationsUseCaseFactory {
      * Factory function for creating the LocationView.
      * @param viewManagerModel the ViewManagerModel to inject
      * @param suggestedLocationsViewModel the SuggestedLocationsViewModel to inject
+     * @param selectedLocationsViewModel the SelectedLocationsViewModel to
+     *                                   inject
      * @return the LocationView created for the provided input classes.
      */
     public static SuggestedLocationsView create(
             ViewManagerModel viewManagerModel,
-            SuggestedLocationsViewModel suggestedLocationsViewModel) {
+            SuggestedLocationsViewModel suggestedLocationsViewModel,
+            SelectedLocationsViewModel selectedLocationsViewModel) {
 
         final SuggestedLocationsController suggestedLocationsController = createSuggestedLocationUseCase(viewManagerModel,
-                suggestedLocationsViewModel);
+                suggestedLocationsViewModel, selectedLocationsViewModel);
 
         // didnt pass in the card layout and parent panel (since teddy idk if ur doing it in the view)
         return new SuggestedLocationsView(suggestedLocationsViewModel, suggestedLocationsController);
@@ -39,10 +43,11 @@ public class SuggestedLocationsUseCaseFactory {
 
     private static SuggestedLocationsController createSuggestedLocationUseCase(
             ViewManagerModel viewManagerModel,
-            SuggestedLocationsViewModel suggestedLocationsViewModel) {
+            SuggestedLocationsViewModel suggestedLocationsViewModel,
+            SelectedLocationsViewModel selectedLocationsViewModel) {
 
         final SuggestedLocationsOutputBoundary suggestedLocationsOutputBoundary = new SuggestedLocationsPresenter(
-                viewManagerModel, suggestedLocationsViewModel);
+                viewManagerModel, suggestedLocationsViewModel, selectedLocationsViewModel);
         final SuggestedLocationsInputBoundary suggestedLocationsInteractor = new SuggestedLocationsInteractor(
                 suggestedLocationsOutputBoundary);
 
