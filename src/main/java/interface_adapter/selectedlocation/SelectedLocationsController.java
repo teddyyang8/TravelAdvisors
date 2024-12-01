@@ -4,6 +4,7 @@ package interface_adapter.selectedlocation;
 import entity.Place;
 import use_case.DataAccessException;
 import use_case.selected_locations.SelectedLocationsInputBoundary;
+import use_case.selected_locations.SelectedLocationsInputData;
 
 public class SelectedLocationsController {
 

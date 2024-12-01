@@ -10,6 +10,7 @@ import java.util.List;
 import entity.Place;
 import interface_adapter.selectedlocation.SelectedLocationsController;
 import interface_adapter.selectedlocation.SelectedLocationsViewModel;
+import use_case.selected_locations.SelectedLocationsOutputData;
 
 /**
  * The View for when the user has selected a location in the program.
@@ -46,8 +47,10 @@ public class SelectedLocationView extends JPanel implements ActionListener, Prop
         for (Place location : selectedLocations) {
             if (location.getName().equals(locationName)) {
                 try {
-                    String coordinates = selectedLocationsController.getCoordinates(location);
-                    JOptionPane.showMessageDialog(this, "Coordinates for " + locationName + ": " + coordinates);
+                    String coordinates =
+                            SelectedLocationsOutputData.getLocationCoordinatesMap().get(location);
+                    String message =
+                            "https://maps.google.com/?q=" + coordinates[0] + "," + coordinates[1];
                 }
                 catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Failed to fetch coordinates for " + locationName, "Error", JOptionPane.ERROR_MESSAGE);
