@@ -55,7 +55,8 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
                 final StringBuilder places = new StringBuilder();
                 final JSONArray jsonArray = responseBody.getJSONArray("places");
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    final JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    final JSONObject jsonObject =
+                            jsonArray.getJSONmicsObject(i);
                     places.append(jsonObject.getString("formattedAddress")).append(">").append(jsonObject
                             .getJSONObject("displayName").getString("text")).append("<");
                 }
