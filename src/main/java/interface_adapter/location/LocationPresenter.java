@@ -42,11 +42,3 @@ public class LocationPresenter implements LocationsOutputBoundary {
         locationViewModel.firePropertyChanged();
     }
 }
-
-    // commenting out bc i dont think we need it; view switches in execute (see CAUSerLogin)
-//    @Override
-//    public void switchToSuggestedLocationsView() {
-//        viewManagerModel.setState(suggestedLocationsViewModel.getViewName());
-//        viewManagerModel.firePropertyChanged();
-//    }
-//

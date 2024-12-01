@@ -1,16 +1,20 @@
 package app;
 
+import java.awt.*;
+
+import javax.swing.*;
+
 import data_access.DBLocationDataAccessObject;
+import data_access.InMemoryCalendarDataAccessObject;
 import entity.SuggestedPlaceFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.add_to_calendar.AddToCalendarViewModel;
 import interface_adapter.location.LocationViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
+import view.CalendarView;
 import view.LocationView;
 import view.SuggestedLocationsView;
 import view.ViewManager;
-
-import javax.swing.*;
-import java.awt.*;
 
 /**
  * The version of Main with an external database used to persist user data.
@@ -39,18 +43,24 @@ public class MainWithDB {
 
         final LocationViewModel locationViewModel = new LocationViewModel();
         final SuggestedLocationsViewModel suggestedLocationsViewModel = new SuggestedLocationsViewModel();
+        final AddToCalendarViewModel calendarViewModel = new AddToCalendarViewModel();
         // add any future view models here in the same way
 
         final DBLocationDataAccessObject locationDataAccessObject = new DBLocationDataAccessObject(
                 new SuggestedPlaceFactory());
+        final InMemoryCalendarDataAccessObject calendarDataAccessObject = new InMemoryCalendarDataAccessObject();
 
         final LocationView locationView = LocationUseCaseFactory.create(viewManagerModel, locationViewModel,
                 suggestedLocationsViewModel, locationDataAccessObject);
         views.add(locationView, locationView.getViewName());
 
         final SuggestedLocationsView suggestedLocationsView = SuggestedLocationsUseCaseFactory.create(viewManagerModel,
-                suggestedLocationsViewModel);
+                suggestedLocationsViewModel, calendarViewModel);
         views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
+
+        final CalendarView calendarView = CalendarUseCaseFactory.create(viewManagerModel, calendarViewModel,
+                calendarDataAccessObject);
+        views.add(calendarView, calendarView.getViewName());
 
         viewManagerModel.setState(locationView.getViewName());
         viewManagerModel.firePropertyChanged();
