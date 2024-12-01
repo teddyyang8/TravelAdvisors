@@ -29,7 +29,6 @@ public class UserProfileView extends JPanel {
         this.userProfileController = userProfileController;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        // Add UI elements for adding a place
         add(new JLabel("Place Name:"));
         add(placeNameField);
         add(new JLabel("Place Description:"));
@@ -61,7 +60,6 @@ public class UserProfileView extends JPanel {
             }
         });
 
-        // Log out button
         add(logOutButton);
         logOutButton.addActionListener(evt -> userProfileController.logOut());
     }
