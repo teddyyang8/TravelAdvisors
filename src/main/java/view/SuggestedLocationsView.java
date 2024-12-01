@@ -100,7 +100,8 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
                 checkBox.addActionListener(e -> {
                     if (checkBox.isSelected()) {
                         selectedLocations.add(location);
-                    } else {
+                    }
+                    else {
                         selectedLocations.remove(location);
                     }
                 });
@@ -169,10 +170,6 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
 //                throw new RuntimeException(e);
 //            }
         }
-    }
-
-    public List<Place> getSelectedLocations() {
-        return selectedLocations;
     }
 
     public String getViewName() {

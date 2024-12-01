@@ -13,7 +13,7 @@ public class SuggestedLocationsInteractor implements SuggestedLocationsInputBoun
     }
 
     @Override
-    public void execute(SuggestedLocationsInputData suggestedLocationsInputData) throws DataAccessException {
+    public void execute(SuggestedLocationsInputData suggestedLocationsInputData) {
         final SuggestedLocationsOutputData suggestedLocationsOutputData = new SuggestedLocationsOutputData(
                 suggestedLocationsInputData.getSuggestedLocations(), false);
         placePresenter.prepareSuccessView(suggestedLocationsOutputData);

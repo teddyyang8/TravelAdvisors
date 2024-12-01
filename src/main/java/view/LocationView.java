@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -34,7 +34,6 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
         this.locationViewModel = locationViewModel;
         this.locationViewModel.addPropertyChangeListener(this);
         this.locationController = locationController;
-
         final JLabel title = new JLabel("Suggest Locations");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 

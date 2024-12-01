@@ -11,13 +11,18 @@ import entity.Place;
 public class SuggestedLocationsOutputData {
 
     private final Map<Place, String> calendarItems;
+    private final List<Place> selectedLocations;
     private final boolean useCaseFailed;
 
-    public SuggestedLocationsOutputData(Map<Place, String> calendarItems, boolean useCaseFailed) {
+    public SuggestedLocationsOutputData(List<Place> selectedLocations, Map<Place, String> calendarItems, boolean useCaseFailed) {
+        this.selectedLocations = selectedLocations;
         this.calendarItems = calendarItems;
         this.useCaseFailed = useCaseFailed;
     }
 
+    public List<Place> getSelectedLocations() {
+        return selectedLocations;
+    
     public Map<Place, String> getCalendarItems() {
         return calendarItems;
     }
