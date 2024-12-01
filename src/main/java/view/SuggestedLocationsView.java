@@ -11,10 +11,12 @@ import java.util.List;
 import javax.swing.*;
 
 import entity.Place;
+import interface_adapter.selectedlocation.SelectedLocationsState;
 import interface_adapter.selectedlocation.SelectedLocationsViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsController;
 import interface_adapter.suggestlocation.SuggestedLocationsState;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
+import use_case.DataAccessException;
 
 /**
  * The View for when the user receives a list of suggested locations in the program.
@@ -24,16 +26,19 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
     private final String viewName = "Suggested Locations";
     private final SuggestedLocationsViewModel suggestedLocationsViewModel;
     private final SuggestedLocationsController suggestedLocationsController;
+    private final SelectedLocationsViewModel selectedLocationsViewModel;
 
     private final JPanel suggestedLocationsPanel;
-    private final JButton newSearchButton;
+    private final JButton saveSelectionButton;
     private final List<Place> selectedLocations;
 
     public SuggestedLocationsView(SuggestedLocationsViewModel suggestedLocationsViewModel,
-                                  SuggestedLocationsController suggestedLocationsController) {
+                                  SuggestedLocationsController suggestedLocationsController,
+                                  SelectedLocationsViewModel selectedLocationsViewModel) {
         this.suggestedLocationsViewModel = suggestedLocationsViewModel;
         this.suggestedLocationsViewModel.addPropertyChangeListener(this);
         this.suggestedLocationsController = suggestedLocationsController;
+        this.selectedLocationsViewModel = selectedLocationsViewModel;
 
         final JLabel title = new JLabel("List of Suggested Locations:");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -41,27 +46,19 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
         this.suggestedLocationsPanel = new JPanel();
         this.suggestedLocationsPanel.setLayout(new BoxLayout(suggestedLocationsPanel, BoxLayout.Y_AXIS));
 
-        this.newSearchButton = new JButton("New Search");
-        newSearchButton.addActionListener(this);
+        this.saveSelectionButton = new JButton("Save Selection");
+        saveSelectionButton.addActionListener(this);
+        saveSelectionButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         this.selectedLocations = new ArrayList<>();
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
         this.add(suggestedLocationsPanel);
-        this.add(newSearchButton);
+        this.add(saveSelectionButton);
 
         updateSuggestedLocations(suggestedLocationsViewModel.getState());
 
-        SelectedLocationsViewModel.getState().setSelectedLocations(selectedLocations);
-
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource().equals(newSearchButton)) {
-            // Handle new search button click
-        }
     }
 
     @Override
@@ -94,13 +91,29 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
                 locationPanel.add(Box.createVerticalStrut(10));
                 suggestedLocationsPanel.add(locationPanel);
             }
-        } else {
+            final SelectedLocationsState selectedLocationsState = selectedLocationsViewModel.getState();
+            selectedLocationsState.setSelectedLocations(selectedLocations);
+            selectedLocationsViewModel.setState(selectedLocationsState);
+        }
+        else {
             JOptionPane.showMessageDialog(this, "No suggested locations available.", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
         suggestedLocationsPanel.revalidate();
         suggestedLocationsPanel.repaint();
         this.setPreferredSize(new Dimension(800, 1200));
+    }
 
+    @Override
+    public void actionPerformed(ActionEvent evt) {
+        if (evt.getSource() == saveSelectionButton) {
+            final SelectedLocationsState selectedLocationsState = selectedLocationsViewModel.getState();
+            try {
+                suggestedLocationsController.execute(selectedLocationsState.getSelectedLocations());
+            }
+            catch (DataAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public String getViewName() {

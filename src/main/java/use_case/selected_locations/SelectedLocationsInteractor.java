@@ -28,13 +28,12 @@ public class SelectedLocationsInteractor implements SelectedLocationsInputBounda
                 locationCoordinatesMap.put(location, coordinates);
             }
             catch (DataAccessException e) {
-                selectedLocationsPresenter.prepareFailView("Failed to fetch coordinates for: " + place.getName());
-                return;
+                selectedLocationsPresenter.prepareFailView("Failed to fetch coordinates for: " + location.getName());
             }
         }
 
         final SelectedLocationsOutputData selectedLocationsOutputData =
-                new SelectedLocationsOutputData();
+                new SelectedLocationsOutputData(locationCoordinatesMap);
         selectedLocationsPresenter.prepareSuccessView(selectedLocationsOutputData);
     }
 }

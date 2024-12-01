@@ -5,6 +5,8 @@ import interface_adapter.selectedlocation.SelectedLocationsController;
 import interface_adapter.selectedlocation.SelectedLocationsPresenter;
 import interface_adapter.selectedlocation.SelectedLocationsViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
+import use_case.selected_locations.SelectedLocationsInputBoundary;
+import use_case.selected_locations.SelectedLocationsInteractor;
 import use_case.selected_locations.SelectedLocationsOutputBoundary;
 import view.SelectedLocationView;
 
@@ -21,26 +23,32 @@ public class SelectedLocationsUseCaseFactory {
     /**
      * Factory function for creating the LocationView.
      * @param viewManagerModel the ViewManagerModel to inject
-     * @param suggestedLocationsViewModel the SuggestedLocationsViewModel to
-     *                                    inject
+     *
      * @param selectedLocationsViewModel the SelectedLocationsViewModel to
      *                                   inject
      * @return the LocationView created for the provided input classes.
      */
     public static SelectedLocationView create(
-            ViewManagerModel viewManagerModel, SuggestedLocationsViewModel suggestedLocationsViewModel,
+            ViewManagerModel viewManagerModel,
             SelectedLocationsViewModel selectedLocationsViewModel) {
 
         final SelectedLocationsController selectedLocationsController =
             createSelectedLocationUseCase(viewManagerModel,
-                    suggestedLocationsViewModel,
                                           selectedLocationsViewModel);
         return new SelectedLocationView(selectedLocationsViewModel,
                                         selectedLocationsController);
 }
 
     private static SelectedLocationsController createSelectedLocationUseCase(
-            ViewManagerModel viewManagerModel, SuggestedLocationsViewModel suggestedLocationsViewModel,
+            ViewManagerModel viewManagerModel,
             SelectedLocationsViewModel selectedLocationsViewModel) {
+//        final SelectedLocationsOutputBoundary selectedLocationsOutputBoundary = new SelectedLocationsPresenter(
+//                viewManagerModel, selectedLocationsViewModel);
+//        final SelectedLocationsInputBoundary selectedLocationsInteractor = new SelectedLocationsInteractor(
+//                selectedLocationsOutputBoundary);
+
+//        return new SelectedLocationsController(selectedLocationsInteractor);
+        return null;
+        // TODO: Implement this method
     }
 }

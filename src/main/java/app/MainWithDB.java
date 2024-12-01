@@ -56,7 +56,7 @@ public class MainWithDB {
         views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
 
         final SelectedLocationView selectedLocationView = SelectedLocationsUseCaseFactory.create(viewManagerModel,
-                suggestedLocationsViewModel, selectedLocationsViewModel);
+                 selectedLocationsViewModel);
         views.add(selectedLocationView, selectedLocationView.getViewName());
 
         viewManagerModel.setState(locationView.getViewName());
