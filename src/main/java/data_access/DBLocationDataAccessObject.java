@@ -81,4 +81,5 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
             throw new DataAccessException(ex.getMessage());
         }
     }
+
 }

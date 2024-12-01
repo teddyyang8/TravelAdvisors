@@ -54,7 +54,7 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
         suggestLocationsButton = new JButton("Suggest Locations");
         buttons.add(suggestLocationsButton);
         final JLabel filterLabel = new JLabel("Filters:");
-        final String[] filters = {"None", "Remove Disliked Locations", "Removed Saved Locations"};
+        final String[] filters = {"None", "Remove Disliked Locations", "Remove Saved Locations"};
         filtersDropDown = new JComboBox<>(filters);
         buttons.add(filterLabel);
         buttons.add(filtersDropDown);
@@ -128,38 +128,14 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 
         suggestLocationsButton.addActionListener(evt -> {
             if (evt.getSource().equals(suggestLocationsButton)) {
-
                 currentFilter = filtersDropDown.getSelectedItem().toString();
-
-                if ("None".equals(currentFilter)) {
-                    final LocationState currentState = locationViewModel.getState();
-                    try {
-                        locationController.execute(currentState.getAddress(), currentState.getLocationType());
-                    }
-                    catch (DataAccessException e) {
-                        throw new RuntimeException(e);
-                    }
+                final LocationState currentState = locationViewModel.getState();
+                try {
+                    locationController.execute(currentState.getAddress(), currentState.getLocationType(), currentFilter);
                 }
-
-                if ("Removed Saved Locations".equals(currentFilter)) {
-                    final LocationState currentState = locationViewModel.getState();
-                    try {
-                        locationController.clearSaved();
-                        locationController.execute(currentState.getAddress(), currentState.getLocationType());
+                catch (DataAccessException e) {
+                    throw new RuntimeException(e);
                     }
-                    catch (DataAccessException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-//                if ("Remove Disliked Locations".equals(currentFilter)) {
-//                    final LocationState currentState = locationViewModel.getState();
-//                    try {
-//                        locationController.execute(currentState.getAddress(), currentState.getLocationType());
-//                    }
-//                    catch (DataAccessException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                }
             }
         });
     }
@@ -167,15 +143,12 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(suggestLocationsButton)) {
-            if ("None".equals(currentFilter)) {
-                final LocationState currentState = locationViewModel.getState();
-
-                try {
-                    locationController.execute(currentState.getAddress(), currentState.getLocationType());
-                }
-                catch (DataAccessException e) {
-                    throw new RuntimeException(e);
-                }
+            final LocationState currentState = locationViewModel.getState();
+            try {
+                locationController.execute(currentState.getAddress(), currentState.getLocationType(), currentFilter);
+            }
+            catch (DataAccessException e) {
+                throw new RuntimeException(e);
             }
         }
     }

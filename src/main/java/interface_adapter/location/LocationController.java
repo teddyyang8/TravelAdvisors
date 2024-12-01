@@ -28,15 +28,11 @@ public class LocationController {
      */
 
 
-    public void execute(String address, String locationType) throws DataAccessException {
+    public void execute(String address, String locationType, String currentFilter) throws DataAccessException {
         final LocationsInputData locationInputData = new LocationsInputData(
                 address, locationType);
 
-        locationInput.execute(locationInputData);
-    }
-
-    public void clearSaved() {
-
+        locationInput.execute(locationInputData, currentFilter);
     }
 
 //    /**
