@@ -21,14 +21,14 @@ public class SuggestedLocationsPresenter implements SuggestedLocationsOutputBoun
 
     @Override
     public void prepareSuccessView(SuggestedLocationsOutputData response) {
-        // On success, switch to the suggested locations view.
+        // On success, switch to the selected locations view.
 
-        final SuggestedLocationsState suggestedLocationsState = suggestedLocationsViewModel.getState();
-        suggestedLocationsState.setSuggestedLocations(response.getSuggestedLocations());
-        this.suggestedLocationsViewModel.setState(suggestedLocationsState);
-        this.suggestedLocationsViewModel.firePropertyChanged();
+        final SelectedLocationState selectedLocationState = selectedLocationViewModel.getState();
+        selectedLocationState.setSelectedLocations(response.getSelectedLocations());
+        this.selectedLocationViewModel.setState(selectedLocationState);
+        this.selectedLocationViewModel.firePropertyChanged();
 
-        this.viewManagerModel.setState(suggestedLocationsViewModel.getViewName());
+        this.viewManagerModel.setState(selectedLocationViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }
 
@@ -38,11 +38,4 @@ public class SuggestedLocationsPresenter implements SuggestedLocationsOutputBoun
         suggestedLocationState.setError(error);
         suggestedLocationsViewModel.firePropertyChanged();
     }
-//
-//    // change to switch to next view
-//    @Override
-//    public void switchToSuggestedLocationsView() {
-//
-//  }
-
 }

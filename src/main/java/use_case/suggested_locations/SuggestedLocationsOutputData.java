@@ -9,15 +9,15 @@ import entity.Place;
  */
 public class SuggestedLocationsOutputData {
 
-    private final List<Place> suggestedLocations;
+    private final List<Place> selectedLocations;
     private final boolean useCaseFailed;
 
-    public SuggestedLocationsOutputData(List<Place> suggestedLocations, boolean useCaseFailed) {
-        this.suggestedLocations = suggestedLocations;
+    public SuggestedLocationsOutputData(List<Place> selectedLocations, boolean useCaseFailed) {
+        this.selectedLocations = selectedLocations;
         this.useCaseFailed = useCaseFailed;
     }
 
-    public List<Place> getSuggestedLocations() {
-        return suggestedLocations;
+    public List<Place> getSelectedLocations() {
+        return selectedLocations;
     }
 }
