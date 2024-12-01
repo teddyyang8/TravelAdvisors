@@ -1,15 +1,18 @@
 package interface_adapter.user;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * The state representing user profile-related data.
+ * State for the user.
  */
 public class UserState {
-
     private String username = "";
     private String password = "";
     private List<String> interests;
+    private Map<String, String> savedPlaces;
+    private String errorMessage = "";
+    private boolean loggedIn = false;
 
     public String getUsername() {
         return username;
@@ -33,5 +36,29 @@ public class UserState {
 
     public void setInterests(List<String> interests) {
         this.interests = interests;
+    }
+
+    public Map<String, String> getSavedPlaces() {
+        return savedPlaces;
+    }
+
+    public void setSavedPlaces(Map<String, String> savedPlaces) {
+        this.savedPlaces = savedPlaces;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
     }
 }

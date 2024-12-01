@@ -1,16 +1,21 @@
 package use_case.user;
 
-import use_case.DataAccessException;
+import java.util.Map;
 
 /**
- * Input boundary for creating a user profile.
+ * Input boundary for the User Profile use case.
  */
 public interface UserProfileInputBoundary {
     /**
-     * Creates a new user profile.
+     * Saves the given places for the given username.
      *
-     * @param inputData the input data for the user profile
-     * @throws DataAccessException if the user profile can not be created for any reason
+     * @param username the username
+     * @param places the places
      */
-    void createUser(UserProfileInputData inputData) throws DataAccessException;
+    void savePlaces(String username, Map<String, String> places);
+
+    /**
+     * Logs out the user.
+     */
+    void logOut();
 }

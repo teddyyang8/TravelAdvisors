@@ -3,26 +3,25 @@ package data_access;
 import java.util.HashMap;
 import java.util.Map;
 
-import entity.User;
 import use_case.DataAccessException;
-import use_case.user.UserDataAccessInterface;
+import use_case.user.UserProfileDataAccessInterface;
 
 /**
- * The DAO for user data.
+ * A DAO for user profile data.
  */
-public class DBUserDataAccessObject implements UserDataAccessInterface {
-    private final Map<String, User> userStorage = new HashMap<>();
+public class DBUserDataAccessObject implements UserProfileDataAccessInterface {
+    private final Map<String, Map<String, String>> userPlaces = new HashMap<>();
 
     @Override
-    public User findUserByName(String name) throws DataAccessException {
-        if (!userStorage.containsKey(name)) {
-            throw new DataAccessException("User not found");
+    public void savePlaces(String username, Map<String, String> places) throws DataAccessException {
+        if (!userPlaces.containsKey(username)) {
+            userPlaces.put(username, new HashMap<>());
         }
-        return userStorage.get(name);
+        userPlaces.get(username).putAll(places);
     }
 
     @Override
-    public void saveUser(User user) {
-        userStorage.put(user.getName(), user);
+    public Map<String, String> getSavedPlaces(String username) throws DataAccessException {
+        return userPlaces.getOrDefault(username, new HashMap<>());
     }
 }

@@ -53,7 +53,7 @@ public class MainWithDB {
                 suggestedLocationsViewModel);
         views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
 
-        final UserProfileView userProfileView = UserUseCaseFactory.create(viewManagerModel);
+        final UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel);
         views.add(userProfileView, "User Profile");
 
         viewManagerModel.setState(locationView.getViewName());

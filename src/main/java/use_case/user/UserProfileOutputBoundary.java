@@ -1,12 +1,21 @@
 package use_case.user;
 
-import entity.User;
-
 /**
- * Output boundary for the user profile use case.
+ * Output boundary for the User Profile use case.
  */
 public interface UserProfileOutputBoundary {
-    void prepareSuccessView(User user);
+    /**
+     * Prepares the view with a success message.
+     *
+     * @param message the message
+     */
+    void prepareSuccessView(String message);
+
+    /**
+     * Prepares the view with an error message.
+     *
+     * @param errorMessage the error message
+     */
 
     void prepareFailView(String errorMessage);
 }

@@ -1,23 +1,17 @@
 package entity;
 
-import java.util.List;
-
 /**
- * Factory for creating User objects.
+ * Represents a User entity.
  */
 public class UserFactory {
-
     /**
-     * Creates a new User object.
+     * Creates a new User instance.
      *
-     * @param name the name of the user
-     * @param password the password of the user
-     * @param interests the interests of the user
-     * @return the new User object
+     * @param username the username
+     * @param password the password
+     * @return a new User instance
      */
-    public User create(String name, String password, List<String> interests) {
-        final User user = new User(name, password);
-        user.setInterests(interests);
-        return user;
+    public User create(String username, String password) {
+        return new User(username, password);
     }
 }

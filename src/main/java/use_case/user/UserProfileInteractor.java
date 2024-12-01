@@ -1,33 +1,35 @@
 package use_case.user;
 
-import entity.User;
-import entity.UserFactory;
+import java.util.Map;
+
 import use_case.DataAccessException;
 
 /**
- * Interactor for creating a user profile.
+ * Interactor for the User Profile use case.
  */
 public class UserProfileInteractor implements UserProfileInputBoundary {
-    private final UserDataAccessInterface userDataAccess;
-    private final UserProfileOutputBoundary presenter;
-    private final UserFactory userFactory;
+    private final UserProfileDataAccessInterface userProfileDataAccess;
+    private final UserProfileOutputBoundary userProfileOutputBoundary;
 
-    public UserProfileInteractor(UserDataAccessInterface userDataAccess, UserProfileOutputBoundary presenter,
-                                 UserFactory userFactory) {
-        this.userDataAccess = userDataAccess;
-        this.presenter = presenter;
-        this.userFactory = userFactory;
+    public UserProfileInteractor(UserProfileDataAccessInterface userProfileDataAccess,
+                                 UserProfileOutputBoundary userProfileOutputBoundary) {
+        this.userProfileDataAccess = userProfileDataAccess;
+        this.userProfileOutputBoundary = userProfileOutputBoundary;
     }
 
     @Override
-    public void createUser(UserProfileInputData inputData) {
+    public void savePlaces(String username, Map<String, String> places) {
         try {
-            User user = userFactory.create(inputData.getUsername(), inputData.getPassword(), inputData.getInterests());
-            userDataAccess.saveUser(user);
-            presenter.prepareSuccessView(user);
+            userProfileDataAccess.savePlaces(username, places);
+            userProfileOutputBoundary.prepareSuccessView("Places saved successfully!");
         }
-        catch (DataAccessException e) {
-            presenter.prepareFailView(e.getMessage());
+        catch (DataAccessException err) {
+            userProfileOutputBoundary.prepareFailView("Failed to save places.");
         }
+    }
+
+    @Override
+    public void logOut() {
+        userProfileOutputBoundary.prepareFailView("Logging out is currently not implemented.");
     }
 }

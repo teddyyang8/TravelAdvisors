@@ -1,95 +1,68 @@
 package view;
 
-import java.awt.Dimension;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import interface_adapter.user.UserController;
-import interface_adapter.user.UserState;
+import interface_adapter.user.UserProfileController;
 import interface_adapter.user.UserViewModel;
-import use_case.DataAccessException;
 
 /**
- * User profile view for creating a user profile.
+ * View for the user profile.
  */
 public class UserProfileView extends JPanel {
+    private final JTextField placeNameField = new JTextField(20);
+    private final JTextField placeDescriptionField = new JTextField(20);
+    private final JButton addPlaceButton = new JButton("Add Place");
+    private final JTextArea placesListArea = new JTextArea(10, 30);
+    private final JButton logOutButton = new JButton("Log Out");
+    private final UserProfileController userProfileController;
 
-    private final JTextField usernameField;
-    private final JPasswordField passwordField;
-    private final JComboBox<String> interestsBox1;
-    private final JComboBox<String> interestsBox2;
-    private final JComboBox<String> interestsBox3;
-    private final JButton createProfileButton;
+    public UserProfileView(UserProfileController userProfileController, UserViewModel userViewModel) {
+        this.userProfileController = userProfileController;
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-    public UserProfileView(UserController controller, UserViewModel userViewModel) {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setPreferredSize(new Dimension(400, 300));
+        // Add UI elements for adding a place
+        add(new JLabel("Place Name:"));
+        add(placeNameField);
+        add(new JLabel("Place Description:"));
+        add(placeDescriptionField);
+        add(addPlaceButton);
 
-        usernameField = new JTextField(20);
-        passwordField = new JPasswordField(20);
-        interestsBox1 = new JComboBox<>(new String[]{"Books", "Museums", "Cafes", "Parks", "Fine Dining", "Street Food", "Music", "Theater", "Sports"});
-        interestsBox2 = new JComboBox<>(new String[]{"Books", "Museums", "Cafes", "Parks", "Fine Dining", "Street Food", "Music", "Theater", "Sports"});
-        interestsBox3 = new JComboBox<>(new String[]{"Books", "Museums", "Cafes", "Parks", "Fine Dining", "Street Food", "Music", "Theater", "Sports"});
-        createProfileButton = new JButton("Create Profile");
+        addPlaceButton.addActionListener(evt -> {
+            final String placeName = placeNameField.getText();
+            final String placeDescription = placeDescriptionField.getText();
 
-        addComponents();
+            final Map<String, String> newPlace = new HashMap<>();
+            newPlace.put(placeName, placeDescription);
 
-        userViewModel.addPropertyChangeListener(evt -> handleStateChange(userViewModel.getState()));
+            userProfileController.savePlaces(userViewModel.getState().getUsername(), newPlace);
+        });
 
-        createProfileButton.addActionListener(evt -> handleCreateProfileAction(controller));
-    }
+        // Display list of saved places
+        add(new JLabel("Saved Places:"));
+        add(new JScrollPane(placesListArea));
 
-    /**
-     * Adds UI components to the panel.
-     */
-    private void addComponents() {
-        add(new JLabel("Username:"));
-        add(usernameField);
-        add(new JLabel("Password:"));
-        add(passwordField);
-        add(new JLabel("Select up to 3 Interests:"));
-        add(interestsBox1);
-        add(interestsBox2);
-        add(interestsBox3);
-        add(createProfileButton);
-    }
+        userViewModel.addPropertyChangeListener(evt -> {
+            if ("savedPlaces".equals(evt.getPropertyName())) {
+                final Map<String, String> savedPlaces = (Map<String, String>) evt.getNewValue();
+                final StringBuilder placesString = new StringBuilder();
+                for (Map.Entry<String, String> entry : savedPlaces.entrySet()) {
+                    placesString.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+                }
+                placesListArea.setText(placesString.toString());
+            }
+        });
 
-    /**
-     * Handles the action of creating a user profile.
-     *
-     * @param controller The controller to manage user creation.
-     */
-    private void handleCreateProfileAction(UserController controller) {
-        final String username = usernameField.getText();
-        final String password = new String(passwordField.getPassword());
-        try {
-            controller.createUser(username, password, Arrays.asList(
-                    interestsBox1.getSelectedItem().toString(),
-                    interestsBox2.getSelectedItem().toString(),
-                    interestsBox3.getSelectedItem().toString()
-            ));
-        }
-        catch (DataAccessException dataAccessException) {
-            System.err.println("Error creating user: " + dataAccessException.getMessage());
-        }
-    }
-
-    /**
-     * Handles changes in the user profile state.
-     *
-     * @param state The new user state.
-     */
-    private void handleStateChange(UserState state) {
-        if (state != null) {
-            usernameField.setText(state.getUsername());
-            passwordField.setText("");
-        }
+        // Log out button
+        add(logOutButton);
+        logOutButton.addActionListener(evt -> userProfileController.logOut());
     }
 }
