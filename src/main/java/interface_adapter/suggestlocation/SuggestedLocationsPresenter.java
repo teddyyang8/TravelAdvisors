@@ -32,13 +32,18 @@ public class SuggestedLocationsPresenter implements SuggestedLocationsOutputBoun
     @Override
     public void prepareSuccessView(SuggestedLocationsOutputData response) {
         // On success, switch to the Calendar view.
-        // TODO: Need to implement with Sean's user case
+
         final AddToCalendarState calendarState = addToCalendarViewModel.getState();
-        calendarState.setCalendarItems(response.getCalendarItems());
+//        calendarState.setCalendarItems(response.getCalendarItems());
         this.addToCalendarViewModel.setState(calendarState);
         this.addToCalendarViewModel.firePropertyChanged();
 
         this.viewManagerModel.setState(addToCalendarViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
+    }
+
+//    @Override
+    public void placeholderForSeansCode(SuggestedLocationsOutputData response) {
         // On success, switch to the selected locations view.
 
         final SelectedLocationsState selectedLocationState =

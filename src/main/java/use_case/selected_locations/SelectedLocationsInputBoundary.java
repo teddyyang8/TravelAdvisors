@@ -14,4 +14,8 @@ public interface SelectedLocationsInputBoundary {
      */
     void execute(SelectedLocationsInputData selectedLocationsInputData) throws DataAccessException;
 
+    /**
+     * Switches to the location view.
+     */
+    public void switchToLocationView();
 }

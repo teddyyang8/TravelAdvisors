@@ -131,7 +131,8 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
                 currentFilter = filtersDropDown.getSelectedItem().toString();
                 final LocationState currentState = locationViewModel.getState();
                 try {
-                    locationController.execute(currentState.getAddress(), currentState.getLocationType(), currentFilter);
+                    locationController.execute(currentState.getAddress(), currentState.getLocationType(),
+                            currentFilter, currentState.getUsername());
                 }
                 catch (DataAccessException e) {
                     throw new RuntimeException(e);
@@ -145,7 +146,8 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
         if (evt.getSource().equals(suggestLocationsButton)) {
             final LocationState currentState = locationViewModel.getState();
             try {
-                locationController.execute(currentState.getAddress(), currentState.getLocationType(), currentFilter);
+                locationController.execute(currentState.getAddress(), currentState.getLocationType(), currentFilter,
+                        currentState.getUsername());
             }
             catch (DataAccessException e) {
                 throw new RuntimeException(e);

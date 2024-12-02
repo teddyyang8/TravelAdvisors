@@ -16,4 +16,9 @@ public interface SelectedLocationsOutputBoundary {
      * @param errorMessage The explanation of the failure
      */
     void prepareFailView(String errorMessage);
+
+    /**
+     * Switches to the location view.
+     */
+    void switchToLocationView();
 }

@@ -12,7 +12,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import use_case.DataAccessException;
-import use_case.locations.CoordinateDataAccessInterface;
+import use_case.selected_locations.CoordinateDataAccessInterface;
 
 /**
  * The DAO for accessing places using Google Places API.
