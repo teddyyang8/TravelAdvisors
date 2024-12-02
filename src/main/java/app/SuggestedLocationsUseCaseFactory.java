@@ -42,6 +42,7 @@ public class SuggestedLocationsUseCaseFactory {
                 calendarViewModel);
 
         return new SuggestedLocationsView(suggestedLocationsViewModel, suggestedLocationsController, calendarViewModel);
+
     }
 
     private static SuggestedLocationsController createSuggestedLocationUseCase(
