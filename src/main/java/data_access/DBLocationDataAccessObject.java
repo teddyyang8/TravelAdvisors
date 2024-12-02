@@ -4,13 +4,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import entity.Place;
-import entity.PlaceFactory;
-import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import entity.Place;
+import entity.PlaceFactory;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import use_case.DataAccessException;
 import use_case.locations.LocationDataAccessInterface;
 
@@ -24,6 +28,9 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";
     private static final String API_KEY = System.getenv("API_KEY");
+    private static final String API_URL = "https://places.googleapis.com/v1/places:searchText";
+    private static final String LEFT_ARROW = "<";
+    private static final String RIGHT_ARROW = ">";
     private final PlaceFactory placeFactory;
 
     public DBLocationDataAccessObject(PlaceFactory placeFactory) {
@@ -41,7 +48,7 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
                 requestBody.toString(), MediaType.parse(CONTENT_TYPE_JSON));
         // POST METHOD
         final Request request = new Request.Builder()
-                .url("https://places.googleapis.com/v1/places:searchText")
+                .url(API_URL)
                 .post(body)
                 .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_JSON)
                 .addHeader(API_HEADER, API_KEY)
@@ -57,15 +64,16 @@ public class DBLocationDataAccessObject implements LocationDataAccessInterface {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     final JSONObject jsonObject =
                             jsonArray.getJSONObject(i);
-                    places.append(jsonObject.getString("formattedAddress")).append(">").append(jsonObject
-                            .getJSONObject("displayName").getString("text")).append("<");
+                    places.append(jsonObject.getString("formattedAddress")).append(RIGHT_ARROW).append(jsonObject
+                            .getJSONObject("displayName").getString("text")).append(LEFT_ARROW);
                 }
                 final String placesString = places.toString();
 
-                final String[] locationsList = placesString.split("<");
+                final String[] locationsList = placesString.split(LEFT_ARROW);
                 final List<Place> suggestedPlaces = new ArrayList<>();
                 for (String location : locationsList) {
-                    final Place place = placeFactory.create(location.split(">")[1], location.split(">")[0]);
+                    final Place place = placeFactory.create(location.split(RIGHT_ARROW)[1],
+                            location.split(RIGHT_ARROW)[0]);
                     suggestedPlaces.add(place);
                 }
                 return suggestedPlaces;
