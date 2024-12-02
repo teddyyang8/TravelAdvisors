@@ -14,7 +14,12 @@ public class SuggestedLocationsOutputData {
     private final List<Place> selectedLocations;
     private final boolean useCaseFailed;
 
-    public SuggestedLocationsOutputData(Map<Place, String> calendarItems, List<Place> selectedLocations, boolean useCaseFailed) {
+    public SuggestedLocationsOutputData(Map<Place, String> calendarItems, boolean useCaseFailed) {
+        this.calendarItems = calendarItems;
+        this.useCaseFailed = useCaseFailed;
+    }
+
+    public pleaceholderforSeancode(List<Place> selectedLocations, Map<Place, String> calendarItems, boolean useCaseFailed) {
         this.selectedLocations = selectedLocations;
         this.calendarItems = calendarItems;
         this.useCaseFailed = useCaseFailed;
@@ -26,5 +31,4 @@ public class SuggestedLocationsOutputData {
 
     public List<Place> getSelectedLocations() {
         return selectedLocations;
-    }
 }

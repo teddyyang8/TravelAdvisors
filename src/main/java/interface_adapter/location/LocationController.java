@@ -24,10 +24,12 @@ public class LocationController {
      * @param locationType the type of location to search.
      * @throws DataAccessException if data cannot be accessed
      */
-    public void execute(String address, String locationType) throws DataAccessException {
+
+
+    public void execute(String address, String locationType, String currentFilter) throws DataAccessException {
         final LocationsInputData locationInputData = new LocationsInputData(
                 address, locationType);
 
-        locationInput.execute(locationInputData);
+        locationInput.execute(locationInputData, currentFilter);
     }
 }

@@ -81,6 +81,13 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
     }
 
     @Override
+    public void actionPerformed(ActionEvent evt) {
+        if (evt.getSource().equals(newSearchButton)) {
+            // Handle new search button click
+        }
+    }
+
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("state".equals(evt.getPropertyName())) {
             updateSuggestedLocations((SuggestedLocationsState) evt.getNewValue());
@@ -133,7 +140,8 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
             final AddToCalendarState currentState = calendarViewModel.getState();
             currentState.setCalendarItems(calendarLocations);
             calendarViewModel.setState(currentState);
-        } else {
+        }
+        else {
             JOptionPane.showMessageDialog(this, "No suggested locations available.", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
         suggestedLocationsPanel.revalidate();
