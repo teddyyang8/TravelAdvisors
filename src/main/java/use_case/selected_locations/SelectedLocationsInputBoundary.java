@@ -17,5 +17,7 @@ public interface SelectedLocationsInputBoundary {
     /**
      * Switches to the location view.
      */
-    public void switchToLocationView();
+    void switchToLocationView();
+
+    void switchToProfileView();
 }

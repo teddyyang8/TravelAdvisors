@@ -1,4 +1,8 @@
 package use_case.review_locations;
 
-public class ReviewLocationsInputBoundary {
+import use_case.DataAccessException;
+
+public interface ReviewLocationsInputBoundary {
+
+    void execute(ReviewLocationsInputData reviewLocationsInputData) throws DataAccessException;
 }

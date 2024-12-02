@@ -41,4 +41,9 @@ public class SelectedLocationsInteractor implements SelectedLocationsInputBounda
     public void switchToLocationView() {
         selectedLocationsPresenter.switchToLocationView();
     }
+
+    @Override
+    public void switchToProfileView() {
+        selectedLocationsPresenter.switchToProfileView();
+    }
 }

@@ -21,4 +21,6 @@ public interface SelectedLocationsOutputBoundary {
      * Switches to the location view.
      */
     void switchToLocationView();
+
+    void switchToProfileView();
 }

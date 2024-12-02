@@ -11,9 +11,9 @@ public class User {
 
     private final String name;
     private final String password;
-    private final Map<String, List<Place>> savedPlaces;
+    private final Map<String, List<SavedPlace>> savedPlaces;
 
-    public User(String name, String password, HashMap<String, List<Place>> savedPlaces) {
+    public User(String name, String password, HashMap<String, List<SavedPlace>> savedPlaces) {
         this.name = name;
         this.password = password;
         this.savedPlaces = savedPlaces;
@@ -27,7 +27,7 @@ public class User {
         return password;
     }
 
-    public Map<String, List<Place>> getSavedPlaces() {
+    public Map<String, List<SavedPlace>> getSavedPlaces() {
         return savedPlaces;
     }
 }

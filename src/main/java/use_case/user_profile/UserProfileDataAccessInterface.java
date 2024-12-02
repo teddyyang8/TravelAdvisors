@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import entity.Place;
+import entity.SavedPlace;
 import entity.User;
 import use_case.DataAccessException;
 
@@ -29,7 +30,7 @@ public interface UserProfileDataAccessInterface {
      * @throws DataAccessException if the user does not exist
      */
 
-    void savePlaces(String username, Map<String, List<Place>> places) throws DataAccessException;
+    void savePlaces(String username, Map<String, List<SavedPlace>> places) throws DataAccessException;
 
     /**
      * Get the saved places for the given username.
@@ -40,5 +41,5 @@ public interface UserProfileDataAccessInterface {
      * @throws DataAccessException if the user does not exist
      */
 
-    Map<String, List<Place>> getSavedPlaces(String username) throws DataAccessException;
+    Map<String, List<SavedPlace>> getSavedPlaces(String username) throws DataAccessException;
 }
