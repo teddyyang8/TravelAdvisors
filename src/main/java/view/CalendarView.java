@@ -1,12 +1,20 @@
 package view;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import entity.Place;
 import interface_adapter.add_to_calendar.AddToCalendarController;
@@ -40,7 +48,8 @@ public class CalendarView extends JPanel implements ActionListener, PropertyChan
         this.setLayout(new BorderLayout());
 
         final JLabel title = new JLabel("Calendar");
-        title.setFont(new Font("Arial", Font.BOLD, 24));
+        final int fontSize = 24;
+        title.setFont(new Font("Arial", Font.BOLD, fontSize));
         final JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         titlePanel.add(title);
         this.add(titlePanel, BorderLayout.NORTH);
@@ -66,7 +75,7 @@ public class CalendarView extends JPanel implements ActionListener, PropertyChan
             try {
                 addToCalendarController.execute(currentState.getCalendarItems());
             }
-            catch (DataAccessException e) {
+            catch (DataAccessException error) {
                 throw new RuntimeException();
             }
         }

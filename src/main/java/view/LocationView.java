@@ -1,12 +1,18 @@
 package view;
 
-import java.awt.*;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -25,8 +31,8 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
     private final LocationController locationController;
 
     private final JTextField addressField = new JTextField(20);
-
-    private final JTextField[] locationTypeFields = new JTextField[5];
+    private final int five = 5;
+    private final JTextField[] locationTypeFields = new JTextField[five];
 
     private final JButton suggestLocationsButton;
 
@@ -45,8 +51,9 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 
         final JPanel locationTypePanel = new JPanel();
         locationTypePanel.setLayout(new BoxLayout(locationTypePanel, BoxLayout.Y_AXIS));
+        final int twenty = 20;
         for (int i = 0; i < locationTypeFields.length; i++) {
-            locationTypeFields[i] = new JTextField(20);
+            locationTypeFields[i] = new JTextField(twenty);
             locationTypePanel.add(new LabelTextPanel(new JLabel("Location Type " + (i + 1)), locationTypeFields[i]));
         }
 
@@ -131,11 +138,12 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
                 currentFilter = filtersDropDown.getSelectedItem().toString();
                 final LocationState currentState = locationViewModel.getState();
                 try {
-                    locationController.execute(currentState.getAddress(), currentState.getLocationType(), currentFilter);
+                    locationController.execute(
+                            currentState.getAddress(), currentState.getLocationType(), currentFilter);
                 }
-                catch (DataAccessException e) {
-                    throw new RuntimeException(e);
-                    }
+                catch (DataAccessException err) {
+                    throw new RuntimeException(err);
+                }
             }
         });
     }
@@ -147,8 +155,8 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
             try {
                 locationController.execute(currentState.getAddress(), currentState.getLocationType(), currentFilter);
             }
-            catch (DataAccessException e) {
-                throw new RuntimeException(e);
+            catch (DataAccessException error) {
+                throw new RuntimeException(error);
             }
         }
     }

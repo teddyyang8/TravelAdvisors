@@ -83,7 +83,8 @@ public class UserProfileView extends JPanel implements PropertyChangeListener, A
             final JButton viewListButton = new JButton("View List");
             listNamePanel.add(listName);
             listNamePanel.add(viewListButton);
-            //teddy u can add the action listener for the button here
+
+            // teddy u can add the action listener for the button here
         }
 
 //        userProfileViewModel.addPropertyChangeListener(evt -> {

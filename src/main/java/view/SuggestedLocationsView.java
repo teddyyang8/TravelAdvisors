@@ -1,25 +1,29 @@
 package view;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import entity.Place;
-import interface_adapter.add_to_calendar.AddToCalendarController;
 import interface_adapter.add_to_calendar.AddToCalendarState;
 import interface_adapter.add_to_calendar.AddToCalendarViewModel;
-import interface_adapter.location.LocationController;
-import interface_adapter.location.LocationState;
-import interface_adapter.location.LocationViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsController;
 import interface_adapter.suggestlocation.SuggestedLocationsState;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
@@ -31,8 +35,8 @@ import use_case.DataAccessException;
 public class SuggestedLocationsView extends JPanel implements ActionListener, PropertyChangeListener {
 
     private final String viewName = "Suggested Locations";
-//    private final LocationViewModel locationViewModel;
-//    private final LocationController locationController;
+    //    private final LocationViewModel locationViewModel;
+    //    private final LocationController locationController;
     private final SuggestedLocationsViewModel suggestedLocationsViewModel;
     private final SuggestedLocationsController suggestedLocationsController;
     private final AddToCalendarViewModel calendarViewModel;
@@ -98,7 +102,7 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
                 locationPanel.setLayout(new BoxLayout(locationPanel, BoxLayout.Y_AXIS));
 
                 final JCheckBox checkBox = new JCheckBox();
-                checkBox.addActionListener(e -> {
+                checkBox.addActionListener(err -> {
                     if (checkBox.isSelected()) {
                         selectedLocations.add(location);
                     }
@@ -113,9 +117,9 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
                 // create checkbox
                 final JComboBox<String> timeSelection = new JComboBox<>(times);
                 // add ItemListener
-                timeSelection.addItemListener(e -> {
+                timeSelection.addItemListener(eve -> {
                     // if the state combobox is changed
-                    if (e.getSource() == timeSelection) {
+                    if (eve.getSource() == timeSelection) {
                         if (timeSelection.getSelectedItem().equals("None")) {
                             calendarLocations.remove(location);
                         }
@@ -136,8 +140,9 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
             currentState.setCalendarItems(calendarLocations);
             calendarViewModel.setState(currentState);
         } 
-      else {
-            JOptionPane.showMessageDialog(this, "No suggested locations available.", "Info", JOptionPane.INFORMATION_MESSAGE);
+        else {
+            JOptionPane.showMessageDialog(
+                    this, "No suggested locations available.", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
         suggestedLocationsPanel.revalidate();
         suggestedLocationsPanel.repaint();
@@ -161,8 +166,8 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
             try {
                 suggestedLocationsController.execute(currentState.getCalendarItems());
             }
-            catch (DataAccessException e) {
-                throw new RuntimeException(e);
+            catch (DataAccessException error) {
+                throw new RuntimeException(error);
             }
 //            final AddToCalendarState currentState = calendarViewModel.getState();
 //            try {

@@ -5,8 +5,8 @@ import java.awt.*;
 import javax.swing.*;
 
 import data_access.DBLocationDataAccessObject;
-import data_access.InMemoryUserDataAccessObject;
 import data_access.InMemoryCalendarDataAccessObject;
+import data_access.InMemoryUserDataAccessObject;
 import entity.SuggestedPlaceFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.add_to_calendar.AddToCalendarViewModel;
