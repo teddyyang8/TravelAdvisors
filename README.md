@@ -7,39 +7,59 @@
 - Shirley Zhang (shirleyyzhang)
 - Ray Fang (rayf5372)
 - Sean Woo (seanwoo12)
-## Starter Readme Below
 
-This is a minimal example demonstrating usage of the
-password-protected user part of the API used in lab 5.
+Travel Advisors is a personalized travel planner designed to enhance your travel experience. Users can create profiles, specify their interests, and receive curated recommendations for places to visit based on their preferences. This app helps you plan your adventures with features like mapping locations, rating visited places, and scheduling activities on a calendar. This project was created as part of our CSC207 course, highlighting the usage of Clean Architecture in software design. 
 
-You can find more information about the API endpoints in
-[the documentation](https://www.postman.com/cloudy-astronaut-813156/csc207-grade-apis-demo/documentation/fg3zkjm/5-password-protected-user).
+## Table of Contents
 
-If your team is considering an application for which it would be convenient to
-store data in something like a database, you may find that the API calls demonstrated
-here will be useful in your project, as this will allow you to store
-an arbitrary JSON object associated with a username and password.
+## Features
 
-In this application, a single note has a name (the "username" in terms of the API) and the note
-can be read by anyone who knows the name — but only edited by someone who
-knows the password for it.
+Personalized Recommendations:
+Users create profiles and select interests to receive a tailored list of places. They can also save set schedules to their respective profiles. 
+Interactive Mapping:
+Visualize recommended locations on a map and understand the distances between them.
+Place Ratings:
+Like or dislike visited places and add personalized ratings.
+Activity Scheduling:
+Create schedules on a calendar for planned activities.
+Dynamic Filters:
+Filter your list of places by removing disliked locations or those already saved.
 
-You can see the documentation in the various files for more information.
+## Installation Instructions
+To set up and run Travel Advisors locally, you must install Java and a JVM to compile and run the program. Installing an IDE such as IntelliJ IDEA is recommended to run the program. 
 
-## Testing
+## Usage
 
-The repo also includes an example of a use case interactor test, as well as
-an example of an end-to-end test which automates button clicks and inspects
-the contents of the actual views. This is something we discussed in the lectures
-about testing in CA but had not provided a code example of before. Note, one
-could also inspect the contents of the ViewModel objects instead when testing
-CA to make a similar test which would be less dependent on the details of the
-specific UI implementation.
+When you’ve downloaded Travel Advisors, launch the application and run it in your terminal or IDE. Once launched, sign up by creating a username and password. List up to five fundamental interests and a city of choice and receive a curated list of suggested locations. Before searching, you can filter the list to remove disliked and previously saved locations. Select a few suggestions that interest you, and click the associated button to open it in Google Maps. You can then place your activities in a calendar to create your ideal timetable. Once you have visited a location, you can leave a personalized note and rating for it. The selected locations will be saved to your profile for future reference. 
 
-## Project Starter Code
+## License
 
-Your team may choose to use this repo as starter code for your project. You could
-also use the lab 5 code — or start from an empty repo if your team prefers.
+Copyright (c) 2024 Teddy Yang, Yasmina Mimassi, Shirley Zhang, Ray Fang, Sean Woo
 
-If you choose to use one of the repositories we have provided, you can either make
-a fork of it or copy the subset of code you want into a completely new repository.
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+## Feedback and Contributions
+
+We welcome contributions to improve Travel Advisors! To contribute:
+1. Fork the repository.
+2. Create a feature branch:
+- git checkout -b feature/your-feature-name
+3. Commit your changes:
+- git commit -m "Add your feature description here"
+4. Push to the branch:
+- git push origin feature/your-feature-name
+5. Submit a pull request.
+Code changes must be correctly implemented to achieve their intended functionality, pass all preexisting tests, and solve a problem directly. 
+- The title must be clear and concise, and the code should contain inline comments to document the changes made to explain non-obvious logic or decisions.
+- All necessary changes and files must be included.
+- It must reference related issues or tasks and potentially additional documentation to explain functionality.
+6. Reviewing Contributions
+- Ensure the code behaves as intended and passes existing tests.
+- Make precise comments that are unambiguous and concise.
+- Confirm all related files are included in the documentation.
+- Confirm the merge request has proper instructions for testing and validation.
+- Ensure the branch has been rebased with the latest changes from the main branch.
