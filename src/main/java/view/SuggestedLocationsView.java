@@ -95,7 +95,8 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
             for (int i = 0; i < Math.min(numLocationsDisplayed, suggestedLocations.size()); i++) {
                 final Place location = suggestedLocations.get(i);
                 final JPanel locationPanel = new JPanel();
-                locationPanel.setLayout(new FlowLayout());
+                locationPanel.setLayout(new BoxLayout(locationPanel, BoxLayout.Y_AXIS));
+
                 final JCheckBox checkBox = new JCheckBox();
                 checkBox.addActionListener(e -> {
                     if (checkBox.isSelected()) {
@@ -134,7 +135,8 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
             final AddToCalendarState currentState = calendarViewModel.getState();
             currentState.setCalendarItems(calendarLocations);
             calendarViewModel.setState(currentState);
-        } else {
+        } 
+      else {
             JOptionPane.showMessageDialog(this, "No suggested locations available.", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
         suggestedLocationsPanel.revalidate();
