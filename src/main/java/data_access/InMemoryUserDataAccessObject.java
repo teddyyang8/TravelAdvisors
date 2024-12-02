@@ -7,22 +7,26 @@ import java.util.Map;
 import entity.Place;
 import entity.User;
 import use_case.DataAccessException;
+import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
-import use_case.user.UserProfileDataAccessInterface;
+import use_case.user_profile.UserProfileDataAccessInterface;
 
 /**
  * In-memory implementation for storing user data for both sign-up and user profile.
  */
-public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface, UserProfileDataAccessInterface {
+public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface,
+        LoginUserDataAccessInterface, UserProfileDataAccessInterface {
 
     private final Map<String, User> userDatabase = new HashMap<>();
 
     @Override
-    public void save(User user) throws DataAccessException {
-        if (userDatabase.containsKey(user.getName())) {
-            throw new DataAccessException("User already exists.");
-        }
+    public void save(User user) {
         userDatabase.put(user.getName(), user);
+    }
+
+    @Override
+    public User get(String username) {
+        return userDatabase.get(username);
     }
 
     @Override

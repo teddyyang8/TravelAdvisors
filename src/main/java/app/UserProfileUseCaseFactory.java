@@ -2,11 +2,14 @@ package app;
 
 import data_access.InMemoryUserDataAccessObject;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.user.UserProfileController;
-import interface_adapter.user.UserProfilePresenter;
-import interface_adapter.user.UserViewModel;
-import use_case.user.UserProfileInputBoundary;
-import use_case.user.UserProfileInteractor;
+import interface_adapter.user_profile.UserProfileController;
+import interface_adapter.user_profile.UserProfilePresenter;
+import interface_adapter.user_profile.UserProfileViewModel;
+import use_case.user_profile.UserProfileDataAccessInterface;
+import use_case.user_profile.UserProfileInputBoundary;
+import use_case.user_profile.UserProfileInteractor;
+import use_case.user_profile.UserProfileOutputBoundary;
+import view.SuggestedLocationsView;
 import view.UserProfileView;
 
 /**
@@ -19,19 +22,33 @@ public final class UserProfileUseCaseFactory {
     }
 
     /**
-     * Factory method for creating the UserProfileView.
-     *
-     * @param viewManagerModel the ViewManagerModel
-     * @return a UserProfileView instance
+     * Factory function for creating the LocationView.
+     * @param viewManagerModel the ViewManagerModel to inject
+     * @param userProfileViewModel the SuggestedLocationsViewModel to inject
+     * @param userDataAccessObject the In memory user data access object
+     * @return the LocationView created for the provided input classes.
      */
-    public static UserProfileView create(ViewManagerModel viewManagerModel) {
-        final InMemoryUserDataAccessObject userDataAccess = new InMemoryUserDataAccessObject();
-        final UserViewModel userViewModel = new UserViewModel();
-        final UserProfilePresenter userProfilePresenter = new UserProfilePresenter(viewManagerModel, userViewModel);
-        final UserProfileInputBoundary userProfileInteractor =
-                new UserProfileInteractor(userDataAccess, userProfilePresenter);
-        final UserProfileController userProfileController = new UserProfileController(userProfileInteractor);
+    public static UserProfileView create(
+            ViewManagerModel viewManagerModel,
+            UserProfileViewModel userProfileViewModel,
+            UserProfileDataAccessInterface userDataAccessObject) {
 
-        return new UserProfileView(userProfileController, userViewModel);
+        final UserProfileController userProfileController = createUserProfileUseCase(viewManagerModel,
+                userProfileViewModel, userDataAccessObject);
+
+        return new UserProfileView(userProfileController, userProfileViewModel);
+    }
+
+    private static UserProfileController createUserProfileUseCase(
+            ViewManagerModel viewManagerModel,
+            UserProfileViewModel userProfileViewModel,
+            UserProfileDataAccessInterface userDataAccessObject) {
+
+        final UserProfileOutputBoundary userProfileOutputBoundary = new UserProfilePresenter(
+                viewManagerModel, userProfileViewModel);
+        final UserProfileInputBoundary userProfileInteractor = new UserProfileInteractor(userDataAccessObject,
+                userProfileOutputBoundary);
+
+        return new UserProfileController(userProfileInteractor);
     }
 }

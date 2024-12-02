@@ -33,7 +33,6 @@ public class SuggestedLocationsUseCaseFactory {
         final SuggestedLocationsController suggestedLocationsController = createSuggestedLocationUseCase(viewManagerModel,
                 suggestedLocationsViewModel);
 
-        // didnt pass in the card layout and parent panel (since teddy idk if ur doing it in the view)
         return new SuggestedLocationsView(suggestedLocationsViewModel, suggestedLocationsController);
     }
 

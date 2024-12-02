@@ -8,6 +8,7 @@ import interface_adapter.location.LocationViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
+import interface_adapter.user_profile.UserProfileViewModel;
 import view.*;
 
 import javax.swing.*;
@@ -37,16 +38,16 @@ public class MainWithDB {
 
         final ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
-        final LoginViewModel loginViewModel = new LoginViewModel();
 
+        final LoginViewModel loginViewModel = new LoginViewModel();
         final SignupViewModel signupViewModel = new SignupViewModel();
         final LocationViewModel locationViewModel = new LocationViewModel();
         final SuggestedLocationsViewModel suggestedLocationsViewModel = new SuggestedLocationsViewModel();
+        final UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
         // add any future view models here in the same way
 
         final DBLocationDataAccessObject locationDataAccessObject = new DBLocationDataAccessObject(
                 new SuggestedPlaceFactory());
-
         final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
 
         final SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel,
@@ -54,7 +55,7 @@ public class MainWithDB {
         views.add(signupView, signupView.getViewName());
 
         final LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel,
-                userProfileViewModel, userDataAccessObject);
+                userProfileViewModel, locationViewModel, userDataAccessObject);
         // logged in = user profile view
         views.add(loginView, loginView.getViewName());
 
@@ -66,10 +67,11 @@ public class MainWithDB {
                 suggestedLocationsViewModel);
         views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
 
-        final UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel);
-        views.add(userProfileView, "User Profile");
+        final UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel,
+                userProfileViewModel, userDataAccessObject);
+        views.add(userProfileView, userProfileView.getViewName());
 
-        viewManagerModel.setState(locationView.getViewName());
+        viewManagerModel.setState(signupView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         application.pack();

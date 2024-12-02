@@ -1,10 +1,10 @@
-package interface_adapter.user;
+package interface_adapter.user_profile;
 
 import java.util.List;
 import java.util.Map;
 
 import entity.Place;
-import use_case.user.UserProfileInputBoundary;
+import use_case.user_profile.UserProfileInputBoundary;
 
 /**
  * Controller for the User Profile use case.

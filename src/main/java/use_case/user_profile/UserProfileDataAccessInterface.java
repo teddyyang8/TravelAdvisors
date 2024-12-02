@@ -1,4 +1,4 @@
-package use_case.user;
+package use_case.user_profile;
 
 import java.util.List;
 import java.util.Map;

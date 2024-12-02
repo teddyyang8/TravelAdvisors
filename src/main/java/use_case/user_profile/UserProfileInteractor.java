@@ -1,4 +1,4 @@
-package use_case.user;
+package use_case.user_profile;
 
 import java.util.List;
 import java.util.Map;
@@ -13,9 +13,9 @@ public class UserProfileInteractor implements UserProfileInputBoundary {
     private final UserProfileDataAccessInterface userProfileDataAccess;
     private final UserProfileOutputBoundary userProfileOutputBoundary;
 
-    public UserProfileInteractor(UserProfileDataAccessInterface userProfileDataAccess,
+    public UserProfileInteractor(UserProfileDataAccessInterface userProfileDataAccessObject,
                                  UserProfileOutputBoundary userProfileOutputBoundary) {
-        this.userProfileDataAccess = userProfileDataAccess;
+        this.userProfileDataAccess = userProfileDataAccessObject;
         this.userProfileOutputBoundary = userProfileOutputBoundary;
     }
 
