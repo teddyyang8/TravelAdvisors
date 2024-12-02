@@ -14,4 +14,10 @@ public interface AddToCalendarInputBoundary {
      * @throws DataAccessException if data cannot be accessed at any time
      */
     void execute(AddToCalendarInputData addToCalendarInputData) throws DataAccessException;
+
+    /**
+     * Execute the switch to location view.
+     */
+    void switchToLocationView();
+
 }

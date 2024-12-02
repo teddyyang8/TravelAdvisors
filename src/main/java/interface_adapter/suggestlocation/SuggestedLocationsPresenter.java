@@ -34,7 +34,7 @@ public class SuggestedLocationsPresenter implements SuggestedLocationsOutputBoun
         // On success, switch to the Calendar view.
 
         final AddToCalendarState calendarState = addToCalendarViewModel.getState();
-        calendarState.setCalendarItems(response.getCalendarItems());
+//        calendarState.setCalendarItems(response.getCalendarItems());
         this.addToCalendarViewModel.setState(calendarState);
         this.addToCalendarViewModel.firePropertyChanged();
 
