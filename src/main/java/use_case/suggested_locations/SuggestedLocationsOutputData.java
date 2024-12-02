@@ -25,10 +25,11 @@ public class SuggestedLocationsOutputData {
         this.useCaseFailed = useCaseFailed;
     }
 
+    public List<Place> getSelectedLocations() {
+        return selectedLocations;
+    }
+
     public Map<Place, String> getCalendarItems() {
         return calendarItems;
     }
-
-    public List<Place> getSelectedLocations() {
-        return selectedLocations;
 }

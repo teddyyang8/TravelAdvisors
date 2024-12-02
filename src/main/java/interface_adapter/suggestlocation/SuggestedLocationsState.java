@@ -10,7 +10,6 @@ import entity.Place;
 /**
  * The state representing suggested location-related data, including a list of suggested locations.
  */
-
 public class SuggestedLocationsState {
     private List<Place> suggestedLocations = new ArrayList<>();
     private Map<Place, String> calendarItems = new HashMap<>();

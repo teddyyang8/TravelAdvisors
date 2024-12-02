@@ -14,6 +14,9 @@ import java.util.Map;
 import javax.swing.*;
 
 import entity.Place;
+import interface_adapter.selectedlocation.SelectedLocationsController;
+import interface_adapter.selectedlocation.SelectedLocationsState;
+import interface_adapter.selectedlocation.SelectedLocationsViewModel;
 import interface_adapter.add_to_calendar.AddToCalendarController;
 import interface_adapter.add_to_calendar.AddToCalendarState;
 import interface_adapter.add_to_calendar.AddToCalendarViewModel;
@@ -35,11 +38,15 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
 //    private final LocationController locationController;
     private final SuggestedLocationsViewModel suggestedLocationsViewModel;
     private final SuggestedLocationsController suggestedLocationsController;
+    private final SelectedLocationsController selectedLocationsController;
+    private final SelectedLocationsViewModel selectedLocationsViewModel;
     private final AddToCalendarViewModel calendarViewModel;
 
     private final JPanel suggestedLocationsPanel;
+    private final JButton saveSelectionButton;
     private final JButton newSearchButton;
     private final JButton saveToCalendarButton;
+
     private final List<Place> selectedLocations;
     private final Map<Place, String> calendarLocations;
 
@@ -49,17 +56,30 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
 
     public SuggestedLocationsView(SuggestedLocationsViewModel suggestedLocationsViewModel,
                                   SuggestedLocationsController suggestedLocationsController,
-                                  AddToCalendarViewModel calendarViewModel) {
+                                  AddToCalendarViewModel calendarViewModel,
+                                  SelectedLocationsViewModel selectedLocationsViewModel,
+                                  SelectedLocationsController selectedLocationsController) {
+
         this.suggestedLocationsViewModel = suggestedLocationsViewModel;
         this.suggestedLocationsViewModel.addPropertyChangeListener(this);
         this.suggestedLocationsController = suggestedLocationsController;
+        this.selectedLocationsController = selectedLocationsController;
+        this.selectedLocationsViewModel = selectedLocationsViewModel;
+        // property change listener?
         this.calendarViewModel = calendarViewModel;
+
+        this.selectedLocations = new ArrayList<>();
+        this.calendarLocations = new HashMap<>();
 
         final JLabel title = new JLabel("List of Suggested Locations:");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         this.suggestedLocationsPanel = new JPanel();
         this.suggestedLocationsPanel.setLayout(new BoxLayout(suggestedLocationsPanel, BoxLayout.Y_AXIS));
+
+        this.saveSelectionButton = new JButton("Save Selection");
+        saveSelectionButton.addActionListener(this);
+        saveSelectionButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         this.newSearchButton = new JButton("New Search");
         newSearchButton.addActionListener(this);
@@ -68,23 +88,14 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
         this.saveToCalendarButton = new JButton("Save to Calendar");
         saveToCalendarButton.addActionListener(this);
 
-        this.selectedLocations = new ArrayList<>();
-        this.calendarLocations = new HashMap<>();
-
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
         this.add(suggestedLocationsPanel);
+        this.add(saveSelectionButton);
         this.add(newSearchButton);
         this.add(saveToCalendarButton);
 
         updateSuggestedLocations(suggestedLocationsViewModel.getState());
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource().equals(newSearchButton)) {
-            // Handle new search button click
-        }
     }
 
     @Override
@@ -137,6 +148,11 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
                 locationPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
                 suggestedLocationsPanel.add(locationPanel);
             }
+            final SelectedLocationsState selectedLocationsState = selectedLocationsViewModel.getState();
+            selectedLocationsState.setSelectedLocations(selectedLocations);
+            selectedLocationsViewModel.setState(selectedLocationsState);
+        }
+        else {
             final AddToCalendarState currentState = calendarViewModel.getState();
             currentState.setCalendarItems(calendarLocations);
             calendarViewModel.setState(currentState);
@@ -147,11 +163,14 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
         suggestedLocationsPanel.revalidate();
         suggestedLocationsPanel.repaint();
         this.setPreferredSize(new Dimension(viewWidth, viewHeight));
-
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
+        if (evt.getSource() == saveSelectionButton) {
+            final SelectedLocationsState selectedLocationsState = selectedLocationsViewModel.getState();
+            try {
+                selectedLocationsController.execute(selectedLocationsState.getSelectedLocations());
         if (evt.getSource().equals(newSearchButton)) {
 //            final LocationState currentState = locationViewModel.getState();
 //            try {
@@ -169,6 +188,14 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
             catch (DataAccessException e) {
                 throw new RuntimeException(e);
             }
+
+//            final AddToCalendarState currentState = calendarViewModel.getState();
+//            try {
+//                calendarController.execute(currentState.getCalendarItems());
+//            }
+//            catch (DataAccessException e) {
+//                throw new RuntimeException(e);
+//            }
         }
     }
 

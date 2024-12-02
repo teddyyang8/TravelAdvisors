@@ -1,5 +1,6 @@
 package app;
 
+import data_access.DBCoordinatesDataAccessObject;
 import java.awt.*;
 
 import javax.swing.*;
@@ -12,6 +13,15 @@ import entity.SuggestedPlaceFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.add_to_calendar.AddToCalendarViewModel;
 import interface_adapter.location.LocationViewModel;
+import interface_adapter.selectedlocation.SelectedLocationsViewModel;
+import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
+import view.LocationView;
+import view.SelectedLocationView;
+import view.SuggestedLocationsView;
+import view.ViewManager;
+
+import javax.swing.*;
+import java.awt.*;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
@@ -52,6 +62,7 @@ public class MainWithDB {
         final LocationViewModel locationViewModel = new LocationViewModel();
         final SuggestedLocationsViewModel suggestedLocationsViewModel = new SuggestedLocationsViewModel();
         final AddToCalendarViewModel calendarViewModel = new AddToCalendarViewModel();
+        final SelectedLocationsViewModel selectedLocationsViewModel = new SelectedLocationsViewModel();
         final UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
         final AddToCalendarViewModel calendarViewModel = new AddToCalendarViewModel();
         // add any future view models here in the same way
@@ -59,7 +70,9 @@ public class MainWithDB {
         final DBLocationDataAccessObject locationDataAccessObject = new DBLocationDataAccessObject(
                 new SuggestedPlaceFactory());
         final InMemoryCalendarDataAccessObject calendarDataAccessObject = new InMemoryCalendarDataAccessObject();
+        final DBCoordinatesDataAccessObject coordinatesDataAccessObject = new DBCoordinatesDataAccessObject();
         final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+        final InMemoryCalendarDataAccessObject calendarDataAccessObject = new InMemoryCalendarDataAccessObject();
 
         final SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel,
                 signupViewModel, userDataAccessObject);
@@ -67,9 +80,7 @@ public class MainWithDB {
 
         final LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel,
                 userProfileViewModel, locationViewModel, userDataAccessObject);
-        // logged in = user profile view
         views.add(loginView, loginView.getViewName());
-        final InMemoryCalendarDataAccessObject calendarDataAccessObject = new InMemoryCalendarDataAccessObject();
 
         final LocationView locationView = LocationUseCaseFactory.create(viewManagerModel, locationViewModel,
                 suggestedLocationsViewModel, locationDataAccessObject);
@@ -78,6 +89,10 @@ public class MainWithDB {
         final SuggestedLocationsView suggestedLocationsView = SuggestedLocationsUseCaseFactory.create(viewManagerModel,
                 suggestedLocationsViewModel, calendarViewModel);
         views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
+
+        final SelectedLocationView selectedLocationView = SelectedLocationsUseCaseFactory.create(viewManagerModel,
+                 selectedLocationsViewModel, coordinatesDataAccessObject);
+        views.add(selectedLocationView, selectedLocationView.getViewName());
 
         final CalendarView calendarView = CalendarUseCaseFactory.create(viewManagerModel, calendarViewModel,
                 calendarDataAccessObject);
