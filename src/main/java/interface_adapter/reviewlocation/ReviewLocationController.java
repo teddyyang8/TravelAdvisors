@@ -21,4 +21,5 @@ public class ReviewLocationController {
         final ReviewLocationsInputData reviewLocationsInputData = new ReviewLocationsInputData(addedReviews, listName);
         reviewLocationsInteractor.execute(reviewLocationsInputData);
     }
+
 }

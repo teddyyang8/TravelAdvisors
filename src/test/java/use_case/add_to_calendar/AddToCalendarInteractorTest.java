@@ -39,6 +39,11 @@ public class AddToCalendarInteractorTest {
             public void prepareFailView(String errorMessage) {
                 fail("Use case failure is unexpected.");
             }
+
+            @Override
+            public void switchToLocationView() {
+                System.out.println("Switch view success");
+            }
         };
 
         AddToCalendarInputBoundary interactor = new AddToCalendarInteractor(calendarRepository, successPresenter);
@@ -74,6 +79,11 @@ public class AddToCalendarInteractorTest {
             @Override
             public void prepareFailView(String errorMessage) {
                 assertEquals("12:30 is already full.", errorMessage);
+            }
+
+            @Override
+            public void switchToLocationView() {
+                System.out.println("Switch view success");
             }
         };
 

@@ -34,4 +34,9 @@ public class AddToCalendarInteractor implements AddToCalendarInputBoundary {
         final AddToCalendarOutputData addToCalendarOutputData = new AddToCalendarOutputData(addToCalendarPlace);
         calendarPresenter.prepareSuccessView(addToCalendarOutputData);
     }
+
+    @Override
+    public void switchToLocationView() {
+        calendarPresenter.switchToLocationView();
+    }
 }

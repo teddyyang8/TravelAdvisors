@@ -32,26 +32,26 @@ public class SelectedLocationsUseCaseFactory {
     public static SelectedLocationView create(
             ViewManagerModel viewManagerModel,
             SelectedLocationsViewModel selectedLocationsViewModel,
-            DBCoordinatesDataAccessObject coordinatesDataAccessObject) {
+            DBCoordinatesDataAccessObject coordinatesDataAccessObject,
+            LocationViewModel locationViewModel) {
 
         final SelectedLocationsController selectedLocationsController =
-            createSelectedLocationUseCase(viewManagerModel,
-                                          selectedLocationsViewModel, coordinatesDataAccessObject);
+            createSelectedLocationUseCase(viewManagerModel, selectedLocationsViewModel,
+                    coordinatesDataAccessObject, locationViewModel);
         return new SelectedLocationView(selectedLocationsViewModel,
                                         selectedLocationsController);
-}
+    }
 
     private static SelectedLocationsController createSelectedLocationUseCase(
             ViewManagerModel viewManagerModel,
             SelectedLocationsViewModel selectedLocationsViewModel,
-            DBCoordinatesDataAccessObject coordinatesDataAccessObject) {
-//        final SelectedLocationsOutputBoundary selectedLocationsOutputBoundary = new SelectedLocationsPresenter(
-//                viewManagerModel, selectedLocationsViewModel);
-//        final SelectedLocationsInputBoundary selectedLocationsInteractor = new SelectedLocationsInteractor(
-//                selectedLocationsOutputBoundary);
+            DBCoordinatesDataAccessObject coordinatesDataAccessObject,
+            LocationViewModel locationViewModel) {
+        final SelectedLocationsOutputBoundary selectedLocationsOutputBoundary = new SelectedLocationsPresenter(
+                selectedLocationsViewModel, viewManagerModel, locationViewModel);
+        final SelectedLocationsInputBoundary selectedLocationsInteractor = new SelectedLocationsInteractor(
+                selectedLocationsOutputBoundary, coordinatesDataAccessObject);
 
-//        return new SelectedLocationsController(selectedLocationsInteractor);
-        return null;
-        // TODO: Implement this method
+        return new SelectedLocationsController(selectedLocationsInteractor);
     }
 }

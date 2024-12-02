@@ -7,6 +7,7 @@ package interface_adapter.location;
 public class LocationState {
     private String address = "";
     private String locationType = "";
+    private String username = "";
     private String error;
 
     public String getAddress() {
@@ -31,6 +32,14 @@ public class LocationState {
 
     public void setError(String error) {
         this.error = error;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }
 

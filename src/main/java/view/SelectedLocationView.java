@@ -27,6 +27,7 @@ public class SelectedLocationView extends JPanel implements ActionListener, Prop
     private final SelectedLocationsViewModel selectedLocationsViewModel;
     private final SelectedLocationsController selectedLocationsController;
 
+    private final JButton newSearchButton;
     private final JPanel selectedLocationPanel;
 
     public SelectedLocationView(SelectedLocationsViewModel selectedLocationsViewModel,
@@ -45,7 +46,19 @@ public class SelectedLocationView extends JPanel implements ActionListener, Prop
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(selectedLocationPanel);
 
+        this.newSearchButton = new JButton("New Search");
+        newSearchButton.addActionListener(this);
+        newSearchButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(newSearchButton);
+
         updateSelectedLocations(selectedLocationsViewModel.getState());
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(newSearchButton)) {
+            selectedLocationsController.switchToLocationView();
+        }
     }
 
     @Override
@@ -101,13 +114,6 @@ public class SelectedLocationView extends JPanel implements ActionListener, Prop
             selectedLocationPanel.revalidate();
             selectedLocationPanel.repaint();
         }
-    }
-
-    /**
-     * This method is not used in this class.
-     */
-    @Override
-    public void actionPerformed(ActionEvent e) {
     }
 
     public String getViewName() {

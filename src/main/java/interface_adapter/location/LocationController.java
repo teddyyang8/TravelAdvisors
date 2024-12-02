@@ -22,13 +22,13 @@ public class LocationController {
      * Executes the show location.
      * @param address the location to show.
      * @param locationType the type of location to search.
+     * @param currentFilter the type of filter to search with.
+     * @param username the username of the current user.
      * @throws DataAccessException if data cannot be accessed
      */
-
-
-    public void execute(String address, String locationType, String currentFilter) throws DataAccessException {
+    public void execute(String address, String locationType, String currentFilter, String username) throws DataAccessException {
         final LocationsInputData locationInputData = new LocationsInputData(
-                address, locationType);
+                address, locationType, username);
 
         locationInput.execute(locationInputData, currentFilter);
     }
