@@ -35,6 +35,7 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
     private final JTextField[] locationTypeFields = new JTextField[five];
 
     private final JButton suggestLocationsButton;
+    private final JButton profileButton;
 
     private final JComboBox<Object> filtersDropDown;
     private String currentFilter = "";
@@ -60,6 +61,8 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
         final JPanel buttons = new JPanel();
         suggestLocationsButton = new JButton("Suggest Locations");
         buttons.add(suggestLocationsButton);
+        profileButton = new JButton("Profile");
+        buttons.add(profileButton);
         final JLabel filterLabel = new JLabel("Filters:");
         final String[] filters = {"None", "Remove Disliked Locations", "Remove Saved Locations"};
         filtersDropDown = new JComboBox<>(filters);
@@ -132,6 +135,12 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
                 }
             });
         }
+
+        profileButton.addActionListener(evt -> {
+            if (evt.getSource().equals(profileButton)) {
+                locationController.goToProfile();
+            }
+        });
 
         suggestLocationsButton.addActionListener(evt -> {
             if (evt.getSource().equals(suggestLocationsButton)) {
