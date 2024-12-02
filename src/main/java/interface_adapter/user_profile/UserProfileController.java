@@ -23,8 +23,8 @@ public class UserProfileController {
      * @param places   the places to be saved, represented as a map with the place name as the key
      *                 and a list of place objects as the value
      */
-    public void savePlaces(Map<String, List<SavedPlace>> places) {
-        userProfileInteractor.savePlaces(places);
+    public void savePlaces(String username, Map<String, List<SavedPlace>> places) {
+        userProfileInteractor.savePlaces(username, places);
     }
 
     /**

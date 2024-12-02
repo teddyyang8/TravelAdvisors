@@ -66,24 +66,26 @@ public class ReviewLocationsView extends JPanel implements ActionListener, Prope
         ratingFields.clear();
 
         final List<SavedPlace> savedPlaces = state.getSavedPlaces();
-        for (SavedPlace location : savedPlaces) {
-            final JLabel nameLabel = new JLabel(location.getName());
-            final JLabel addressLabel = new JLabel(location.getAddress());
-            final JTextArea reviewInputField = new JTextArea(3, 20);
-            final JCheckBox ratingCheckBox = new JCheckBox("Liked");
+        if (savedPlaces != null) {
+            for (SavedPlace location : savedPlaces) {
+                final JLabel nameLabel = new JLabel(location.getName());
+                final JLabel addressLabel = new JLabel(location.getAddress());
+                final JTextArea reviewInputField = new JTextArea(3, 20);
+                final JCheckBox ratingCheckBox = new JCheckBox("Liked");
 
-            reviewFields.put(location, reviewInputField);
-            ratingFields.put(location, ratingCheckBox);
+                reviewFields.put(location, reviewInputField);
+                ratingFields.put(location, ratingCheckBox);
 
-            final JPanel locationPanel = new JPanel();
-            locationPanel.setLayout(new BoxLayout(locationPanel, BoxLayout.Y_AXIS));
-            locationPanel.add(nameLabel);
-            locationPanel.add(addressLabel);
-            locationPanel.add(new JLabel("Review:"));
-            locationPanel.add(reviewInputField);
-            locationPanel.add(ratingCheckBox);
+                final JPanel locationPanel = new JPanel();
+                locationPanel.setLayout(new BoxLayout(locationPanel, BoxLayout.Y_AXIS));
+                locationPanel.add(nameLabel);
+                locationPanel.add(addressLabel);
+                locationPanel.add(new JLabel("Review:"));
+                locationPanel.add(reviewInputField);
+                locationPanel.add(ratingCheckBox);
 
-            reviewLocationPanel.add(locationPanel);
+                reviewLocationPanel.add(locationPanel);
+            }
         }
 
         reviewLocationPanel.revalidate();

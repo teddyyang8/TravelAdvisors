@@ -2,6 +2,7 @@ package use_case.locations;
 
 
 import entity.Place;
+import entity.SavedPlace;
 import interface_adapter.user_profile.UserProfileState;
 import use_case.DataAccessException;
 import entity.User;
@@ -39,7 +40,7 @@ public class LocationsInteractor implements LocationsInputBoundary {
         } else if ("Remove Saved Locations".equals(currentFilter)) {
             for (Place place : suggestedPlaces) {
                 final User user = userDataAccessObject.getUser(locationsInputData.getUsername());
-                for (Map.Entry<String, List<Place>> entry : user.getSavedPlaces().entrySet()) {
+                for (Map.Entry<String, List<SavedPlace>> entry : user.getSavedPlaces().entrySet()) {
                     if (entry.getValue().contains(place)) {
                         suggestedPlaces.remove(place);
                     }

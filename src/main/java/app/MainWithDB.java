@@ -65,7 +65,7 @@ public class MainWithDB {
         final AddToCalendarViewModel calendarViewModel = new AddToCalendarViewModel();
         final SelectedLocationsViewModel selectedLocationsViewModel = new SelectedLocationsViewModel();
         final UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
-        final AddToCalendarViewModel calendarViewModel = new AddToCalendarViewModel();
+        final ReviewLocationViewModel reviewLocationViewModel = new ReviewLocationViewModel();
         // add any future view models here in the same way
 
         final DBLocationDataAccessObject locationDataAccessObject = new DBLocationDataAccessObject(
@@ -88,11 +88,11 @@ public class MainWithDB {
 
         final SuggestedLocationsView suggestedLocationsView = SuggestedLocationsUseCaseFactory.create(viewManagerModel,
                 suggestedLocationsViewModel, calendarViewModel, selectedLocationsViewModel, coordinatesDataAccessObject,
-                calendarDataAccessObject, locationViewModel);
+                calendarDataAccessObject, locationViewModel, userProfileViewModel);
         views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
 
         final SelectedLocationView selectedLocationView = SelectedLocationsUseCaseFactory.create(viewManagerModel,
-                 selectedLocationsViewModel, coordinatesDataAccessObject, locationViewModel);
+                 selectedLocationsViewModel, coordinatesDataAccessObject, locationViewModel, userProfileViewModel);
         views.add(selectedLocationView, selectedLocationView.getViewName());
 
         final CalendarView calendarView = CalendarUseCaseFactory.create(viewManagerModel, calendarViewModel,
@@ -108,11 +108,6 @@ public class MainWithDB {
         views.add(reviewLocationView, reviewLocationView.getViewName());
 
         viewManagerModel.setState(signupView.getViewName());
-        final CalendarView calendarView = CalendarUseCaseFactory.create(viewManagerModel, calendarViewModel,
-                calendarDataAccessObject);
-        views.add(calendarView, calendarView.getViewName());
-
-        viewManagerModel.setState(locationView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         application.pack();

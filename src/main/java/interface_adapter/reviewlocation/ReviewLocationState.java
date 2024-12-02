@@ -9,9 +9,9 @@ import java.util.Map;
 public class ReviewLocationState {
     private List<SavedPlace> savedPlaces;
     private String listName;
-    private Map<Place, List<String>> addedReviews;
+    private Map<SavedPlace, List<String>> addedReviews;
 
-    public Map<Place, List<String>> getAddedReviews() {
+    public Map<SavedPlace, List<String>> getAddedReviews() {
         return addedReviews;
     }
 

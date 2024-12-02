@@ -20,7 +20,7 @@ public class UserProfileInteractor implements UserProfileInputBoundary {
     }
 
     @Override
-    public void savePlaces(Map<String, List<SavedPlace>> places) {
+    public void savePlaces(String username, Map<String, List<SavedPlace>> places) {
         try {
             userProfileDataAccess.savePlaces(username, places);
             userProfileOutputBoundary.prepareSuccessView("Places saved successfully!");

@@ -28,6 +28,7 @@ public class SelectedLocationView extends JPanel implements ActionListener, Prop
     private final SelectedLocationsController selectedLocationsController;
 
     private final JButton newSearchButton;
+    private final JButton saveToProfileButton;
     private final JPanel selectedLocationPanel;
 
     public SelectedLocationView(SelectedLocationsViewModel selectedLocationsViewModel,
@@ -51,6 +52,11 @@ public class SelectedLocationView extends JPanel implements ActionListener, Prop
         newSearchButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(newSearchButton);
 
+        this.saveToProfileButton = new JButton("Save to Profile");
+        saveToProfileButton.addActionListener(this);
+        saveToProfileButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(saveToProfileButton);
+
         updateSelectedLocations(selectedLocationsViewModel.getState());
     }
 
@@ -58,6 +64,9 @@ public class SelectedLocationView extends JPanel implements ActionListener, Prop
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(newSearchButton)) {
             selectedLocationsController.switchToLocationView();
+        }
+        if (e.getSource().equals(saveToProfileButton)) {
+            selectedLocationsController.switchToUserProfileView();
         }
     }
 

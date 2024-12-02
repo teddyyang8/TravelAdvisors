@@ -15,7 +15,7 @@ public interface UserProfileInputBoundary {
      * @param places the places to be saved, represented as a map with the place name as the key
      *               and a list of place objects as the value
      */
-    void savePlaces(Map<String, List<SavedPlace>> places);
+    void savePlaces(String username, Map<String, List<SavedPlace>> places);
 
     /**
      * Logs out the user.
