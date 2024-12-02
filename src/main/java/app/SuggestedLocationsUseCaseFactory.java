@@ -4,7 +4,11 @@ package app;
 import data_access.DBCoordinatesDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.selectedlocation.SelectedLocationsPresenter;
-import interface_adapter.selectedlocation.SelectedLocationsViewModel;
+import interface_adapter.selectedlocation.SelectedLocationsViewModel;/
+import interface_adapter.add_to_calendar.AddToCalendarController;
+import interface_adapter.add_to_calendar.AddToCalendarViewModel;
+import interface_adapter.location.LocationController;
+import interface_adapter.location.LocationViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsController;
 import interface_adapter.suggestlocation.SuggestedLocationsPresenter;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
@@ -31,34 +35,37 @@ public class SuggestedLocationsUseCaseFactory {
      * Factory function for creating the LocationView.
      * @param viewManagerModel the ViewManagerModel to inject
      * @param suggestedLocationsViewModel the SuggestedLocationsViewModel to inject
-     * @param selectedLocationsViewModel the SelectedLocationsViewModel to
-     *                                   inject
+     * @param selectedLocationsViewModel the SelectedLocationsViewModel to inject
+     * @param calendarViewModel the LocationViewModel to inject
      * @return the LocationView created for the provided input classes.
      */
     public static SuggestedLocationsView create(
             ViewManagerModel viewManagerModel,
             SuggestedLocationsViewModel suggestedLocationsViewModel,
+            AddToCalendarViewModel calendarViewModel
             SelectedLocationsViewModel selectedLocationsViewModel) {
-
-        final SuggestedLocationsController suggestedLocationsController = createSuggestedLocationUseCase(viewManagerModel,
-                suggestedLocationsViewModel, selectedLocationsViewModel);
 
         final SelectedLocationsController selectedLocationController = createSelectedLocationUseCase(viewManagerModel,
                 selectedLocationsViewModel, new DBCoordinatesDataAccessObject());
 
-        // didnt pass in the card layout and parent panel (since teddy idk if ur doing it in the view)
-        return new SuggestedLocationsView(suggestedLocationsViewModel,
-                suggestedLocationsController, selectedLocationsViewModel, selectedLocationController);
+        final SuggestedLocationsController suggestedLocationsController = createSuggestedLocationUseCase(
+                viewManagerModel,
+                suggestedLocationsViewModel,
+                calendarViewModel);
+
+        return new SuggestedLocationsView(suggestedLocationsViewModel, suggestedLocationsController, calendarViewModel, selectedLocationsViewModel, selectedLocationController);
     }
 
     private static SuggestedLocationsController createSuggestedLocationUseCase(
             ViewManagerModel viewManagerModel,
             SuggestedLocationsViewModel suggestedLocationsViewModel,
+            AddToCalendarViewModel calendarViewModel,
             SelectedLocationsViewModel selectedLocationsViewModel) {
 
         final SuggestedLocationsOutputBoundary suggestedLocationsOutputBoundary = new SuggestedLocationsPresenter(
-                viewManagerModel, suggestedLocationsViewModel, selectedLocationsViewModel);
-        final SuggestedLocationsInputBoundary suggestedLocationsInteractor = new SuggestedLocationsInteractor(
+                viewManagerModel, suggestedLocationsViewModel, calendarViewModel, selectedLocationsViewModel);
+
+      final SuggestedLocationsInputBoundary suggestedLocationsInteractor = new SuggestedLocationsInteractor(
                 suggestedLocationsOutputBoundary);
 
         return new SuggestedLocationsController(suggestedLocationsInteractor);

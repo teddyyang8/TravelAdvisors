@@ -1,6 +1,5 @@
 package use_case;
 
-import entity.User;
 import org.junit.Test;
 import use_case.note.NoteDataAccessInterface;
 import use_case.note.NoteInteractor;
