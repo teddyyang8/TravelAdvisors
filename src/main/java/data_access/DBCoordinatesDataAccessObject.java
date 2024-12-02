@@ -9,7 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import use_case.DataAccessException;
-import use_case.locations.CoordinateDataAccessInterface;
+import use_case.selected_locations.CoordinateDataAccessInterface;
 
 /**
  * The DAO for accessing places using Google Places API.

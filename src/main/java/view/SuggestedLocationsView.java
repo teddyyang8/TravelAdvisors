@@ -41,6 +41,7 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
     private final SelectedLocationsController selectedLocationsController;
     private final SelectedLocationsViewModel selectedLocationsViewModel;
     private final AddToCalendarViewModel calendarViewModel;
+    private final AddToCalendarController calendarController;
 
     private final JPanel suggestedLocationsPanel;
     private final JButton saveSelectionButton;
@@ -57,17 +58,18 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
     public SuggestedLocationsView(SuggestedLocationsViewModel suggestedLocationsViewModel,
                                   SuggestedLocationsController suggestedLocationsController,
                                   AddToCalendarViewModel calendarViewModel,
+                                  AddToCalendarController calendarController,
                                   SelectedLocationsViewModel selectedLocationsViewModel,
                                   SelectedLocationsController selectedLocationsController) {
-        
+
         this.suggestedLocationsViewModel = suggestedLocationsViewModel;
         this.suggestedLocationsViewModel.addPropertyChangeListener(this);
         this.suggestedLocationsController = suggestedLocationsController;
         this.selectedLocationsController = selectedLocationsController;
         this.selectedLocationsViewModel = selectedLocationsViewModel;
-        // property change listener?
         this.calendarViewModel = calendarViewModel;
-        
+        this.calendarController = calendarController;
+
         this.selectedLocations = new ArrayList<>();
         this.calendarLocations = new HashMap<>();
 
@@ -80,7 +82,7 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
         this.saveSelectionButton = new JButton("Save Selection");
         saveSelectionButton.addActionListener(this);
         saveSelectionButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-      
+
         this.newSearchButton = new JButton("New Search");
         newSearchButton.addActionListener(this);
         newSearchButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -112,8 +114,7 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
             for (int i = 0; i < Math.min(numLocationsDisplayed, suggestedLocations.size()); i++) {
                 final Place location = suggestedLocations.get(i);
                 final JPanel locationPanel = new JPanel();
-                locationPanel.setLayout(new BoxLayout(locationPanel, BoxLayout.Y_AXIS));
-
+                locationPanel.setLayout(new FlowLayout());
                 final JCheckBox checkBox = new JCheckBox();
                 checkBox.addActionListener(e -> {
                     if (checkBox.isSelected()) {
@@ -152,13 +153,12 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
             final SelectedLocationsState selectedLocationsState = selectedLocationsViewModel.getState();
             selectedLocationsState.setSelectedLocations(selectedLocations);
             selectedLocationsViewModel.setState(selectedLocationsState);
-        }
-        else {
+
             final AddToCalendarState currentState = calendarViewModel.getState();
             currentState.setCalendarItems(calendarLocations);
             calendarViewModel.setState(currentState);
-        } 
-      else {
+        }
+        else {
             JOptionPane.showMessageDialog(this, "No suggested locations available.", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
         suggestedLocationsPanel.revalidate();
@@ -172,32 +172,26 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
             final SelectedLocationsState selectedLocationsState = selectedLocationsViewModel.getState();
             try {
                 selectedLocationsController.execute(selectedLocationsState.getSelectedLocations());
+            }
+            catch (DataAccessException e) {
+                throw new RuntimeException();
+            }
+        }
         if (evt.getSource().equals(newSearchButton)) {
 //            final LocationState currentState = locationViewModel.getState();
 //            try {
 //                locationController.execute(currentState.getAddress(), currentState.getLocationType());
-//            }
-//            catch (DataAccessException e) {
-//                throw new RuntimeException();
-//            }
         }
         if (evt.getSource().equals(saveToCalendarButton)) {
             final AddToCalendarState currentState = calendarViewModel.getState();
             try {
-                suggestedLocationsController.execute(currentState.getCalendarItems());
+                calendarController.execute(currentState.getCalendarItems());
             }
             catch (DataAccessException e) {
                 throw new RuntimeException(e);
             }
-
-//            final AddToCalendarState currentState = calendarViewModel.getState();
-//            try {
-//                calendarController.execute(currentState.getCalendarItems());
-//            }
-//            catch (DataAccessException e) {
-//                throw new RuntimeException(e);
-//            }
         }
+
     }
 
     public String getViewName() {

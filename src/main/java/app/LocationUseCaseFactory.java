@@ -9,6 +9,7 @@ import use_case.locations.LocationDataAccessInterface;
 import use_case.locations.LocationsInputBoundary;
 import use_case.locations.LocationsInteractor;
 import use_case.locations.LocationsOutputBoundary;
+import use_case.user_profile.UserProfileDataAccessInterface;
 import view.LocationView;
 
 /**
@@ -27,16 +28,18 @@ public class LocationUseCaseFactory {
      * @param locationViewModel the LocationViewModel to inject
      * @param suggestedLocationsViewModel the SuggestedLocationsViewModel to inject
      * @param locationDataAccessObject the LocationDataAccessInterface to inject
+     * @param userDataAccessObject the UserProfileDataAccessInterface to inject
      * @return the LocationView created for the provided input classes.
      */
     public static LocationView create(
             ViewManagerModel viewManagerModel,
             LocationViewModel locationViewModel,
             SuggestedLocationsViewModel suggestedLocationsViewModel,
-            LocationDataAccessInterface locationDataAccessObject) {
+            LocationDataAccessInterface locationDataAccessObject,
+            UserProfileDataAccessInterface userDataAccessObject) {
 
         final LocationController locationController = createLocationUseCase(viewManagerModel, locationViewModel,
-                suggestedLocationsViewModel, locationDataAccessObject);
+                suggestedLocationsViewModel, locationDataAccessObject, userDataAccessObject);
 
         return new LocationView(locationViewModel, locationController);
     }
@@ -45,12 +48,13 @@ public class LocationUseCaseFactory {
             ViewManagerModel viewManagerModel,
             LocationViewModel locationViewModel,
             SuggestedLocationsViewModel suggestedLocationsViewModel,
-            LocationDataAccessInterface userDataAccessObject) {
+            LocationDataAccessInterface locationDataAccessObject,
+            UserProfileDataAccessInterface userDataAccessObject) {
 
         final LocationsOutputBoundary locationsOutputBoundary = new LocationPresenter(locationViewModel,
                 suggestedLocationsViewModel, viewManagerModel);
-        final LocationsInputBoundary locationInteractor = new LocationsInteractor(userDataAccessObject,
-                locationsOutputBoundary);
+        final LocationsInputBoundary locationInteractor = new LocationsInteractor(locationDataAccessObject,
+                locationsOutputBoundary, userDataAccessObject);
 
         return new LocationController(locationInteractor);
     }

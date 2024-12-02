@@ -1,7 +1,4 @@
-package use_case.locations;
-
-import java.util.HashMap;
-import java.util.List;
+package use_case.selected_locations;
 
 import entity.Place;
 import use_case.DataAccessException;

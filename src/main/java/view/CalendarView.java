@@ -62,13 +62,7 @@ public class CalendarView extends JPanel implements ActionListener, PropertyChan
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(newSearchButton)) {
-            final AddToCalendarState currentState = calendarViewModel.getState();
-            try {
-                addToCalendarController.execute(currentState.getCalendarItems());
-            }
-            catch (DataAccessException e) {
-                throw new RuntimeException();
-            }
+            addToCalendarController.switchToLocationView();
         }
     }
 

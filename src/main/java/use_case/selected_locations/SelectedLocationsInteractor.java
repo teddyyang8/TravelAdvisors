@@ -2,7 +2,6 @@ package use_case.selected_locations;
 
 import entity.Place;
 import use_case.DataAccessException;
-import use_case.locations.CoordinateDataAccessInterface;
 
 import java.util.HashMap;
 import java.util.List;
