@@ -1,14 +1,14 @@
 package app;
 
 import data_access.DBLocationDataAccessObject;
+import data_access.InMemoryUserDataAccessObject;
 import entity.SuggestedPlaceFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.location.LocationViewModel;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignupViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
-import view.LocationView;
-import view.SuggestedLocationsView;
-import view.UserProfileView;
-import view.ViewManager;
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,13 +37,26 @@ public class MainWithDB {
 
         final ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
+        final LoginViewModel loginViewModel = new LoginViewModel();
 
+        final SignupViewModel signupViewModel = new SignupViewModel();
         final LocationViewModel locationViewModel = new LocationViewModel();
         final SuggestedLocationsViewModel suggestedLocationsViewModel = new SuggestedLocationsViewModel();
         // add any future view models here in the same way
 
         final DBLocationDataAccessObject locationDataAccessObject = new DBLocationDataAccessObject(
                 new SuggestedPlaceFactory());
+
+        final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+
+        final SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel,
+                signupViewModel, userDataAccessObject);
+        views.add(signupView, signupView.getViewName());
+
+        final LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel,
+                userProfileViewModel, userDataAccessObject);
+        // logged in = user profile view
+        views.add(loginView, loginView.getViewName());
 
         final LocationView locationView = LocationUseCaseFactory.create(viewManagerModel, locationViewModel,
                 suggestedLocationsViewModel, locationDataAccessObject);

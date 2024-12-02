@@ -9,14 +9,14 @@ import use_case.DataAccessException;
  */
 public class SignupInteractor implements SignupInputBoundary {
     private final SignupUserDataAccessInterface userDataAccess;
-    private final SignupOutputBoundary signupOutputBoundary;
+    private final SignupOutputBoundary userPresenter;
     private final UserFactory userFactory;
 
     public SignupInteractor(SignupUserDataAccessInterface userDataAccess,
                             SignupOutputBoundary signupOutputBoundary,
                             UserFactory userFactory) {
         this.userDataAccess = userDataAccess;
-        this.signupOutputBoundary = signupOutputBoundary;
+        this.userPresenter = signupOutputBoundary;
         this.userFactory = userFactory;
     }
 
@@ -28,26 +28,26 @@ public class SignupInteractor implements SignupInputBoundary {
 
         try {
             if (userDataAccess.existsByName(username)) {
-                signupOutputBoundary.prepareFailView("User already exists.");
+                userPresenter.prepareFailView("User already exists.");
             }
             else if (!password.equals(repeatPassword)) {
-                signupOutputBoundary.prepareFailView("Passwords don't match.");
+                userPresenter.prepareFailView("Passwords don't match.");
             }
             else {
                 final User newUser = userFactory.create(username, password);
                 userDataAccess.save(newUser);
 
-                final SignupOutputData signupOutputData = new SignupOutputData(username, false);
-                signupOutputBoundary.prepareSuccessView(signupOutputData);
+                final SignupOutputData signupOutputData = new SignupOutputData(newUser.getName(), false);
+                userPresenter.prepareSuccessView(signupOutputData);
             }
         }
         catch (DataAccessException error) {
-            signupOutputBoundary.prepareFailView("An error occurred while signing up.");
+            userPresenter.prepareFailView("An error occurred while signing up.");
         }
     }
 
     @Override
     public void switchToLoginView() {
-        signupOutputBoundary.prepareSwitchToLoginView();
+        userPresenter.switchToLoginView();
     }
 }

@@ -13,7 +13,7 @@ import use_case.user.UserProfileDataAccessInterface;
 /**
  * In-memory implementation for storing user data for both sign-up and user profile.
  */
-public class InMemoryUserDataAccess implements SignupUserDataAccessInterface, UserProfileDataAccessInterface {
+public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface, UserProfileDataAccessInterface {
 
     private final Map<String, User> userDatabase = new HashMap<>();
 
