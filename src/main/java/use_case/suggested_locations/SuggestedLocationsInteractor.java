@@ -20,4 +20,9 @@ public class SuggestedLocationsInteractor implements SuggestedLocationsInputBoun
 //        placePresenter.prepareSuccessView(suggestedLocationsOutputData)
         System.out.println("got here somehow");
     }
+
+    @Override
+    public void switchToLocationView() {
+        placePresenter.switchToLocationView();
+    }
 }

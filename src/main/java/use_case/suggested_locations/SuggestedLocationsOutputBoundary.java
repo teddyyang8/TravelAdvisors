@@ -17,4 +17,9 @@ public interface SuggestedLocationsOutputBoundary {
      * @param errorMessage the explanation of the failure
      */
     void prepareFailView(String errorMessage);
+
+    /**
+     * Executes the switch location view.
+     */
+    void switchToLocationView();
 }

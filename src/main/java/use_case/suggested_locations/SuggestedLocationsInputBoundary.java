@@ -13,4 +13,9 @@ public interface SuggestedLocationsInputBoundary {
      * @throws DataAccessException if data cannot be accessed at any time
      */
     void execute(SuggestedLocationsInputData suggestedLocationsInputData) throws DataAccessException;
+
+    /**
+     * Executes switch to location view.
+     */
+    public void switchToLocationView();
 }

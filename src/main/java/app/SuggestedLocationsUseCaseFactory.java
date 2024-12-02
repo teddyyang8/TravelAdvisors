@@ -63,7 +63,7 @@ public class SuggestedLocationsUseCaseFactory {
                 viewManagerModel,
                 suggestedLocationsViewModel,
                 calendarViewModel,
-                selectedLocationsViewModel);
+                locationViewModel);
 
         final AddToCalendarController calendarController = createAddToCalendarUseCase(viewManagerModel,
                 calendarViewModel, calendarDataAccessObject, locationViewModel);
@@ -76,10 +76,10 @@ public class SuggestedLocationsUseCaseFactory {
             ViewManagerModel viewManagerModel,
             SuggestedLocationsViewModel suggestedLocationsViewModel,
             AddToCalendarViewModel calendarViewModel,
-            SelectedLocationsViewModel selectedLocationsViewModel) {
+            LocationViewModel locationViewModel) {
 
         final SuggestedLocationsOutputBoundary suggestedLocationsOutputBoundary = new SuggestedLocationsPresenter(
-                viewManagerModel, suggestedLocationsViewModel, calendarViewModel, selectedLocationsViewModel);
+                viewManagerModel, suggestedLocationsViewModel, calendarViewModel, locationViewModel);
 
         final SuggestedLocationsInputBoundary suggestedLocationsInteractor = new SuggestedLocationsInteractor(
                 suggestedLocationsOutputBoundary);
