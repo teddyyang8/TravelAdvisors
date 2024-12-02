@@ -55,7 +55,7 @@ public class SuggestedLocationsUseCaseFactory {
             LocationViewModel locationViewModel) {
 
         final SelectedLocationsController selectedLocationController = createSelectedLocationUseCase(viewManagerModel,
-                selectedLocationsViewModel, coordinateDataAccessObject);
+                selectedLocationsViewModel, coordinateDataAccessObject, locationViewModel);
 
         final SuggestedLocationsController suggestedLocationsController = createSuggestedLocationUseCase(
                 viewManagerModel,
@@ -79,7 +79,7 @@ public class SuggestedLocationsUseCaseFactory {
         final SuggestedLocationsOutputBoundary suggestedLocationsOutputBoundary = new SuggestedLocationsPresenter(
                 viewManagerModel, suggestedLocationsViewModel, calendarViewModel, selectedLocationsViewModel);
 
-      final SuggestedLocationsInputBoundary suggestedLocationsInteractor = new SuggestedLocationsInteractor(
+        final SuggestedLocationsInputBoundary suggestedLocationsInteractor = new SuggestedLocationsInteractor(
                 suggestedLocationsOutputBoundary);
 
         return new SuggestedLocationsController(suggestedLocationsInteractor);
@@ -88,9 +88,10 @@ public class SuggestedLocationsUseCaseFactory {
     private static SelectedLocationsController createSelectedLocationUseCase(
             ViewManagerModel viewManagerModel,
             SelectedLocationsViewModel selectedLocationsViewModel,
-            CoordinateDataAccessInterface coordinatesDataAccessObject) {
+            CoordinateDataAccessInterface coordinatesDataAccessObject,
+            LocationViewModel locationViewModel) {
         final SelectedLocationsOutputBoundary selectedLocationsOutputBoundary = new SelectedLocationsPresenter(
-                selectedLocationsViewModel, viewManagerModel);
+                selectedLocationsViewModel, viewManagerModel, locationViewModel);
         final SelectedLocationsInputBoundary selectedLocationsInteractor = new SelectedLocationsInteractor(
                 selectedLocationsOutputBoundary, coordinatesDataAccessObject);
 

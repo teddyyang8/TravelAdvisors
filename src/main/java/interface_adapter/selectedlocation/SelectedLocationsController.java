@@ -22,4 +22,11 @@ public class SelectedLocationsController {
         selectedLocationsInteractor.execute(selectedLocationsInputData);
     }
 
+    /**
+     * Switches to the location view.
+     */
+    public void switchToLocationView() {
+        selectedLocationsInteractor.switchToLocationView();
+    }
+
 }

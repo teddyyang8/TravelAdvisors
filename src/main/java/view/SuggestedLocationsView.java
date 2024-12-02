@@ -89,6 +89,7 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
 
         this.saveToCalendarButton = new JButton("Save to Calendar");
         saveToCalendarButton.addActionListener(this);
+        saveToCalendarButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);

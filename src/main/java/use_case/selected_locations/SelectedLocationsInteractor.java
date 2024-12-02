@@ -36,4 +36,9 @@ public class SelectedLocationsInteractor implements SelectedLocationsInputBounda
                 new SelectedLocationsOutputData(locationCoordinatesMap);
         selectedLocationsPresenter.prepareSuccessView(selectedLocationsOutputData);
     }
+
+    @Override
+    public void switchToLocationView() {
+        selectedLocationsPresenter.switchToLocationView();
+    }
 }
