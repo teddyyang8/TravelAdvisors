@@ -1,6 +1,7 @@
 package interface_adapter.suggestlocation;
 
 import java.util.List;
+import java.util.Map;
 
 import entity.Place;
 import use_case.DataAccessException;
@@ -20,12 +21,12 @@ public class SuggestedLocationsController {
 
     /**
      * Executes the suggested locations' operation.
-     * @param suggestedLocations the suggestedLocations produced.
+     * @param calendarItems the calendarItems produced.
      * @throws DataAccessException if data cannot be accessed.
      */
-    public void execute(List<Place> suggestedLocations) throws DataAccessException {
+    public void execute(Map<Place, String> calendarItems) throws DataAccessException {
         final SuggestedLocationsInputData suggestedLocationInputData = new SuggestedLocationsInputData(
-                suggestedLocations);
+                calendarItems);
 
         suggestedLocationsInteractor.execute(suggestedLocationInputData);
     }

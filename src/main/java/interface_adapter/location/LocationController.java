@@ -20,23 +20,16 @@ public class LocationController {
 
     /**
      * Executes the show location.
-     * Executes the save or refresh operation based on the location.
-     *
-     * @param address      the location to save or refresh
-     * @param locationType the type of location to save or refresh
+     * @param address the location to show.
+     * @param locationType the type of location to search.
      * @throws DataAccessException if data cannot be accessed
      */
-    public void execute(String address, String locationType) throws DataAccessException {
+
+
+    public void execute(String address, String locationType, String currentFilter) throws DataAccessException {
         final LocationsInputData locationInputData = new LocationsInputData(
                 address, locationType);
 
-        locationInput.execute(locationInputData);
+        locationInput.execute(locationInputData, currentFilter);
     }
-
-//    /**
-//     * Switches to the suggested locations view.
-//     */
-//    public void switchToSuggestedLocationsView() {
-//        locationInput.switchToSuggestedLocationsView();
-//    }
 }

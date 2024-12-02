@@ -1,18 +1,21 @@
 package app;
 
+import java.awt.*;
+
+import javax.swing.*;
+
 import data_access.DBLocationDataAccessObject;
 import data_access.InMemoryUserDataAccessObject;
+import data_access.InMemoryCalendarDataAccessObject;
 import entity.SuggestedPlaceFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.add_to_calendar.AddToCalendarViewModel;
 import interface_adapter.location.LocationViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
 import interface_adapter.user_profile.UserProfileViewModel;
 import view.*;
-
-import javax.swing.*;
-import java.awt.*;
 
 /**
  * The version of Main with an external database used to persist user data.
@@ -44,6 +47,7 @@ public class MainWithDB {
         final LocationViewModel locationViewModel = new LocationViewModel();
         final SuggestedLocationsViewModel suggestedLocationsViewModel = new SuggestedLocationsViewModel();
         final UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
+        final AddToCalendarViewModel calendarViewModel = new AddToCalendarViewModel();
         // add any future view models here in the same way
 
         final DBLocationDataAccessObject locationDataAccessObject = new DBLocationDataAccessObject(
@@ -58,13 +62,14 @@ public class MainWithDB {
                 userProfileViewModel, locationViewModel, userDataAccessObject);
         // logged in = user profile view
         views.add(loginView, loginView.getViewName());
+        final InMemoryCalendarDataAccessObject calendarDataAccessObject = new InMemoryCalendarDataAccessObject();
 
         final LocationView locationView = LocationUseCaseFactory.create(viewManagerModel, locationViewModel,
                 suggestedLocationsViewModel, locationDataAccessObject);
         views.add(locationView, locationView.getViewName());
 
         final SuggestedLocationsView suggestedLocationsView = SuggestedLocationsUseCaseFactory.create(viewManagerModel,
-                suggestedLocationsViewModel);
+                suggestedLocationsViewModel, calendarViewModel);
         views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
 
         final UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel,
@@ -72,6 +77,11 @@ public class MainWithDB {
         views.add(userProfileView, userProfileView.getViewName());
 
         viewManagerModel.setState(signupView.getViewName());
+        final CalendarView calendarView = CalendarUseCaseFactory.create(viewManagerModel, calendarViewModel,
+                calendarDataAccessObject);
+        views.add(calendarView, calendarView.getViewName());
+
+        viewManagerModel.setState(locationView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         application.pack();
