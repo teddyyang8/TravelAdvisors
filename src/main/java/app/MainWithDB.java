@@ -90,7 +90,7 @@ public class MainWithDB {
         views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
 
         final SelectedLocationView selectedLocationView = SelectedLocationsUseCaseFactory.create(viewManagerModel,
-                 selectedLocationsViewModel, coordinatesDataAccessObject);
+                 selectedLocationsViewModel, coordinatesDataAccessObject, locationViewModel);
         views.add(selectedLocationView, selectedLocationView.getViewName());
 
         final CalendarView calendarView = CalendarUseCaseFactory.create(viewManagerModel, calendarViewModel,

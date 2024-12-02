@@ -30,6 +30,9 @@ public class AddToCalendarController {
         addToCalendarInteractor.execute(calendarInputData);
     }
 
+    /**
+     * Executes the switch to location view.
+     */
     public void switchToLocationView() {
         addToCalendarInteractor.switchToLocationView();
     }

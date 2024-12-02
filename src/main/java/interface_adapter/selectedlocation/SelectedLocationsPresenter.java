@@ -1,7 +1,7 @@
 package interface_adapter.selectedlocation;
 
-
 import interface_adapter.ViewManagerModel;
+import interface_adapter.location.LocationViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsState;
 import use_case.selected_locations.SelectedLocationsOutputBoundary;
 import use_case.selected_locations.SelectedLocationsOutputData;
@@ -9,11 +9,14 @@ import use_case.selected_locations.SelectedLocationsOutputData;
 public class SelectedLocationsPresenter implements SelectedLocationsOutputBoundary {
     private final SelectedLocationsViewModel selectedLocationsViewModel;
     private final ViewManagerModel viewManagerModel;
+    private final LocationViewModel locationViewModel;
 
     public SelectedLocationsPresenter(SelectedLocationsViewModel selectedLocationsViewModel,
-                                      ViewManagerModel viewManagerModel) {
+                                      ViewManagerModel viewManagerModel,
+                                      LocationViewModel locationViewModel) {
         this.selectedLocationsViewModel = selectedLocationsViewModel;
         this.viewManagerModel = viewManagerModel;
+        this.locationViewModel = locationViewModel;
     }
 
     @Override
@@ -30,5 +33,11 @@ public class SelectedLocationsPresenter implements SelectedLocationsOutputBounda
     @Override
     public void prepareFailView(String errorMessage) {
 
+    }
+
+    @Override
+    public void switchToLocationView() {
+        viewManagerModel.setState(locationViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 }
