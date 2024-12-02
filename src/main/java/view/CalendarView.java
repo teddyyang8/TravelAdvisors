@@ -75,8 +75,9 @@ public class CalendarView extends JPanel implements ActionListener, PropertyChan
     }
 
     private void updateCalendarView(AddToCalendarState state) {
+        calendarPanel.removeAll();
         final Map<Place, String> calendarItems = state.getCalendarItems();
-        System.out.println("line 75");
+        System.out.println(calendarTimes.length);
         for (int i = 0; i < calendarTimes.length; i++) {
             final JPanel timePanel = new JPanel();
             final JTextField timeField = new JTextField(calendarTimes[i]);
@@ -85,13 +86,13 @@ public class CalendarView extends JPanel implements ActionListener, PropertyChan
                 if (entry.getValue().equals(calendarTimes[i])) {
                     final JTextField locationField = new JTextField(entry.getKey().getName());
                     final JTextField addressField = new JTextField(entry.getKey().getAddress());
-                    timePanel.add(locationField);
-                    timePanel.add(addressField);
+                    timePanel.add(locationField, BorderLayout.EAST);
+                    timePanel.add(addressField, BorderLayout.EAST);
                 }
             }
 //                timePanel.add(Box.createVerticalStrut(calendarTimes.length));
 //                timePanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-            calendarPanel.add(timePanel);
+            calendarPanel.add(timePanel, BorderLayout.WEST);
         }
         calendarPanel.revalidate();
         calendarPanel.repaint();

@@ -179,9 +179,7 @@ public class SuggestedLocationsView extends JPanel implements ActionListener, Pr
             }
         }
         if (evt.getSource().equals(newSearchButton)) {
-//            final LocationState currentState = locationViewModel.getState();
-//            try {
-//                locationController.execute(currentState.getAddress(), currentState.getLocationType());
+            suggestedLocationsController.switchToLocationView();
         }
         if (evt.getSource().equals(saveToCalendarButton)) {
             final AddToCalendarState currentState = calendarViewModel.getState();
