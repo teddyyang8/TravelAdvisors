@@ -1,13 +1,19 @@
 package app;
 
 
+import data_access.DBCoordinatesDataAccessObject;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.selectedlocation.SelectedLocationsPresenter;
 import interface_adapter.selectedlocation.SelectedLocationsViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsController;
 import interface_adapter.suggestlocation.SuggestedLocationsPresenter;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
+import use_case.selected_locations.SelectedLocationsInputBoundary;
+import use_case.selected_locations.SelectedLocationsInteractor;
+import use_case.selected_locations.SelectedLocationsOutputBoundary;
 import use_case.suggested_locations.SuggestedLocationsInteractor;
 import use_case.suggested_locations.SuggestedLocationsInputBoundary;
+import interface_adapter.selectedlocation.SelectedLocationsController;
 import use_case.suggested_locations.SuggestedLocationsOutputBoundary;
 import view.SuggestedLocationsView;
 
@@ -37,9 +43,12 @@ public class SuggestedLocationsUseCaseFactory {
         final SuggestedLocationsController suggestedLocationsController = createSuggestedLocationUseCase(viewManagerModel,
                 suggestedLocationsViewModel, selectedLocationsViewModel);
 
+        final SelectedLocationsController selectedLocationController = createSelectedLocationUseCase(viewManagerModel,
+                selectedLocationsViewModel, new DBCoordinatesDataAccessObject());
+
         // didnt pass in the card layout and parent panel (since teddy idk if ur doing it in the view)
         return new SuggestedLocationsView(suggestedLocationsViewModel,
-                suggestedLocationsController, selectedLocationsViewModel);
+                suggestedLocationsController, selectedLocationsViewModel, selectedLocationController);
     }
 
     private static SuggestedLocationsController createSuggestedLocationUseCase(
@@ -53,6 +62,18 @@ public class SuggestedLocationsUseCaseFactory {
                 suggestedLocationsOutputBoundary);
 
         return new SuggestedLocationsController(suggestedLocationsInteractor);
+    }
+
+    private static SelectedLocationsController createSelectedLocationUseCase(
+            ViewManagerModel viewManagerModel,
+            SelectedLocationsViewModel selectedLocationsViewModel,
+            DBCoordinatesDataAccessObject coordinatesDataAccessObject) {
+        final SelectedLocationsOutputBoundary selectedLocationsOutputBoundary = new SelectedLocationsPresenter(
+                selectedLocationsViewModel, viewManagerModel);
+        final SelectedLocationsInputBoundary selectedLocationsInteractor = new SelectedLocationsInteractor(
+                selectedLocationsOutputBoundary, coordinatesDataAccessObject);
+
+        return new SelectedLocationsController(selectedLocationsInteractor);
     }
 }
 

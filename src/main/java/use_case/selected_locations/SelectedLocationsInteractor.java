@@ -6,6 +6,7 @@ import use_case.locations.CoordinateDataAccessInterface;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SelectedLocationsInteractor implements SelectedLocationsInputBoundary {
     private final CoordinateDataAccessInterface coordinateDataAccessInterface;
@@ -20,11 +21,11 @@ public class SelectedLocationsInteractor implements SelectedLocationsInputBounda
     @Override
     public void execute(SelectedLocationsInputData selectedLocationsInputData) throws DataAccessException {
         final List<Place> selectedLocations = selectedLocationsInputData.getSelectedLocations();
-        final HashMap<Place, String> locationCoordinatesMap = new HashMap<>();
+        final Map<Place, String> locationCoordinatesMap = new HashMap<>();
 
         for (Place location : selectedLocations) {
             try {
-                String coordinates = coordinateDataAccessInterface.searchCoordinates(location);
+                final String coordinates = coordinateDataAccessInterface.searchCoordinates(location);
                 locationCoordinatesMap.put(location, coordinates);
             }
             catch (DataAccessException e) {

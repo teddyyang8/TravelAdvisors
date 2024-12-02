@@ -6,7 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
@@ -61,15 +63,35 @@ public class SelectedLocationView extends JPanel implements ActionListener, Prop
             final JLabel addressLabel = new JLabel(location.getAddress());
             final JButton actionButton = new JButton("Get Directions to " + location.getName());
             final Map<Place, String> map =
-                    selectedLocationsViewModel.getState().getPlaceToCoordinates();
+                   state.getPlaceToCoordinates();
             actionButton.addActionListener(evt -> {
-                if (actionButton.isSelected()) {
-                        String coordinates = map.get(location);
-                        String url = "https://maps.google.com/?q=" + coordinates;
-                        JOptionPane.showMessageDialog(this, url, "Directions", JOptionPane.INFORMATION_MESSAGE);
+                if (evt.getSource() == actionButton) {
+                    try {
+                        // Define the URL to open
+                        final String coordinates = map.get(location);
+                        final URI url = new URI("https://maps.google.com/?q=" + coordinates );
 
+                        // Check if Desktop is supported
+                        if (Desktop.isDesktopSupported()) {
+                            final Desktop desktop = Desktop.getDesktop();
+
+                            // Check if browsing is supported
+                            if (desktop.isSupported(Desktop.Action.BROWSE)) {
+                                desktop.browse(url);
+                            }
+                            else {
+                                JOptionPane.showMessageDialog(this, "Browsing is not supported on your system.");
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(this, "Desktop is not supported on your system.");
+                        }
+                    }
+                    catch (IOException | URISyntaxException ex) {
+                        JOptionPane.showMessageDialog(this, "Failed to open the URL: " + ex.getMessage());
+                    }
                 }
-            }
+                }
             );
             selectedLocationPanel.add(nameLabel);
             selectedLocationPanel.add(addressLabel);

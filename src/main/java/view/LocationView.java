@@ -124,7 +124,8 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
                 final LocationState currentState = locationViewModel.getState();
                 try {
                     locationController.execute(currentState.getAddress(), currentState.getLocationType());
-                } catch (DataAccessException e) {
+                }
+                catch (DataAccessException e) {
                     throw new RuntimeException(e);
                 }
             }
