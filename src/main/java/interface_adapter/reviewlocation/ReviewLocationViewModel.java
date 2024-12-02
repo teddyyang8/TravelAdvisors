@@ -1,4 +1,11 @@
 package interface_adapter.reviewlocation;
 
-public class ReviewLocationViewModel {
+import interface_adapter.ViewModel;
+
+public class ReviewLocationViewModel extends ViewModel<ReviewLocationState> {
+
+    public ReviewLocationViewModel(ReviewLocationState state) {
+        super("Review Locations");
+        setState(new ReviewLocationState());
+    }
 }

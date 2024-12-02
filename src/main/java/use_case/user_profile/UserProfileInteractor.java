@@ -3,7 +3,7 @@ package use_case.user_profile;
 import java.util.List;
 import java.util.Map;
 
-import entity.Place;
+import entity.SavedPlace;
 import use_case.DataAccessException;
 
 /**
@@ -20,7 +20,7 @@ public class UserProfileInteractor implements UserProfileInputBoundary {
     }
 
     @Override
-    public void savePlaces(String username, Map<String, List<Place>> places) {
+    public void savePlaces(Map<String, List<SavedPlace>> places) {
         try {
             userProfileDataAccess.savePlaces(username, places);
             userProfileOutputBoundary.prepareSuccessView("Places saved successfully!");

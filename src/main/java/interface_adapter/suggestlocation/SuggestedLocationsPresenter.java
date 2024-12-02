@@ -36,13 +36,13 @@ public class SuggestedLocationsPresenter implements SuggestedLocationsOutputBoun
         this.viewManagerModel.setState(addToCalendarViewModel.getViewName());
         // On success, switch to the selected locations view.
 
-        final SelectedLocationState selectedLocationState = selectedLocationViewModel.getState();
-        selectedLocationState.setSelectedLocations(response.getSelectedLocations());
-        this.selectedLocationViewModel.setState(selectedLocationState);
-        this.selectedLocationViewModel.firePropertyChanged();
-
-        this.viewManagerModel.setState(selectedLocationViewModel.getViewName());
-        this.viewManagerModel.firePropertyChanged();
+//        final SelectedLocationState selectedLocationState = selectedLocationViewModel.getState();
+//        selectedLocationState.setSelectedLocations(response.getSelectedLocations());
+//        this.selectedLocationViewModel.setState(selectedLocationState);
+//        this.selectedLocationViewModel.firePropertyChanged();
+//
+//        this.viewManagerModel.setState(selectedLocationViewModel.getViewName());
+//        this.viewManagerModel.firePropertyChanged();
     }
 
     @Override

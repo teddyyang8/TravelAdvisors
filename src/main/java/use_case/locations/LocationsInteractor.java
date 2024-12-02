@@ -32,14 +32,14 @@ public class LocationsInteractor implements LocationsInputBoundary {
             placePresenter.prepareSuccessView(locationsOutputData);
         }
         else if ("Remove Saved Locations".equals(currentFilter)) {
-            for (Place place : suggestedPlaces) {
-                final User user = userDataAccessObject.getUser();
-                for (Map.Entry<String, List<Place>> entry : user.getSavedPlaces().entrySet()) {
-                    if (entry.getValue().contains(place)) {
-                        suggestedPlaces.remove(place);
-                    }
-                }
-            }
+//            for (Place place : suggestedPlaces) {
+//                final User user = userDataAccessObject.getUser();
+//                for (Map.Entry<String, List<Place>> entry : user.getSavedPlaces().entrySet()) {
+//                    if (entry.getValue().contains(place)) {
+//                        suggestedPlaces.remove(place);
+//                    }
+//                }
+//            }
             final LocationsOutputData locationsOutputData = new LocationsOutputData(suggestedPlaces, false);
             placePresenter.prepareSuccessView(locationsOutputData);
         }

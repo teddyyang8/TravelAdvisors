@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import entity.Place;
+import entity.SavedPlace;
 import use_case.user_profile.UserProfileInputBoundary;
 
 /**
@@ -19,12 +20,11 @@ public class UserProfileController {
     /**
      * Saves the places for the given username.
      *
-     * @param username the username
      * @param places   the places to be saved, represented as a map with the place name as the key
      *                 and a list of place objects as the value
      */
-    public void savePlaces(String username, Map<String, List<Place>> places) {
-        userProfileInteractor.savePlaces(username, places);
+    public void savePlaces(Map<String, List<SavedPlace>> places) {
+        userProfileInteractor.savePlaces(places);
     }
 
     /**
