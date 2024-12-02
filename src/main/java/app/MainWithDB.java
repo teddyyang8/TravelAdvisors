@@ -1,5 +1,6 @@
 package app;
 
+import data_access.DBCoordinatesDataAccessObject;
 import java.awt.*;
 
 import javax.swing.*;
@@ -11,6 +12,15 @@ import entity.SuggestedPlaceFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.add_to_calendar.AddToCalendarViewModel;
 import interface_adapter.location.LocationViewModel;
+import interface_adapter.selectedlocation.SelectedLocationsViewModel;
+import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
+import view.LocationView;
+import view.SelectedLocationView;
+import view.SuggestedLocationsView;
+import view.ViewManager;
+
+import javax.swing.*;
+import java.awt.*;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
@@ -46,31 +56,38 @@ public class MainWithDB {
         final SignupViewModel signupViewModel = new SignupViewModel();
         final LocationViewModel locationViewModel = new LocationViewModel();
         final SuggestedLocationsViewModel suggestedLocationsViewModel = new SuggestedLocationsViewModel();
+        final SelectedLocationsViewModel selectedLocationsViewModel = new SelectedLocationsViewModel();
         final UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
         final AddToCalendarViewModel calendarViewModel = new AddToCalendarViewModel();
         // add any future view models here in the same way
 
         final DBLocationDataAccessObject locationDataAccessObject = new DBLocationDataAccessObject(
                 new SuggestedPlaceFactory());
+        final DBCoordinatesDataAccessObject coordinatesDataAccessObject = new DBCoordinatesDataAccessObject();
         final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
-
+        final InMemoryCalendarDataAccessObject calendarDataAccessObject = new InMemoryCalendarDataAccessObject();
+        
         final SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel,
                 signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.getViewName());
 
         final LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel,
                 userProfileViewModel, locationViewModel, userDataAccessObject);
-        // logged in = user profile view
         views.add(loginView, loginView.getViewName());
-        final InMemoryCalendarDataAccessObject calendarDataAccessObject = new InMemoryCalendarDataAccessObject();
-
+      
         final LocationView locationView = LocationUseCaseFactory.create(viewManagerModel, locationViewModel,
                 suggestedLocationsViewModel, locationDataAccessObject);
         views.add(locationView, locationView.getViewName());
 
-        final SuggestedLocationsView suggestedLocationsView = SuggestedLocationsUseCaseFactory.create(viewManagerModel,
-                suggestedLocationsViewModel, calendarViewModel);
+        final SuggestedLocationsView suggestedLocationsView = SuggestedLocationsUseCaseFactory.create(viewManagerModel, 
+                                                                                                      suggestedLocationsViewModel, 
+                                                                                                      calendarViewModel,
+                                                                                                     selectedLocationsView);
         views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
+      
+        final SelectedLocationView selectedLocationView = SelectedLocationsUseCaseFactory.create(viewManagerModel,
+                 selectedLocationsViewModel, coordinatesDataAccessObject);
+        views.add(selectedLocationView, selectedLocationView.getViewName());
 
         final UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel,
                 userProfileViewModel, userDataAccessObject);
