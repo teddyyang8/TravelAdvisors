@@ -12,6 +12,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.add_to_calendar.AddToCalendarViewModel;
 import interface_adapter.location.LocationViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.reviewlocation.ReviewLocationViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
 import interface_adapter.user_profile.UserProfileViewModel;
@@ -48,6 +49,7 @@ public class MainWithDB {
         final SuggestedLocationsViewModel suggestedLocationsViewModel = new SuggestedLocationsViewModel();
         final UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
         final AddToCalendarViewModel calendarViewModel = new AddToCalendarViewModel();
+        final ReviewLocationViewModel reviewLocationViewModel = new ReviewLocationViewModel();
         // add any future view models here in the same way
 
         final DBLocationDataAccessObject locationDataAccessObject = new DBLocationDataAccessObject(
@@ -73,8 +75,12 @@ public class MainWithDB {
         views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
 
         final UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel,
-                userProfileViewModel, userDataAccessObject);
+                userProfileViewModel, userDataAccessObject, reviewLocationViewModel);
         views.add(userProfileView, userProfileView.getViewName());
+
+        final ReviewLocationsView reviewLocationView = ReviewLocationsUseCaseFactory.create(viewManagerModel,
+                reviewLocationViewModel, userProfileViewModel);
+        views.add(reviewLocationView, reviewLocationView.getViewName());
 
         viewManagerModel.setState(signupView.getViewName());
         final CalendarView calendarView = CalendarUseCaseFactory.create(viewManagerModel, calendarViewModel,

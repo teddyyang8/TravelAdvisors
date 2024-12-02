@@ -11,12 +11,9 @@ import java.util.Map;
 
 public class ReviewLocationsInteractor implements ReviewLocationsInputBoundary {
 
-    private final ReviewLocationsDataAccessInterface reviewLocationsDataAccessInterface;
     private final ReviewLocationsOutputBoundary reviewPresenter;
 
-    public ReviewLocationsInteractor(ReviewLocationsDataAccessInterface reviewDataAccessObject,
-                                   ReviewLocationsOutputBoundary reviewPresenter) {
-        this.reviewLocationsDataAccessInterface = reviewDataAccessObject;
+    public ReviewLocationsInteractor(ReviewLocationsOutputBoundary reviewPresenter) {
         this.reviewPresenter = reviewPresenter;
     }
 

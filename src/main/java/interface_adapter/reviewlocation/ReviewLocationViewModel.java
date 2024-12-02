@@ -4,7 +4,7 @@ import interface_adapter.ViewModel;
 
 public class ReviewLocationViewModel extends ViewModel<ReviewLocationState> {
 
-    public ReviewLocationViewModel(ReviewLocationState state) {
+    public ReviewLocationViewModel() {
         super("Review Locations");
         setState(new ReviewLocationState());
     }
