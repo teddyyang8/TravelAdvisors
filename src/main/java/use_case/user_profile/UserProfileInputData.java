@@ -8,12 +8,10 @@ import java.util.List;
 public class UserProfileInputData {
     private final String username;
     private final String password;
-    private final List<String> interests;
 
     public UserProfileInputData(String username, String password, List<String> interests) {
         this.username = username;
         this.password = password;
-        this.interests = interests;
     }
 
     public String getUsername() {
@@ -24,7 +22,4 @@ public class UserProfileInputData {
         return password;
     }
 
-    public List<String> getInterests() {
-        return interests;
-    }
 }

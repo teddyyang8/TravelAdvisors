@@ -43,28 +43,6 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         return userDatabase.containsKey(username);
     }
 
-    @Override
-    public void savePlaces(String username, Map<String, List<Place>> places) throws DataAccessException {
-        final User user = getUser(username);
-        if (user != null) {
-            user.getSavedPlaces().putAll(places);
-        }
-        else {
-            throw new DataAccessException("User not found.");
-        }
-    }
-
-    @Override
-    public Map<String, List<Place>> getSavedPlaces(String username) throws DataAccessException {
-        final User user = getUser(username);
-        if (user != null) {
-            return user.getSavedPlaces();
-        }
-        else {
-            throw new DataAccessException("User not found.");
-        }
-    }
-
     // This method is added to fulfill the requirement of SignupUserDataAccessInterface
     @Override
     public User getSignupUser(String username) throws DataAccessException {

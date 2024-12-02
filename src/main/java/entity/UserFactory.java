@@ -15,6 +15,6 @@ public class UserFactory {
      * @return a new User instance
      */
     public User create(String username, String password) {
-        return new User(username, password, new HashMap<String, List<Place>>());
+        return new User(username, password);
     }
 }

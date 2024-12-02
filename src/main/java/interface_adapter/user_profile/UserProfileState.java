@@ -13,11 +13,11 @@ public class UserProfileState {
     private String username = "";
     private Map<String, List<Place>> savedPlaces = new HashMap<>();
     private String error;
-
-    public UserProfileState(UserProfileState copy) {
-        username = copy.username;
-        savedPlaces = copy.savedPlaces;
-    }
+//
+//    public UserProfileState(UserProfileState copy) {
+//        username = copy.username;
+//        savedPlaces = copy.savedPlaces;
+//    }
 
     public UserProfileState() {
 

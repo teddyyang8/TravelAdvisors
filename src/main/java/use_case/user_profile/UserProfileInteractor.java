@@ -20,17 +20,6 @@ public class UserProfileInteractor implements UserProfileInputBoundary {
     }
 
     @Override
-    public void savePlaces(String username, Map<String, List<Place>> places) {
-        try {
-            userProfileDataAccess.savePlaces(username, places);
-            userProfileOutputBoundary.prepareSuccessView("Places saved successfully!");
-        }
-        catch (DataAccessException error) {
-            userProfileOutputBoundary.prepareFailView("Failed to save places.");
-        }
-    }
-
-    @Override
     public void logOut() {
         userProfileOutputBoundary.prepareFailView("Logging out is currently not implemented.");
     }
