@@ -22,6 +22,7 @@ public class SuggestedLocationsOutputData {
 
     public List<Place> getSelectedLocations() {
         return selectedLocations;
+    }
     
     public Map<Place, String> getCalendarItems() {
         return calendarItems;
