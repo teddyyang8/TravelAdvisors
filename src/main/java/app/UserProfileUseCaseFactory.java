@@ -1,6 +1,6 @@
 package app;
 
-import data_access.InMemoryUserDataAccess;
+import data_access.InMemoryUserDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.user.UserProfileController;
 import interface_adapter.user.UserProfilePresenter;
@@ -25,7 +25,7 @@ public final class UserProfileUseCaseFactory {
      * @return a UserProfileView instance
      */
     public static UserProfileView create(ViewManagerModel viewManagerModel) {
-        final InMemoryUserDataAccess userDataAccess = new InMemoryUserDataAccess();
+        final InMemoryUserDataAccessObject userDataAccess = new InMemoryUserDataAccessObject();
         final UserViewModel userViewModel = new UserViewModel();
         final UserProfilePresenter userProfilePresenter = new UserProfilePresenter(viewManagerModel, userViewModel);
         final UserProfileInputBoundary userProfileInteractor =

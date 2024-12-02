@@ -21,5 +21,5 @@ public interface SignupOutputBoundary {
     /**
      * Prepares the view to switch to the login view.
      */
-    void prepareSwitchToLoginView();
+    void switchToLoginView();
 }

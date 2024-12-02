@@ -2,17 +2,20 @@ package interface_adapter.signup;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import interface_adapter.ViewModel;
+
 
 /**
  * ViewModel for the signup process, holding state for the signup view.
  */
-public class SignupViewModel {
+public class SignupViewModel extends ViewModel<SignupState> {
     private String username;
     private String errorMessage;
     private final PropertyChangeSupport support;
 
     public SignupViewModel() {
-        this.support = new PropertyChangeSupport(this);
+        super("sign up");
+        setState(new SignupState());
     }
 
     public String getUsername() {
@@ -28,10 +31,6 @@ public class SignupViewModel {
         final String oldUsername = this.username;
         this.username = username;
         support.firePropertyChange("username", oldUsername, username);
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
     }
 
     /**
@@ -61,5 +60,8 @@ public class SignupViewModel {
      */
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         support.removePropertyChangeListener(listener);
+    }
+
+    public SignupState getState() {
     }
 }
