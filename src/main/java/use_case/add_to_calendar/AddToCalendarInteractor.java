@@ -29,10 +29,10 @@ public class AddToCalendarInteractor implements AddToCalendarInputBoundary {
             }
             else {
                 calendarDataAccessObject.save(location, time);
+                final AddToCalendarOutputData addToCalendarOutputData = new AddToCalendarOutputData(addToCalendarPlace);
+                calendarPresenter.prepareSuccessView(addToCalendarOutputData);
             }
         }
-        final AddToCalendarOutputData addToCalendarOutputData = new AddToCalendarOutputData(addToCalendarPlace);
-        calendarPresenter.prepareSuccessView(addToCalendarOutputData);
     }
 
     @Override

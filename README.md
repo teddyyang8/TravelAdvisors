@@ -15,6 +15,7 @@ Travel Advisors is a personalized travel planner designed to enhance your travel
 2. [Installation Instructions](#installation-instructions)
 3. [Usage](#usage)
 4. [Feedback and Contributions](#feedback-and-contributions)
+5. [License](#license)
 
 ## Features
 
@@ -68,3 +69,6 @@ git push origin feature/your-feature-name
   - Confirm all related files are included in the documentation.
   - Confirm the merge request has proper instructions for testing and validation.
   - Ensure the branch has been rebased with the latest changes from the main branch.
+
+ ## License
+ This project uses the CC0 1.0 Universal license.

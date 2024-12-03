@@ -2,11 +2,11 @@ package app;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.location.LocationViewModel;
-import interface_adapter.signup.SignupViewModel;
-import interface_adapter.user_profile.UserProfileViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignupViewModel;
+import interface_adapter.user_profile.UserProfileViewModel;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
