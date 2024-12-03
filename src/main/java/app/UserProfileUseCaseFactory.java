@@ -1,6 +1,5 @@
 package app;
 
-import data_access.InMemoryUserDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.user_profile.UserProfileController;
 import interface_adapter.user_profile.UserProfilePresenter;
@@ -9,7 +8,6 @@ import use_case.user_profile.UserProfileDataAccessInterface;
 import use_case.user_profile.UserProfileInputBoundary;
 import use_case.user_profile.UserProfileInteractor;
 import use_case.user_profile.UserProfileOutputBoundary;
-import view.SuggestedLocationsView;
 import view.UserProfileView;
 
 /**

@@ -2,10 +2,12 @@ package interface_adapter.selectedlocation;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.location.LocationViewModel;
-import interface_adapter.suggestlocation.SuggestedLocationsState;
 import use_case.selected_locations.SelectedLocationsOutputBoundary;
 import use_case.selected_locations.SelectedLocationsOutputData;
 
+/**
+ *  Selected Lcocations presenter class.
+ */
 public class SelectedLocationsPresenter implements SelectedLocationsOutputBoundary {
     private final SelectedLocationsViewModel selectedLocationsViewModel;
     private final ViewManagerModel viewManagerModel;

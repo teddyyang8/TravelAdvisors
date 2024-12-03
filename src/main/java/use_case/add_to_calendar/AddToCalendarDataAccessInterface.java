@@ -8,13 +8,6 @@ import entity.Place;
 public interface AddToCalendarDataAccessInterface {
 
     /**
-     * Checks if the given Place exists.
-     * @param location the name of the location to look for.
-     * @return true if a Place with the given name exists; false otherwise
-     */
-    boolean hasLocation(Place location);
-
-    /**
      * Checks if the given time is available.
      * @param time the time of the visit to look for
      * @return true if the timeslot is already full; false otherwise

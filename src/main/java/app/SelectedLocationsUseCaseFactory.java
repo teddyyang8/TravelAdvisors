@@ -6,7 +6,6 @@ import interface_adapter.location.LocationViewModel;
 import interface_adapter.selectedlocation.SelectedLocationsController;
 import interface_adapter.selectedlocation.SelectedLocationsPresenter;
 import interface_adapter.selectedlocation.SelectedLocationsViewModel;
-import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
 import use_case.selected_locations.SelectedLocationsInputBoundary;
 import use_case.selected_locations.SelectedLocationsInteractor;
 import use_case.selected_locations.SelectedLocationsOutputBoundary;

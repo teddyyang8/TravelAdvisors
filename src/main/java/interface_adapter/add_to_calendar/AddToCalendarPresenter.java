@@ -21,7 +21,6 @@ public class AddToCalendarPresenter implements AddToCalendarOutputBoundary {
         this.locationViewModel = locationViewModel;
     }
 
-
     @Override
     public void prepareSuccessView(AddToCalendarOutputData outputData) {
         // On success, switch to the Calendar view.
