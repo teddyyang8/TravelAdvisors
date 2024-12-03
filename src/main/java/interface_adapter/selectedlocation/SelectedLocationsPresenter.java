@@ -7,6 +7,9 @@ import interface_adapter.user_profile.UserProfileViewModel;
 import use_case.selected_locations.SelectedLocationsOutputBoundary;
 import use_case.selected_locations.SelectedLocationsOutputData;
 
+/**
+ *  Selected Lcocations presenter class.
+ */
 public class SelectedLocationsPresenter implements SelectedLocationsOutputBoundary {
     private final SelectedLocationsViewModel selectedLocationsViewModel;
     private final ViewManagerModel viewManagerModel;

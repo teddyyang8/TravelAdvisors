@@ -1,37 +1,32 @@
 package app;
 
-import data_access.DBCoordinatesDataAccessObject;
 import java.awt.*;
 
 import javax.swing.*;
 
+import data_access.DBCoordinatesDataAccessObject;
 import data_access.DBLocationDataAccessObject;
 import data_access.InMemoryCalendarDataAccessObject;
 import data_access.InMemoryUserDataAccessObject;
-import data_access.InMemoryCalendarDataAccessObject;
 import entity.SuggestedPlaceFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.add_to_calendar.AddToCalendarViewModel;
 import interface_adapter.location.LocationViewModel;
-import interface_adapter.selectedlocation.SelectedLocationsViewModel;
-import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
-import view.LocationView;
-import view.SelectedLocationView;
-import view.SuggestedLocationsView;
-import view.ViewManager;
-
-import javax.swing.*;
-import java.awt.*;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.reviewlocation.ReviewLocationViewModel;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.selectedlocation.SelectedLocationsViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
 import view.CalendarView;
 import view.LocationView;
+import view.LoginView;
+import view.SelectedLocationView;
+import view.SignupView;
 import view.SuggestedLocationsView;
+import view.UserProfileView;
 import view.ViewManager;
+
 import interface_adapter.user_profile.UserProfileViewModel;
-import view.*;
 
 /**
  * The version of Main with an external database used to persist user data.

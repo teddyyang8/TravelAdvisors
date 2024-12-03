@@ -1,6 +1,5 @@
 package interface_adapter.selectedlocation;
 
-
 import entity.Place;
 import use_case.DataAccessException;
 import use_case.selected_locations.SelectedLocationsInputBoundary;
@@ -8,6 +7,9 @@ import use_case.selected_locations.SelectedLocationsInputData;
 
 import java.util.List;
 
+/**
+ * Selected locations Controller class.
+ */
 public class SelectedLocationsController {
 
     private final SelectedLocationsInputBoundary selectedLocationsInteractor;

@@ -15,11 +15,6 @@ public class InMemoryCalendarDataAccessObject implements AddToCalendarDataAccess
     private final Map<Place, String> calendarItems = new HashMap<>();
 
     @Override
-    public boolean hasLocation(Place location) {
-        return calendarItems.containsKey(location);
-    }
-
-    @Override
     public boolean hasTime(String time) {
         return calendarItems.containsValue(time);
     }
