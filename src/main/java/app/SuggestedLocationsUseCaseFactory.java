@@ -10,6 +10,7 @@ import interface_adapter.add_to_calendar.AddToCalendarViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsController;
 import interface_adapter.suggestlocation.SuggestedLocationsPresenter;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
+import interface_adapter.user_profile.UserProfileViewModel;
 import use_case.add_to_calendar.AddToCalendarDataAccessInterface;
 import use_case.add_to_calendar.AddToCalendarInputBoundary;
 import use_case.add_to_calendar.AddToCalendarInteractor;
@@ -52,10 +53,11 @@ public class SuggestedLocationsUseCaseFactory {
             SelectedLocationsViewModel selectedLocationsViewModel,
             CoordinateDataAccessInterface coordinateDataAccessObject,
             AddToCalendarDataAccessInterface calendarDataAccessObject,
-            LocationViewModel locationViewModel) {
+            LocationViewModel locationViewModel,
+            UserProfileViewModel userProfileViewModel) {
 
         final SelectedLocationsController selectedLocationController = createSelectedLocationUseCase(viewManagerModel,
-                selectedLocationsViewModel, coordinateDataAccessObject, locationViewModel);
+                selectedLocationsViewModel, coordinateDataAccessObject, locationViewModel, userProfileViewModel);
 
         final SuggestedLocationsController suggestedLocationsController = createSuggestedLocationUseCase(
                 viewManagerModel,
@@ -89,9 +91,9 @@ public class SuggestedLocationsUseCaseFactory {
             ViewManagerModel viewManagerModel,
             SelectedLocationsViewModel selectedLocationsViewModel,
             CoordinateDataAccessInterface coordinatesDataAccessObject,
-            LocationViewModel locationViewModel) {
+            LocationViewModel locationViewModel, UserProfileViewModel userProfileViewModel) {
         final SelectedLocationsOutputBoundary selectedLocationsOutputBoundary = new SelectedLocationsPresenter(
-                selectedLocationsViewModel, viewManagerModel, locationViewModel);
+                selectedLocationsViewModel, viewManagerModel, locationViewModel, userProfileViewModel);
         final SelectedLocationsInputBoundary selectedLocationsInteractor = new SelectedLocationsInteractor(
                 selectedLocationsOutputBoundary, coordinatesDataAccessObject);
 

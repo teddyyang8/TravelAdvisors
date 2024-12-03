@@ -6,6 +6,8 @@ import interface_adapter.location.LocationViewModel;
 import interface_adapter.selectedlocation.SelectedLocationsController;
 import interface_adapter.selectedlocation.SelectedLocationsPresenter;
 import interface_adapter.selectedlocation.SelectedLocationsViewModel;
+import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
+import interface_adapter.user_profile.UserProfileViewModel;
 import use_case.selected_locations.SelectedLocationsInputBoundary;
 import use_case.selected_locations.SelectedLocationsInteractor;
 import use_case.selected_locations.SelectedLocationsOutputBoundary;
@@ -24,20 +26,21 @@ public class SelectedLocationsUseCaseFactory {
     /**
      * Factory function for creating the LocationView.
      * @param viewManagerModel the ViewManagerModel to inject
-     * @param selectedLocationsViewModel the SelectedLocationsViewModel to inject
-     * @param locationViewModel the LocationViewModel to inject
-     * @param coordinatesDataAccessObject the DBCoordinatesDataAccessObject to inject.
+     *
+     * @param selectedLocationsViewModel the SelectedLocationsViewModel to
+     *                                   inject
      * @return the LocationView created for the provided input classes.
      */
     public static SelectedLocationView create(
             ViewManagerModel viewManagerModel,
             SelectedLocationsViewModel selectedLocationsViewModel,
             DBCoordinatesDataAccessObject coordinatesDataAccessObject,
-            LocationViewModel locationViewModel) {
+            LocationViewModel locationViewModel,
+            UserProfileViewModel userProfileViewModel) {
 
         final SelectedLocationsController selectedLocationsController =
             createSelectedLocationUseCase(viewManagerModel, selectedLocationsViewModel,
-                    coordinatesDataAccessObject, locationViewModel);
+                    coordinatesDataAccessObject, locationViewModel, userProfileViewModel);
         return new SelectedLocationView(selectedLocationsViewModel,
                                         selectedLocationsController);
     }
@@ -46,9 +49,9 @@ public class SelectedLocationsUseCaseFactory {
             ViewManagerModel viewManagerModel,
             SelectedLocationsViewModel selectedLocationsViewModel,
             DBCoordinatesDataAccessObject coordinatesDataAccessObject,
-            LocationViewModel locationViewModel) {
+            LocationViewModel locationViewModel, UserProfileViewModel userProfileViewModel) {
         final SelectedLocationsOutputBoundary selectedLocationsOutputBoundary = new SelectedLocationsPresenter(
-                selectedLocationsViewModel, viewManagerModel, locationViewModel);
+                selectedLocationsViewModel, viewManagerModel, locationViewModel, userProfileViewModel);
         final SelectedLocationsInputBoundary selectedLocationsInteractor = new SelectedLocationsInteractor(
                 selectedLocationsOutputBoundary, coordinatesDataAccessObject);
 

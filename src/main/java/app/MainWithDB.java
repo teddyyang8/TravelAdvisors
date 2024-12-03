@@ -13,6 +13,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.add_to_calendar.AddToCalendarViewModel;
 import interface_adapter.location.LocationViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.reviewlocation.ReviewLocationViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.selectedlocation.SelectedLocationsViewModel;
 import interface_adapter.suggestlocation.SuggestedLocationsViewModel;
@@ -59,6 +60,7 @@ public class MainWithDB {
         final AddToCalendarViewModel calendarViewModel = new AddToCalendarViewModel();
         final SelectedLocationsViewModel selectedLocationsViewModel = new SelectedLocationsViewModel();
         final UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
+        final ReviewLocationViewModel reviewLocationViewModel = new ReviewLocationViewModel();
         // add any future view models here in the same way
 
         final DBLocationDataAccessObject locationDataAccessObject = new DBLocationDataAccessObject(
@@ -81,11 +83,11 @@ public class MainWithDB {
 
         final SuggestedLocationsView suggestedLocationsView = SuggestedLocationsUseCaseFactory.create(viewManagerModel,
                 suggestedLocationsViewModel, calendarViewModel, selectedLocationsViewModel, coordinatesDataAccessObject,
-                calendarDataAccessObject, locationViewModel);
+                calendarDataAccessObject, locationViewModel, userProfileViewModel);
         views.add(suggestedLocationsView, suggestedLocationsView.getViewName());
 
         final SelectedLocationView selectedLocationView = SelectedLocationsUseCaseFactory.create(viewManagerModel,
-                 selectedLocationsViewModel, coordinatesDataAccessObject, locationViewModel);
+                 selectedLocationsViewModel, coordinatesDataAccessObject, locationViewModel, userProfileViewModel);
         views.add(selectedLocationView, selectedLocationView.getViewName());
 
         final CalendarView calendarView = CalendarUseCaseFactory.create(viewManagerModel, calendarViewModel,
@@ -93,8 +95,12 @@ public class MainWithDB {
         views.add(calendarView, calendarView.getViewName());
 
         final UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel,
-                userProfileViewModel, userDataAccessObject);
+                userProfileViewModel, userDataAccessObject, reviewLocationViewModel);
         views.add(userProfileView, userProfileView.getViewName());
+
+        final ReviewLocationsView reviewLocationView = ReviewLocationsUseCaseFactory.create(viewManagerModel,
+                reviewLocationViewModel, userProfileViewModel);
+        views.add(reviewLocationView, reviewLocationView.getViewName());
 
         viewManagerModel.setState(signupView.getViewName());
         viewManagerModel.firePropertyChanged();

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import entity.Place;
+import entity.SavedPlace;
 import entity.User;
 import use_case.DataAccessException;
 import use_case.login.LoginUserDataAccessInterface;
@@ -44,7 +45,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     }
 
     @Override
-    public void savePlaces(String username, Map<String, List<Place>> places) throws DataAccessException {
+    public void savePlaces(String username, Map<String, List<SavedPlace>> places) throws DataAccessException {
         final User user = getUser(username);
         if (user != null) {
             user.getSavedPlaces().putAll(places);
@@ -55,7 +56,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     }
 
     @Override
-    public Map<String, List<Place>> getSavedPlaces(String username) throws DataAccessException {
+    public Map<String, List<SavedPlace>> getSavedPlaces(String username) throws DataAccessException {
         final User user = getUser(username);
         if (user != null) {
             return user.getSavedPlaces();

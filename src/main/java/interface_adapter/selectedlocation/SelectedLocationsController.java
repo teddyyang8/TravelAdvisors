@@ -31,4 +31,7 @@ public class SelectedLocationsController {
         selectedLocationsInteractor.switchToLocationView();
     }
 
+    public void switchToUserProfileView() {
+        selectedLocationsInteractor.switchToProfileView();
+    }
 }
