@@ -1,6 +1,5 @@
 package interface_adapter.location;
 
-import interface_adapter.ViewManagerModel;
 import use_case.DataAccessException;
 import use_case.locations.LocationsInputBoundary;
 import use_case.locations.LocationsInputData;
@@ -14,29 +13,23 @@ import use_case.locations.LocationsInputData;
 public class LocationController {
 
     private final LocationsInputBoundary locationInput;
-    private final ViewManagerModel viewManagerModel;
 
-    public LocationController(LocationsInputBoundary locationInteractor, ViewManagerModel viewManagerModel) {
+    public LocationController(LocationsInputBoundary locationInteractor) {
         this.locationInput = locationInteractor;
-        this.viewManagerModel = viewManagerModel;
     }
 
     /**
      * Executes the show location.
      * @param address the location to show.
      * @param locationType the type of location to search.
+     * @param currentFilter the type of filter to search with.
+     * @param username the username of the current user.
      * @throws DataAccessException if data cannot be accessed
      */
-    public void execute(String address, String locationType, String currentFilter) throws DataAccessException {
-        final LocationsInputData locationInputData = new LocationsInputData(address, locationType);
-        locationInput.execute(locationInputData, currentFilter);
-    }
+    public void execute(String address, String locationType, String currentFilter, String username) throws DataAccessException {
+        final LocationsInputData locationInputData = new LocationsInputData(
+                address, locationType, username);
 
-    /**
-     * Navigates to the profile page.
-     */
-    public void goToProfile() {
-        viewManagerModel.setState("Profile");
-        viewManagerModel.firePropertyChanged();
+        locationInput.execute(locationInputData, currentFilter);
     }
 }

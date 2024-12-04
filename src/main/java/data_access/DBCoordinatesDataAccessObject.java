@@ -9,7 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import use_case.DataAccessException;
-import use_case.locations.CoordinateDataAccessInterface;
+import use_case.selected_locations.CoordinateDataAccessInterface;
 
 /**
  * The DAO for accessing places using Google Places API.
@@ -22,16 +22,13 @@ public class DBCoordinatesDataAccessObject implements CoordinateDataAccessInterf
     public String searchCoordinates(Place place) throws DataAccessException {
         final OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
-
-        final JSONObject requestBody = new JSONObject();
-        requestBody.put("key", API_KEY);
-        requestBody.put("address", place.getAddress());
-        final RequestBody body = RequestBody.create(
-                requestBody.toString(), MediaType.parse(CONTENT_TYPE_JSON));
+        HttpUrl url = HttpUrl.parse("https://maps.googleapis.com/maps/api/geocode/json").newBuilder()
+                .addQueryParameter("key", API_KEY)
+                .addQueryParameter("address", place.getAddress())
+                .build();
         // POST METHOD
         final Request request = new Request.Builder()
-                .url("https://maps.googleapis.com/maps/api/geocode/json")
-                .post(body)
+                .url(url)
                 .build();
         try (Response response = client.newCall(request).execute()) {
             final JSONObject responseBody = new JSONObject(response.body().string());

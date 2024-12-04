@@ -5,19 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import entity.Place;
+import entity.SavedPlace;
 
 /**
  * Represents the state of a user.
  */
 public class UserProfileState {
     private String username = "";
-    private Map<String, List<Place>> savedPlaces = new HashMap<>();
+    private Map<String, List<SavedPlace>> savedPlaces = new HashMap<>();
     private String error;
-
-    public UserProfileState(UserProfileState copy) {
-        username = copy.username;
-        savedPlaces = copy.savedPlaces;
-    }
 
     public UserProfileState() {
 
@@ -27,11 +23,11 @@ public class UserProfileState {
         return username;
     }
 
-    public Map<String, List<Place>> getSavedPlaces() {
+    public Map<String, List<SavedPlace>> getSavedPlaces() {
         return savedPlaces;
     }
 
-    public void setSavedPlaces(Map<String, List<Place>> savedPlaces) {
+    public void setSavedPlaces(Map<String, List<SavedPlace>> savedPlaces) {
         this.savedPlaces = savedPlaces;
     }
 

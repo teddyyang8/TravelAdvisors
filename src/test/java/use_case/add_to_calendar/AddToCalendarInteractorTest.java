@@ -4,6 +4,7 @@ import data_access.InMemoryCalendarDataAccessObject;
 import entity.Place;
 import entity.SuggestedPlace;
 import entity.SuggestedPlaceFactory;
+import org.junit.Before;
 import org.junit.Test;
 import use_case.DataAccessException;
 
@@ -25,9 +26,6 @@ public class AddToCalendarInteractorTest {
         AddToCalendarInputData calendarInputData = new AddToCalendarInputData(inputData);
         AddToCalendarDataAccessInterface calendarRepository = new InMemoryCalendarDataAccessObject();
 
-        // Add University of Toronto to the data access repository.
-        calendarRepository.save(inputPlace, inputTime);
-
         // Create a successPresenter to test the test case
         AddToCalendarOutputBoundary successPresenter = new AddToCalendarOutputBoundary() {
             @Override
@@ -38,6 +36,11 @@ public class AddToCalendarInteractorTest {
             @Override
             public void prepareFailView(String errorMessage) {
                 fail("Use case failure is unexpected.");
+            }
+
+            @Override
+            public void switchToLocationView() {
+                System.out.println("Switch view success");
             }
         };
 
@@ -56,13 +59,11 @@ public class AddToCalendarInteractorTest {
         Map<Place, String> inputData = new HashMap<>();
         String inputTime = "12:30";
         inputData.put(inputPlace, inputTime);
-        String inputTime2 = "12:30";
-        inputData.put(inputPlace, inputTime2);
+        Place inputPlace2 = factory.create("Toronto","27 King's College Cir, Toronto");
+//        inputData.put(inputPlace2, inputTime);
         AddToCalendarInputData calendarInputData = new AddToCalendarInputData(inputData);
         AddToCalendarDataAccessInterface calendarRepository = new InMemoryCalendarDataAccessObject();
-
-        // Add University of Toronto to the data access repository.
-        calendarRepository.save(inputPlace, inputTime);
+        calendarRepository.save(inputPlace2, inputTime);
 
         // Create a successPresenter to test the test case
         AddToCalendarOutputBoundary successPresenter = new AddToCalendarOutputBoundary() {
@@ -75,6 +76,11 @@ public class AddToCalendarInteractorTest {
             public void prepareFailView(String errorMessage) {
                 assertEquals("12:30 is already full.", errorMessage);
             }
+
+            @Override
+            public void switchToLocationView() {
+                System.out.println("Switch view success");
+            }
         };
 
         AddToCalendarInputBoundary interactor = new AddToCalendarInteractor(calendarRepository, successPresenter);
@@ -83,5 +89,30 @@ public class AddToCalendarInteractorTest {
         } catch (DataAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    public void switchViewTest() {
+        AddToCalendarDataAccessInterface calendarRepository = new InMemoryCalendarDataAccessObject();
+
+        // Create a successPresenter to test the test case
+        AddToCalendarOutputBoundary successPresenter = new AddToCalendarOutputBoundary() {
+            @Override
+            public void prepareSuccessView(AddToCalendarOutputData outputData) {
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String errorMessage) {
+                fail("Use case failure is unexpected.");
+            }
+
+            @Override
+            public void switchToLocationView() {
+                System.out.println("Switch view success");
+            }
+        };
+        AddToCalendarInputBoundary interactor = new AddToCalendarInteractor(calendarRepository, successPresenter);
+        interactor.switchToLocationView();
     }
 }

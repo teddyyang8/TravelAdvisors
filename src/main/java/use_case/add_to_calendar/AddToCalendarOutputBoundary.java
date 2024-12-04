@@ -16,4 +16,9 @@ public interface AddToCalendarOutputBoundary {
      * @param errorMessage the explanation of the failure
      */
     void prepareFailView(String errorMessage);
+
+    /**
+     * Execute the switch to location view.
+     */
+    void switchToLocationView();
 }

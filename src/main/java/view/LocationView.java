@@ -1,18 +1,12 @@
 package view;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -31,11 +25,10 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
     private final LocationController locationController;
 
     private final JTextField addressField = new JTextField(20);
-    private final int five = 5;
-    private final JTextField[] locationTypeFields = new JTextField[five];
+
+    private final JTextField[] locationTypeFields = new JTextField[5];
 
     private final JButton suggestLocationsButton;
-    private final JButton profileButton;
 
     private final JComboBox<Object> filtersDropDown;
     private String currentFilter = "";
@@ -52,17 +45,14 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 
         final JPanel locationTypePanel = new JPanel();
         locationTypePanel.setLayout(new BoxLayout(locationTypePanel, BoxLayout.Y_AXIS));
-        final int twenty = 20;
         for (int i = 0; i < locationTypeFields.length; i++) {
-            locationTypeFields[i] = new JTextField(twenty);
+            locationTypeFields[i] = new JTextField(20);
             locationTypePanel.add(new LabelTextPanel(new JLabel("Location Type " + (i + 1)), locationTypeFields[i]));
         }
 
         final JPanel buttons = new JPanel();
         suggestLocationsButton = new JButton("Suggest Locations");
         buttons.add(suggestLocationsButton);
-        profileButton = new JButton("Profile");
-        buttons.add(profileButton);
         final JLabel filterLabel = new JLabel("Filters:");
         final String[] filters = {"None", "Remove Disliked Locations", "Remove Saved Locations"};
         filtersDropDown = new JComboBox<>(filters);
@@ -136,23 +126,17 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
             });
         }
 
-        profileButton.addActionListener(evt -> {
-            if (evt.getSource().equals(profileButton)) {
-                locationController.goToProfile();
-            }
-        });
-
         suggestLocationsButton.addActionListener(evt -> {
             if (evt.getSource().equals(suggestLocationsButton)) {
                 currentFilter = filtersDropDown.getSelectedItem().toString();
                 final LocationState currentState = locationViewModel.getState();
                 try {
-                    locationController.execute(
-                            currentState.getAddress(), currentState.getLocationType(), currentFilter);
+                    locationController.execute(currentState.getAddress(), currentState.getLocationType(),
+                            currentFilter, currentState.getUsername());
                 }
-                catch (DataAccessException err) {
-                    throw new RuntimeException(err);
-                }
+                catch (DataAccessException e) {
+                    throw new RuntimeException(e);
+                    }
             }
         });
     }
@@ -162,10 +146,11 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
         if (evt.getSource().equals(suggestLocationsButton)) {
             final LocationState currentState = locationViewModel.getState();
             try {
-                locationController.execute(currentState.getAddress(), currentState.getLocationType(), currentFilter);
+                locationController.execute(currentState.getAddress(), currentState.getLocationType(), currentFilter,
+                        currentState.getUsername());
             }
-            catch (DataAccessException error) {
-                throw new RuntimeException(error);
+            catch (DataAccessException e) {
+                throw new RuntimeException(e);
             }
         }
     }

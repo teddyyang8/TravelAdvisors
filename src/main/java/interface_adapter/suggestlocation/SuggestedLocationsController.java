@@ -30,4 +30,11 @@ public class SuggestedLocationsController {
 
         suggestedLocationsInteractor.execute(suggestedLocationInputData);
     }
+
+    /**
+     * Switches to the location view.
+     */
+    public void switchToLocationView() {
+        suggestedLocationsInteractor.switchToLocationView();
+    }
 }

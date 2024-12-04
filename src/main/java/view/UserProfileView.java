@@ -20,6 +20,8 @@ import javax.swing.JTextField;
 
 import entity.Place;
 import entity.SavedPlace;
+import interface_adapter.reviewlocation.ReviewLocationState;
+import interface_adapter.reviewlocation.ReviewLocationViewModel;
 import interface_adapter.user_profile.UserProfileController;
 import interface_adapter.user_profile.UserProfileViewModel;
 
@@ -31,6 +33,7 @@ public class UserProfileView extends JPanel implements PropertyChangeListener, A
     private final String viewName = "User Profile";
     private final UserProfileViewModel userProfileViewModel;
     private final UserProfileController userProfileController;
+    private final ReviewLocationViewModel reviewLocationViewModel;
 
     private final JTextField placeNameField = new JTextField(20);
     private final JTextField placeAddressField = new JTextField(20);
@@ -40,51 +43,57 @@ public class UserProfileView extends JPanel implements PropertyChangeListener, A
     private final JTextArea placesListArea = new JTextArea(10, 30);
     private final JButton logOutButton = new JButton("Log Out");
 
-    public UserProfileView(UserProfileController userProfileController, UserProfileViewModel userProfileViewModel) {
+    public UserProfileView(UserProfileController userProfileController, UserProfileViewModel userProfileViewModel, ReviewLocationViewModel reviewLocationViewModel) {
         this.userProfileController = userProfileController;
         this.userProfileViewModel = userProfileViewModel;
         this.userProfileViewModel.addPropertyChangeListener(this);
+        this.reviewLocationViewModel = reviewLocationViewModel;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        // Add UI elements for adding a place
-        add(new JLabel("Place Name:"));
-        add(placeNameField);
-        add(new JLabel("Place Address:"));
-        add(placeAddressField);
-        add(new JLabel("Place Review:"));
-        add(placeReviewField);
-        add(placeRatingCheckBox);
-        add(addPlaceButton);
-
-        addPlaceButton.addActionListener(evt -> {
-            final String placeName = placeNameField.getText();
-            final String placeAddress = placeAddressField.getText();
-            final String placeReview = placeReviewField.getText();
-            final boolean rating = placeRatingCheckBox.isSelected();
-
-            final SavedPlace newPlace = new SavedPlace(placeName, placeAddress, placeReview, rating);
-            final List<Place> placeList = new ArrayList<>();
-            placeList.add(newPlace);
-
-            final Map<String, List<Place>> newPlaceMap = new HashMap<>();
-            newPlaceMap.put(placeName, placeList);
-
-            userProfileController.savePlaces(userProfileViewModel.getState().getName(), newPlaceMap);
-        });
+//        // Add UI elements for adding a place
+//        add(new JLabel("Place Name:"));
+//        add(placeNameField);
+//        add(new JLabel("Place Address:"));
+//        add(placeAddressField);
+//        add(new JLabel("Place Review:"));
+//        add(placeReviewField);
+//        add(placeRatingCheckBox);
+//        add(addPlaceButton);
+//
+//        addPlaceButton.addActionListener(evt -> {
+//            final String placeName = placeNameField.getText();
+//            final String placeAddress = placeAddressField.getText();
+//            final String placeReview = placeReviewField.getText();
+//            final boolean rating = placeRatingCheckBox.isSelected();
+//
+//            final SavedPlace newPlace = new SavedPlace(placeName, placeAddress, placeReview, rating);
+//            final List<Place> placeList = new ArrayList<>();
+//            placeList.add(newPlace);
+//
+//            final Map<String, List<SavedPlace>> newPlaceMap = new HashMap<>();
+//            newPlaceMap.put(placeName, placeList);
+//
+//            userProfileController.savePlaces(userProfileViewModel.getState().getName(), newPlaceMap);
+//        });
 
         // Display list of saved places
         add(new JLabel("Saved Places:"));
         add(new JScrollPane(placesListArea));
 
-        final Map<String, List<Place>> savedPlaces = userProfileViewModel.getState().getSavedPlaces();
-        for (final Map.Entry<String, List<Place>> entry : savedPlaces.entrySet()) {
+        final Map<String, List<SavedPlace>> savedPlaces = userProfileViewModel.getState().getSavedPlaces();
+        for (final Map.Entry<String, List<SavedPlace>> entry : savedPlaces.entrySet()) {
             final JPanel listNamePanel = new JPanel();
             final JLabel listName = new JLabel(entry.getKey());
             final JButton viewListButton = new JButton("View List");
             listNamePanel.add(listName);
             listNamePanel.add(viewListButton);
-
-            // teddy u can add the action listener for the button here
+            //teddy u can add the action listener for the button here
+            viewListButton.addActionListener(evt -> {
+                final ReviewLocationState reviewLocationState = reviewLocationViewModel.getState();
+                reviewLocationState.setListName(entry.getKey());
+                reviewLocationState.setSavedPlaces(entry.getValue());
+                reviewLocationViewModel.setState(reviewLocationState);
+            });
         }
 
 //        userProfileViewModel.addPropertyChangeListener(evt -> {
