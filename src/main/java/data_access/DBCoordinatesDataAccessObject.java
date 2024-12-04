@@ -2,12 +2,15 @@ package data_access;
 
 import java.io.IOException;
 
-import entity.Place;
-import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import entity.Place;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import use_case.DataAccessException;
 import use_case.selected_locations.CoordinateDataAccessInterface;
 
@@ -16,13 +19,13 @@ import use_case.selected_locations.CoordinateDataAccessInterface;
  */
 public class DBCoordinatesDataAccessObject implements CoordinateDataAccessInterface {
     private static final String API_KEY = System.getenv("API_KEY");
-    private static final String CONTENT_TYPE_JSON = "application/json";
 
     @Override
     public String searchCoordinates(Place place) throws DataAccessException {
         final OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
-        HttpUrl url = HttpUrl.parse("https://maps.googleapis.com/maps/api/geocode/json").newBuilder()
+        final HttpUrl url = HttpUrl.parse("https://maps.googleapis"
+                        + ".com/maps/api/geocode/json").newBuilder()
                 .addQueryParameter("key", API_KEY)
                 .addQueryParameter("address", place.getAddress())
                 .build();
@@ -47,7 +50,8 @@ public class DBCoordinatesDataAccessObject implements CoordinateDataAccessInterf
                 return coordinates.toString();
             }
             else if (responseBody.has("error_message")) {
-                throw new DataAccessException("API Error: " + responseBody.getJSONObject("error_message").getString("message"));
+                throw new DataAccessException("API Error: " + responseBody.getJSONObject("error_message")
+                        .getString("message"));
             }
             else {
                 throw new DataAccessException("Unexpected API response format.");

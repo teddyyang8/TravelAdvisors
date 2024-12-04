@@ -18,6 +18,7 @@ import use_case.user_profile.UserProfileDataAccessInterface;
 public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface,
         LoginUserDataAccessInterface, UserProfileDataAccessInterface {
 
+    private static final String USER_NOT_FOUND = "User not found.";
     private final Map<String, User> userDatabase = new HashMap<>();
 
     @Override
@@ -34,7 +35,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     public User getUser(String username) throws DataAccessException {
         final User user = userDatabase.get(username);
         if (user == null) {
-            throw new DataAccessException("User not found.");
+            throw new DataAccessException(USER_NOT_FOUND);
         }
         return user;
     }
@@ -51,7 +52,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
             user.getSavedPlaces().putAll(places);
         }
         else {
-            throw new DataAccessException("User not found.");
+            throw new DataAccessException(USER_NOT_FOUND);
         }
     }
 
@@ -62,7 +63,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
             return user.getSavedPlaces();
         }
         else {
-            throw new DataAccessException("User not found.");
+            throw new DataAccessException(USER_NOT_FOUND);
         }
     }
 
