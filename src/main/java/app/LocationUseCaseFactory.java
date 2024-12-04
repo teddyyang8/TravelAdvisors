@@ -15,7 +15,7 @@ import view.LocationView;
 /**
  * This class contains the static factory function for creating the LocationView.
  */
-public class LocationUseCaseFactory {
+public final class LocationUseCaseFactory {
 
     /** Prevent instantiation. */
     private LocationUseCaseFactory() {

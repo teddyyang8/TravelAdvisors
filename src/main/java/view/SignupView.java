@@ -1,12 +1,18 @@
 package view;
 
-import java.awt.*;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -50,8 +56,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         signUpButton.addActionListener(
                 new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource() == signUpButton) {
+                    public void actionPerformed(ActionEvent event) {
+                        if (event.getSource() == signUpButton) {
                             final SignupState currentState = signupViewModel.getState();
                             signupController.execute(
                                     currentState.getUsername(), currentState.getPassword(),
@@ -64,7 +70,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         );
         gotoLoginButton.addActionListener(
                 new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
+                    public void actionPerformed(ActionEvent err) {
                         signupController.switchToLoginView();
                     }
                 }
